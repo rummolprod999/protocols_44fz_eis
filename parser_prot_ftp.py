@@ -11,6 +11,8 @@ import xmltodict
 import ClassProtocolEF1
 import ClassProtocolEF2
 import ClassProtocolEF3
+import ClassProtocolOK1
+import ClassProtocolOK2
 import ClassProtocolZK
 import ClassProtocolZPFinal
 import parser_prot as parser_protocol
@@ -462,14 +464,14 @@ if __name__ == "__main__":
     logging_parser('Добавлено ZK и ZKProlongation', ClassProtocolZK.ProtocolZK.add_protocolZK)
     logging_parser('Обновлено ZK и ZKProlongation', ClassProtocolZK.ProtocolZK.update_protocolZK)
     logging_parser('Добавлено OKD5, OK2, OKOU3, ProtocolOKSingleApp, ProtocolOKDSingleApp, ProtocolOKOUSingleApp',
-                   parser_prot_class.ProtocolOK2.add_protocolOK2)
+                   ClassProtocolOK2.ProtocolOK2.add_protocolOK2)
     logging_parser('Обновлено OKD5, OK2, OKOU3, ProtocolOKSingleApp, ProtocolOKDSingleApp, ProtocolOKOUSingleApp',
-                   parser_prot_class.ProtocolOK2.update_protocolOK2)
+                   ClassProtocolOK2.ProtocolOK2.update_protocolOK2)
     logging_parser('Добавлено ZPFinal', ClassProtocolZPFinal.ProtocolZPFinal.add_protocolZPFinal)
     logging_parser('Обновлено ZPFinal', ClassProtocolZPFinal.ProtocolZPFinal.update_protocolZPFinal)
-    logging_parser('Добавлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2', parser_prot_class.ProtocolOK1.add_protocolOK1)
+    logging_parser('Добавлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2', ClassProtocolOK1.ProtocolOK1.add_protocolOK1)
     logging_parser('Обновлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2',
-                   parser_prot_class.ProtocolOK1.update_protocolOK1)
+                   ClassProtocolOK1.ProtocolOK1.update_protocolOK1)
     logging_parser('Добавлено Cancel', parser_prot_class.ProtocolCancel.add_protocolCancel)
     logging_parser('Обновлено Cancel', parser_prot_class.ProtocolCancel.update_protocolCancel)
     logging_parser('Добавлено EZK1, EZK2', parser_prot_class.ProtocolEZK2.add_protocolEZK2)
