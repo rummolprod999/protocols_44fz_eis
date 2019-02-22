@@ -1,5 +1,4 @@
 import UtilsFunctions
-import parser_prot
 
 
 class Participiant504:

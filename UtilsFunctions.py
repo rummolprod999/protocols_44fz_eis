@@ -2,7 +2,7 @@ import datetime
 import operator
 from functools import reduce
 
-from parser_prot import file_log
+from VarExecut import file_log
 
 
 def logging_parser(*kwargs):

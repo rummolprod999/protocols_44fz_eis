@@ -2,7 +2,6 @@ import dateutil.parser
 import pytz
 
 import UtilsFunctions
-import parser_prot
 
 
 class Protocol504:

@@ -3,11 +3,10 @@ import datetime
 import dateutil.parser
 
 import UtilsFunctions
-import parser_prot
 from ClassParticipiant import Participiant
 from ClassProtocol import Protocol
 from connect_to_db import connect_bd
-from parser_prot import DB, PREFIX
+from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 

@@ -23,14 +23,15 @@ import ClassProtocolZK
 import ClassProtocolZPFinal
 import ClassTypeProtocols
 import UtilsFunctions
+import VarExecut
 import parser_prot as parser_protocol
 from connect_to_db import connect_bd
 
-PREFIX = parser_protocol.PREFIX
-DB = parser_protocol.DB
-TEMP_DIR = parser_protocol.TEMP_DIR
-LOG_DIR = parser_protocol.LOG_DIR
-file_log = parser_protocol.file_log
+PREFIX = VarExecut.PREFIX
+DB = VarExecut.DB
+TEMP_DIR = VarExecut.TEMP_DIR
+LOG_DIR = VarExecut.LOG_DIR
+file_log = VarExecut.file_log
 logging.basicConfig(level=logging.DEBUG, filename=file_log,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 except_file = ()

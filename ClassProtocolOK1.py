@@ -4,7 +4,7 @@ import dateutil.parser
 
 from ClassProtocolOK2 import ProtocolOK2
 from connect_to_db import connect_bd
-from parser_prot import DB, PREFIX
+from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 

@@ -1,4 +1,3 @@
-import datetime
 import logging
 import traceback
 from warnings import filterwarnings
@@ -21,21 +20,14 @@ from ClassProtocolEF3 import parserEF3
 from ClassProtocolEF1 import parserEF1
 from ClassProtocolEF2 import parserEF2
 from UtilsFunctions import logging_parser
+from VarExecut import LOG_DIR, file_log
 
 if __name__ == "__main__":
     print('Привет, этот файл только для импортирования!')
 
-EXECUTE_PATH = os.path.dirname(os.path.abspath(__file__))
-PREFIX = ''
-DB = 'tender'
-LOG_D = 'log_prot'
-LOG_DIR = f"{EXECUTE_PATH}/{LOG_D}"
-TEMP_D = 'temp_prot'
-TEMP_DIR = f"{EXECUTE_PATH}/{TEMP_D}"
 if not os.path.exists(LOG_DIR):
     os.mkdir(LOG_DIR)
 filterwarnings('ignore', category=pymysql.Warning)
-file_log = '{1}/protocol_ftp_{0}.log'.format(str(datetime.date.today()), LOG_DIR)
 logging.basicConfig(level=logging.DEBUG, filename=file_log,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -77,7 +69,6 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
 
 
 def parser(doc, path_xml, filexml, reg, type_f):
-    global file_log
     try:
         if type_f == TypeProtocols.type_EF1:
             parserEF1(doc, path_xml, filexml, reg, type_f)
