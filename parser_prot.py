@@ -9,7 +9,8 @@ import os
 import pymysql
 
 from connect_to_db import connect_bd
-from parser_prot_class import Type_protocol, Type_protocol504
+from ClassTypeProtocols504 import TypeProtocols504
+from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import ProtocolEZP2
 from ClassProtocolEZK2 import ProtocolEZK2
 from ClassProtocolEZP1 import ProtocolEZP1
@@ -1172,26 +1173,26 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     if len(list_p) == 0:
         logging_parser("Can not find protocol tag", filexml)
         return
-    if list_p[0] == Type_protocol504.type_EZP1:
-        parserEZP1(doc, path_xml, filexml, reg, Type_protocol504.type_EZP1)
+    if list_p[0] == TypeProtocols504.type_EZP1:
+        parserEZP1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1)
         pass
-    elif list_p[0] == Type_protocol504.type_EOK2:
-        parserEOK2(doc, path_xml, filexml, reg, Type_protocol504.type_EOK2)
+    elif list_p[0] == TypeProtocols504.type_EOK2:
+        parserEOK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK2)
         pass
-    elif list_p[0] == Type_protocol504.type_EOK1:
-        parserEOK1(doc, path_xml, filexml, reg, Type_protocol504.type_EOK1)
+    elif list_p[0] == TypeProtocols504.type_EOK1:
+        parserEOK1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK1)
         pass
-    elif list_p[0] == Type_protocol504.type_EZK2:
-        parserEZK2(doc, path_xml, filexml, reg, Type_protocol504.type_EZK2)
+    elif list_p[0] == TypeProtocols504.type_EZK2:
+        parserEZK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK2)
         pass
-    elif list_p[0] == Type_protocol504.type_EZK1:
-        parserEZK2(doc, path_xml, filexml, reg, Type_protocol504.type_EZK1)
+    elif list_p[0] == TypeProtocols504.type_EZK1:
+        parserEZK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK1)
         pass
-    elif list_p[0] == Type_protocol504.type_EZP1Extract:
-        parserEZP1Extract(doc, path_xml, filexml, reg, Type_protocol504.type_EZP1Extract)
+    elif list_p[0] == TypeProtocols504.type_EZP1Extract:
+        parserEZP1Extract(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1Extract)
         pass
-    if list_p[0] == Type_protocol504.type_EZP2:
-        parserEZP2(doc, path_xml, filexml, reg, Type_protocol504.type_EZP2)
+    if list_p[0] == TypeProtocols504.type_EZP2:
+        parserEZP2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP2)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
@@ -1200,34 +1201,34 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
 def parser(doc, path_xml, filexml, reg, type_f):
     global file_log
     try:
-        if type_f == Type_protocol.type_EF1:
+        if type_f == TypeProtocols.type_EF1:
             parserEF1(doc, path_xml, filexml, reg, type_f)
             pass
-        elif type_f == Type_protocol.type_EF2:
+        elif type_f == TypeProtocols.type_EF2:
             pass
             parserEF2(doc, path_xml, filexml, reg, type_f)
-        elif (type_f == Type_protocol.type_EF3 or type_f == Type_protocol.type_EFSingleApp or
-              type_f == Type_protocol.type_EFSinglePart or type_f == Type_protocol.type_Deviation or
-              type_f == Type_protocol.type_EFInvalidation):
+        elif (type_f == TypeProtocols.type_EF3 or type_f == TypeProtocols.type_EFSingleApp or
+              type_f == TypeProtocols.type_EFSinglePart or type_f == TypeProtocols.type_Deviation or
+              type_f == TypeProtocols.type_EFInvalidation):
             pass
             parserEF3(doc, path_xml, filexml, reg, type_f)
-        elif type_f == Type_protocol.type_ZK or type_f == Type_protocol.type_ZKAfterProlong:
+        elif type_f == TypeProtocols.type_ZK or type_f == TypeProtocols.type_ZKAfterProlong:
             pass
             parserZK(doc, path_xml, filexml, reg, type_f)
-        elif (type_f == Type_protocol.type_OK2 or type_f == Type_protocol.type_OKD5 or
-              type_f == Type_protocol.type_OKOU3 or type_f == Type_protocol.type_OKSingleApp or
-              type_f == Type_protocol.type_OKDSingleApp or type_f == Type_protocol.type_OKOUSingleApp):
+        elif (type_f == TypeProtocols.type_OK2 or type_f == TypeProtocols.type_OKD5 or
+              type_f == TypeProtocols.type_OKOU3 or type_f == TypeProtocols.type_OKSingleApp or
+              type_f == TypeProtocols.type_OKDSingleApp or type_f == TypeProtocols.type_OKOUSingleApp):
             pass
             parserOK2(doc, path_xml, filexml, reg, type_f)
-        elif type_f == Type_protocol.type_ZPFinal:
+        elif type_f == TypeProtocols.type_ZPFinal:
             pass
             parserZPFinal(doc, path_xml, filexml, reg, type_f)
-        elif type_f == Type_protocol.type_OK1 or type_f == Type_protocol.type_OKD1 or type_f == Type_protocol.type_OKD2 or \
-                type_f == Type_protocol.type_OKD3 or type_f == Type_protocol.type_OKD4 or \
-                type_f == Type_protocol.type_OKOU1 or type_f == Type_protocol.type_OKOU2:
+        elif type_f == TypeProtocols.type_OK1 or type_f == TypeProtocols.type_OKD1 or type_f == TypeProtocols.type_OKD2 or \
+                type_f == TypeProtocols.type_OKD3 or type_f == TypeProtocols.type_OKD4 or \
+                type_f == TypeProtocols.type_OKOU1 or type_f == TypeProtocols.type_OKOU2:
             pass
             parserOK1(doc, path_xml, filexml, reg, type_f)
-        elif type_f == Type_protocol.type_Cancel:
+        elif type_f == TypeProtocols.type_Cancel:
             pass
             parserCancel(doc, path_xml, filexml, reg, type_f)
         else:

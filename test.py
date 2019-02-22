@@ -1,5 +1,4 @@
 import parser_prot
-import parser_prot_class
 import xmltodict
 
 file_name = "./fcsProtocolIZP_0328300005019000010_22212979.xml"

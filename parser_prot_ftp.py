@@ -21,8 +21,8 @@ import ClassProtocolOK1
 import ClassProtocolOK2
 import ClassProtocolZK
 import ClassProtocolZPFinal
+import ClassTypeProtocols
 import parser_prot as parser_protocol
-import parser_prot_class
 from connect_to_db import connect_bd
 
 PREFIX = parser_protocol.PREFIX
@@ -246,43 +246,43 @@ def extract_prot(m, path_parse1, region):
 
         try:
             file_list = os.listdir(l_dir)
-            list_type_EF1 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_EF1) != -1]
-            list_type_EF2 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_EF2) != -1]
-            list_type_EF3 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_EF3) != -1]
-            list_type_ZK = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_ZK) != -1]
+            list_type_EF1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF1) != -1]
+            list_type_EF2 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF2) != -1]
+            list_type_EF3 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF3) != -1]
+            list_type_ZK = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_ZK) != -1]
             list_type_ZKAfterProlong = [file for file in file_list if
-                                        file.find(parser_prot_class.Type_protocol.type_ZKAfterProlong) != -1]
+                                        file.find(ClassTypeProtocols.TypeProtocols.type_ZKAfterProlong) != -1]
             list_type_EFSingleApp = [file for file in file_list if
-                                     file.find(parser_prot_class.Type_protocol.type_EFSingleApp) != -1]
+                                     file.find(ClassTypeProtocols.TypeProtocols.type_EFSingleApp) != -1]
             list_type_EFSinglePart = [file for file in file_list if
-                                      file.find(parser_prot_class.Type_protocol.type_EFSinglePart) != -1]
-            list_type_OK2 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OK2) != -1]
-            list_type_OKD5 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OKD5) != -1]
+                                      file.find(ClassTypeProtocols.TypeProtocols.type_EFSinglePart) != -1]
+            list_type_OK2 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OK2) != -1]
+            list_type_OKD5 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD5) != -1]
             list_type_OKOU3 = [file for file in file_list if file.find(
-                    parser_prot_class.Type_protocol.type_OKOU3) != -1]
+                    ClassTypeProtocols.TypeProtocols.type_OKOU3) != -1]
             list_type_ZPFinal = [file for file in file_list if
-                                 file.find(parser_prot_class.Type_protocol.type_ZPFinal) != -1]
+                                 file.find(ClassTypeProtocols.TypeProtocols.type_ZPFinal) != -1]
             list_type_Deviation = [file for file in file_list if
-                                   file.find(parser_prot_class.Type_protocol.type_Deviation) != -1]
+                                   file.find(ClassTypeProtocols.TypeProtocols.type_Deviation) != -1]
             list_type_EFInvalidation = [file for file in file_list if
-                                        file.find(parser_prot_class.Type_protocol.type_EFInvalidation) != -1]
+                                        file.find(ClassTypeProtocols.TypeProtocols.type_EFInvalidation) != -1]
             list_type_OKSingleApp = [file for file in file_list if
-                                     file.find(parser_prot_class.Type_protocol.type_OKSingleApp) != -1]
+                                     file.find(ClassTypeProtocols.TypeProtocols.type_OKSingleApp) != -1]
             list_type_OKDSingleApp = [file for file in file_list if
-                                      file.find(parser_prot_class.Type_protocol.type_OKDSingleApp) != -1]
+                                      file.find(ClassTypeProtocols.TypeProtocols.type_OKDSingleApp) != -1]
             list_type_OKOUSingleApp = [file for file in file_list if
-                                       file.find(parser_prot_class.Type_protocol.type_OKOUSingleApp) != -1]
-            list_type_OK1 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OK1) != -1]
-            list_type_OKD1 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OKD1) != -1]
-            list_type_OKD2 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OKD2) != -1]
-            list_type_OKD3 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OKD3) != -1]
-            list_type_OKD4 = [file for file in file_list if file.find(parser_prot_class.Type_protocol.type_OKD4) != -1]
+                                       file.find(ClassTypeProtocols.TypeProtocols.type_OKOUSingleApp) != -1]
+            list_type_OK1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OK1) != -1]
+            list_type_OKD1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD1) != -1]
+            list_type_OKD2 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD2) != -1]
+            list_type_OKD3 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD3) != -1]
+            list_type_OKD4 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD4) != -1]
             list_type_OKOU1 = [file for file in file_list if
-                               file.find(parser_prot_class.Type_protocol.type_OKOU1) != -1]
+                               file.find(ClassTypeProtocols.TypeProtocols.type_OKOU1) != -1]
             list_type_OKOU2 = [file for file in file_list if
-                               file.find(parser_prot_class.Type_protocol.type_OKOU2) != -1]
+                               file.find(ClassTypeProtocols.TypeProtocols.type_OKOU2) != -1]
             list_type_Cancel = [file for file in file_list if
-                                file.find(parser_prot_class.Type_protocol.type_Cancel) != -1]
+                                file.find(ClassTypeProtocols.TypeProtocols.type_Cancel) != -1]
             set_type_Other = set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
                     list_type_ZK) \
                              - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \
@@ -298,53 +298,53 @@ def extract_prot(m, path_parse1, region):
                 flog.write(f'Не удалось получить список файлов {str(ex)} {l_dir}\n')
         else:
             for f1 in list_type_EF1:
-                bolter(f1, l_dir, region, parser_prot_class.Type_protocol.type_EF1)
+                bolter(f1, l_dir, region, ClassTypeProtocols.TypeProtocols.type_EF1)
             for f2 in list_type_EF2:
-                bolter(f2, l_dir, region, parser_prot_class.Type_protocol.type_EF2)
+                bolter(f2, l_dir, region, ClassTypeProtocols.TypeProtocols.type_EF2)
             for f3 in list_type_EF3:
-                bolter(f3, l_dir, region, parser_prot_class.Type_protocol.type_EF3)
+                bolter(f3, l_dir, region, ClassTypeProtocols.TypeProtocols.type_EF3)
             for f4 in list_type_ZK:
-                bolter(f4, l_dir, region, parser_prot_class.Type_protocol.type_ZK)
+                bolter(f4, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ZK)
             for f5 in list_type_ZKAfterProlong:
-                bolter(f5, l_dir, region, parser_prot_class.Type_protocol.type_ZKAfterProlong)
+                bolter(f5, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ZKAfterProlong)
             for f6 in list_type_EFSingleApp:
-                bolter(f6, l_dir, region, parser_prot_class.Type_protocol.type_EFSingleApp)
+                bolter(f6, l_dir, region, ClassTypeProtocols.TypeProtocols.type_EFSingleApp)
             for f7 in list_type_OK2:
-                bolter(f7, l_dir, region, parser_prot_class.Type_protocol.type_OK2)
+                bolter(f7, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OK2)
             for f8 in list_type_OKD5:
-                bolter(f8, l_dir, region, parser_prot_class.Type_protocol.type_OKD5)
+                bolter(f8, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD5)
             for f9 in list_type_OKOU3:
-                bolter(f9, l_dir, region, parser_prot_class.Type_protocol.type_OKOU3)
+                bolter(f9, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKOU3)
             for f10 in list_type_ZPFinal:
-                bolter(f10, l_dir, region, parser_prot_class.Type_protocol.type_ZPFinal)
+                bolter(f10, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ZPFinal)
             for f11 in list_type_EFSinglePart:
-                bolter(f11, l_dir, region, parser_prot_class.Type_protocol.type_EFSinglePart)
+                bolter(f11, l_dir, region, ClassTypeProtocols.TypeProtocols.type_EFSinglePart)
             for f12 in list_type_Deviation:
-                bolter(f12, l_dir, region, parser_prot_class.Type_protocol.type_Deviation)
+                bolter(f12, l_dir, region, ClassTypeProtocols.TypeProtocols.type_Deviation)
             for f13 in list_type_EFInvalidation:
-                bolter(f13, l_dir, region, parser_prot_class.Type_protocol.type_EFInvalidation)
+                bolter(f13, l_dir, region, ClassTypeProtocols.TypeProtocols.type_EFInvalidation)
             for f14 in list_type_OKSingleApp:
-                bolter(f14, l_dir, region, parser_prot_class.Type_protocol.type_OKSingleApp)
+                bolter(f14, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKSingleApp)
             for f15 in list_type_OKDSingleApp:
-                bolter(f15, l_dir, region, parser_prot_class.Type_protocol.type_OKDSingleApp)
+                bolter(f15, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKDSingleApp)
             for f16 in list_type_OKOUSingleApp:
-                bolter(f16, l_dir, region, parser_prot_class.Type_protocol.type_OKOUSingleApp)
+                bolter(f16, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKOUSingleApp)
             for f17 in list_type_OK1:
-                bolter(f17, l_dir, region, parser_prot_class.Type_protocol.type_OK1)
+                bolter(f17, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OK1)
             for f18 in list_type_OKD1:
-                bolter(f18, l_dir, region, parser_prot_class.Type_protocol.type_OKD1)
+                bolter(f18, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD1)
             for f19 in list_type_OKD2:
-                bolter(f19, l_dir, region, parser_prot_class.Type_protocol.type_OKD2)
+                bolter(f19, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD2)
             for f20 in list_type_OKD3:
-                bolter(f20, l_dir, region, parser_prot_class.Type_protocol.type_OKD3)
+                bolter(f20, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD3)
             for f21 in list_type_OKD4:
-                bolter(f21, l_dir, region, parser_prot_class.Type_protocol.type_OKD4)
+                bolter(f21, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD4)
             for f22 in list_type_OKOU1:
-                bolter(f22, l_dir, region, parser_prot_class.Type_protocol.type_OKOU1)
+                bolter(f22, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKOU1)
             for f23 in list_type_OKOU2:
-                bolter(f23, l_dir, region, parser_prot_class.Type_protocol.type_OKOU2)
+                bolter(f23, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKOU2)
             for f24 in list_type_Cancel:
-                bolter(f24, l_dir, region, parser_prot_class.Type_protocol.type_Cancel)
+                bolter(f24, l_dir, region, ClassTypeProtocols.TypeProtocols.type_Cancel)
             for f25 in set_type_Other:
                 bolter(f25, l_dir, region, None)
 
