@@ -10,6 +10,9 @@ import xmltodict
 
 import ClassProtocolEF1
 import ClassProtocolEF2
+import ClassProtocolEF3
+import ClassProtocolZK
+import ClassProtocolZPFinal
 import parser_prot as parser_protocol
 import parser_prot_class
 from connect_to_db import connect_bd
@@ -453,17 +456,17 @@ if __name__ == "__main__":
     logging_parser('Добавлено EF2', ClassProtocolEF2.ProtocolEF2.add_protocolEF2)
     logging_parser('Обновлено EF2', ClassProtocolEF2.ProtocolEF2.update_protocolEF2)
     logging_parser('Добавлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation',
-                   parser_prot_class.ProtocolEF3.add_protocolEF3)
+                   ClassProtocolEF3.ProtocolEF3.add_protocolEF3)
     logging_parser('Обновлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation',
-                   parser_prot_class.ProtocolEF3.update_protocolEF3)
-    logging_parser('Добавлено ZK и ZKProlongation', parser_prot_class.ProtocolZK.add_protocolZK)
-    logging_parser('Обновлено ZK и ZKProlongation', parser_prot_class.ProtocolZK.update_protocolZK)
+                   ClassProtocolEF3.ProtocolEF3.update_protocolEF3)
+    logging_parser('Добавлено ZK и ZKProlongation', ClassProtocolZK.ProtocolZK.add_protocolZK)
+    logging_parser('Обновлено ZK и ZKProlongation', ClassProtocolZK.ProtocolZK.update_protocolZK)
     logging_parser('Добавлено OKD5, OK2, OKOU3, ProtocolOKSingleApp, ProtocolOKDSingleApp, ProtocolOKOUSingleApp',
                    parser_prot_class.ProtocolOK2.add_protocolOK2)
     logging_parser('Обновлено OKD5, OK2, OKOU3, ProtocolOKSingleApp, ProtocolOKDSingleApp, ProtocolOKOUSingleApp',
                    parser_prot_class.ProtocolOK2.update_protocolOK2)
-    logging_parser('Добавлено ZPFinal', parser_prot_class.ProtocolZPFinal.add_protocolZPFinal)
-    logging_parser('Обновлено ZPFinal', parser_prot_class.ProtocolZPFinal.update_protocolZPFinal)
+    logging_parser('Добавлено ZPFinal', ClassProtocolZPFinal.ProtocolZPFinal.add_protocolZPFinal)
+    logging_parser('Обновлено ZPFinal', ClassProtocolZPFinal.ProtocolZPFinal.update_protocolZPFinal)
     logging_parser('Добавлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2', parser_prot_class.ProtocolOK1.add_protocolOK1)
     logging_parser('Обновлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2',
                    parser_prot_class.ProtocolOK1.update_protocolOK1)
