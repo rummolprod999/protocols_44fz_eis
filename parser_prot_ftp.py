@@ -22,6 +22,7 @@ import ClassProtocolOK2
 import ClassProtocolZK
 import ClassProtocolZPFinal
 import ClassTypeProtocols
+import UtilsFunctions
 import parser_prot as parser_protocol
 from connect_to_db import connect_bd
 
@@ -35,7 +36,7 @@ logging.basicConfig(level=logging.DEBUG, filename=file_log,
 except_file = ()
 unic_files = []
 
-logging_parser = parser_protocol.logging_parser
+logging_parser = UtilsFunctions.logging_parser
 
 
 def unic(f, path):

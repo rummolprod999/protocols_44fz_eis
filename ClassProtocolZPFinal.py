@@ -2,10 +2,12 @@ import datetime
 
 import dateutil.parser
 
+import UtilsFunctions
 import parser_prot
 from ClassProtocolEF3 import ProtocolEF3
 from connect_to_db import connect_bd
-from parser_prot import logging_parser, DB, PREFIX
+from parser_prot import DB, PREFIX
+from UtilsFunctions import logging_parser
 
 
 class ProtocolZPFinal(ProtocolEF3):
@@ -13,7 +15,7 @@ class ProtocolZPFinal(ProtocolEF3):
     update_protocolZPFinal = 0
 
     def get_price(self, application):
-        d = parser_prot.get_el(application, 'lastOffer', 'price')
+        d = UtilsFunctions.get_el(application, 'lastOffer', 'price')
         return d
 
 

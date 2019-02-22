@@ -3,10 +3,12 @@ import datetime
 import dateutil.parser
 import pytz
 
+import UtilsFunctions
 import parser_prot
 from ClassProtocol import Protocol
 from connect_to_db import connect_bd
-from parser_prot import logging_parser, DB, PREFIX
+from parser_prot import DB, PREFIX
+from UtilsFunctions import logging_parser
 
 
 class ProtocolCancel(Protocol):
@@ -17,11 +19,11 @@ class ProtocolCancel(Protocol):
         super().__init__(protocol, xml)
 
     def get_protocol_number(self):
-        d = parser_prot.get_el(self.protocol, 'protocolNumber')
+        d = UtilsFunctions.get_el(self.protocol, 'protocolNumber')
         return d
 
     def get_protocol_date(self):
-        d = parser_prot.get_el(self.protocol, 'docPublishDate')
+        d = UtilsFunctions.get_el(self.protocol, 'docPublishDate')
         if d:
             try:
                 dt = dateutil.parser.parse(d)
@@ -33,19 +35,19 @@ class ProtocolCancel(Protocol):
         return str(d)
 
     def get_authority_name(self):
-        d = parser_prot.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
-                               'authorityName') or parser_prot.get_el(self.protocol, 'cancelReason',
+        d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
+                                  'authorityName') or UtilsFunctions.get_el(self.protocol, 'cancelReason',
                                                                       'authorityPrescription', 'reestrPrescription',
-                                                                      'authorityName') or parser_prot.get_el(
+                                                                            'authorityName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReason',
                 'courtDecision', 'courtName')
         return d
 
     def get_doc_name(self):
-        d = parser_prot.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
-                               'docName') or parser_prot.get_el(self.protocol, 'cancelReason',
+        d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
+                                  'docName') or UtilsFunctions.get_el(self.protocol, 'cancelReason',
                                                                 'authorityPrescription', 'reestrPrescription',
-                                                                'docName') or parser_prot.get_el(
+                                                                      'docName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReason',
                 'courtDecision', 'docName')
         return d

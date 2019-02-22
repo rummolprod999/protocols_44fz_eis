@@ -2,10 +2,12 @@ import datetime
 
 import dateutil.parser
 
+import UtilsFunctions
 import parser_prot
 from ClassProtocol import Protocol
 from connect_to_db import connect_bd
-from parser_prot import logging_parser, DB, PREFIX
+from parser_prot import DB, PREFIX
+from UtilsFunctions import logging_parser
 
 
 class ProtocolEF2(Protocol):
@@ -13,19 +15,19 @@ class ProtocolEF2(Protocol):
     update_protocolEF2 = 0
 
     def get_offer_first_price(self, application):
-        d = parser_prot.get_el(application, 'priceOffers', 'firstOffer', 'price')
+        d = UtilsFunctions.get_el(application, 'priceOffers', 'firstOffer', 'price')
         if not d:
             d = 0.0
         return d
 
     def get_offer_last_price(self, application):
-        d = parser_prot.get_el(application, 'priceOffers', 'lastOffer', 'price')
+        d = UtilsFunctions.get_el(application, 'priceOffers', 'lastOffer', 'price')
         if not d:
             d = 0.0
         return d
 
     def get_offer_quantity(self, application):
-        d = parser_prot.get_el(application, 'priceOffers', 'offersQuantity')
+        d = UtilsFunctions.get_el(application, 'priceOffers', 'offersQuantity')
         if not d:
             d = 0
         return d

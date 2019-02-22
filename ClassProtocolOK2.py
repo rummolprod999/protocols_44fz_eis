@@ -3,11 +3,13 @@ import itertools
 
 import dateutil.parser
 
+import UtilsFunctions
 import parser_prot
 from ClassParticipiant import Participiant
 from ClassProtocol import Protocol
 from connect_to_db import connect_bd
-from parser_prot import logging_parser, DB, PREFIX
+from parser_prot import DB, PREFIX
+from UtilsFunctions import logging_parser
 
 
 class ProtocolOK2(Protocol, Participiant):
@@ -16,73 +18,74 @@ class ProtocolOK2(Protocol, Participiant):
 
     def __init__(self, protocol, xml):
         super().__init__(protocol, xml)
-        self.lots = parser_prot.generator_univ(parser_prot.get_el_list(self.protocol, 'protocolLots', 'protocolLot'))
+        self.lots = UtilsFunctions.generator_univ(
+                UtilsFunctions.get_el_list(self.protocol, 'protocolLots', 'protocolLot'))
 
     def get_lot_number(self, lot):
-        d = parser_prot.get_el(lot, 'lotNumber')
+        d = UtilsFunctions.get_el(lot, 'lotNumber')
         return d
 
     def get_applications(self, lot):
-        d = parser_prot.generator_univ(parser_prot.get_el_list(lot, 'applications', 'application'))
+        d = UtilsFunctions.generator_univ(UtilsFunctions.get_el_list(lot, 'applications', 'application'))
         p, d = itertools.tee(d)
-        if not parser_prot.check_yeld(p):
-            d = parser_prot.generator_univ(parser_prot.get_el_list(lot, 'application'))
+        if not UtilsFunctions.check_yeld(p):
+            d = UtilsFunctions.generator_univ(UtilsFunctions.get_el_list(lot, 'application'))
         return d
 
     def get_participiants(self, application):
-        d = parser_prot.generator_univ(parser_prot.get_el_list(application, 'appParticipants', 'appParticipant'))
+        d = UtilsFunctions.generator_univ(UtilsFunctions.get_el_list(application, 'appParticipants', 'appParticipant'))
         return d
 
     def get_app_rating(self, application):
-        d = parser_prot.get_el(application, 'admittedInfo', 'appRating')
+        d = UtilsFunctions.get_el(application, 'admittedInfo', 'appRating')
         if not d:
             d = 0
         return d
 
     def get_inn(self, part):
-        d = parser_prot.get_el(part, 'inn') or parser_prot.get_el(part, 'idNumber')
+        d = UtilsFunctions.get_el(part, 'inn') or UtilsFunctions.get_el(part, 'idNumber')
         return d
 
     def get_kpp(self, part):
-        d = parser_prot.get_el(part, 'kpp')
+        d = UtilsFunctions.get_el(part, 'kpp')
         return d
 
     def get_organization_name(self, part):
-        d = parser_prot.get_el(part, 'organizationName')
+        d = UtilsFunctions.get_el(part, 'organizationName')
         if not d:
-            lastName = parser_prot.get_el(part, 'contactInfo',
+            lastName = UtilsFunctions.get_el(part, 'contactInfo',
                                           'lastName')
-            firstName = parser_prot.get_el(part, 'contactInfo',
+            firstName = UtilsFunctions.get_el(part, 'contactInfo',
                                            'firstName')
-            middleName = parser_prot.get_el(part, 'contactInfo',
+            middleName = UtilsFunctions.get_el(part, 'contactInfo',
                                             'middleName')
             d = f"{lastName} {firstName} {middleName}".strip()
         return d
 
     def get_participant_type(self, part):
-        d = parser_prot.get_el(part, 'participantType')
+        d = UtilsFunctions.get_el(part, 'participantType')
         return d
 
     def get_country_full_name(self, part):
-        d = parser_prot.get_el(part, 'country', 'countryFullName')
+        d = UtilsFunctions.get_el(part, 'country', 'countryFullName')
         return d
 
     def get_post_address(self, part):
-        d = parser_prot.get_el(part, 'postAddress')
+        d = UtilsFunctions.get_el(part, 'postAddress')
         return d
 
     def get_abandoned_reason_name(self, lot):
-        d = parser_prot.get_el(lot, 'abandonedReason', 'name')
+        d = UtilsFunctions.get_el(lot, 'abandonedReason', 'name')
         return d
 
     def get_admission(self, application):
         d = ''
-        appRejectedReason = parser_prot.get_el(application, 'admittedInfo', 'appRejectedReason')
+        appRejectedReason = UtilsFunctions.get_el(application, 'admittedInfo', 'appRejectedReason')
         if appRejectedReason:
-            reasons = parser_prot.generator_univ(appRejectedReason)
-            if parser_prot.check_yeld(reasons):
-                for r in list(parser_prot.generator_univ(appRejectedReason)):
-                    d += "{0} ".format(parser_prot.get_el(r, 'nsiRejectReason', 'reason'))
+            reasons = UtilsFunctions.generator_univ(appRejectedReason)
+            if UtilsFunctions.check_yeld(reasons):
+                for r in list(UtilsFunctions.generator_univ(appRejectedReason)):
+                    d += "{0} ".format(UtilsFunctions.get_el(r, 'nsiRejectReason', 'reason'))
         return d
 
 

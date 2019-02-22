@@ -1,19 +1,20 @@
+import UtilsFunctions
 import parser_prot
 
 
 class Participiant504:
     def get_inn(self, application):
-        d = parser_prot.get_el(application, 'appParticipant', 'inn') or parser_prot.get_el(application,
+        d = UtilsFunctions.get_el(application, 'appParticipant', 'inn') or UtilsFunctions.get_el(application,
                                                                                            'appParticipant',
-                                                                                           'idNumber') or parser_prot.get_el(
-                application, 'appParticipants', 'appParticipant', 'idNumber') or parser_prot.get_el(application,
+                                                                                                 'idNumber') or UtilsFunctions.get_el(
+                application, 'appParticipants', 'appParticipant', 'idNumber') or UtilsFunctions.get_el(application,
                                                                                                     'appParticipants',
                                                                                                     'appParticipant',
-                                                                                                    'inn') or parser_prot.get_el(
+                                                                                                       'inn') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
-                'INN') or parser_prot.get_el(
+                'INN') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'individualPersonRFInfo',
@@ -21,10 +22,10 @@ class Participiant504:
         return d
 
     def get_kpp(self, application):
-        d = parser_prot.get_el(application, 'appParticipant', 'kpp') or parser_prot.get_el(application,
+        d = UtilsFunctions.get_el(application, 'appParticipant', 'kpp') or UtilsFunctions.get_el(application,
                                                                                            'appParticipants',
                                                                                            'appParticipant',
-                                                                                           'kpp') or parser_prot.get_el(
+                                                                                                 'kpp') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
@@ -32,51 +33,53 @@ class Participiant504:
         return d
 
     def get_organization_name(self, application):
-        d = parser_prot.get_el(application, 'appParticipant', 'organizationName') or parser_prot.get_el(application,
+        d = UtilsFunctions.get_el(application, 'appParticipant', 'organizationName') or UtilsFunctions.get_el(
+            application,
                                                                                                         'appParticipants',
                                                                                                         'appParticipant',
-                                                                                                        'organizationName') or parser_prot.get_el(
+            'organizationName') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
-                'fullName') or parser_prot.get_el(
+                'fullName') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'individualPersonRFInfo',
                 'fullName')
         if not d:
-            lastName = parser_prot.get_el(application, 'appParticipant', 'contactInfo',
-                                          'lastName') or parser_prot.get_el(application, 'appParticipants',
+            lastName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
+                                             'lastName') or UtilsFunctions.get_el(application, 'appParticipants',
                                                                             'appParticipant', 'contactInfo',
-                                                                            'lastName') or parser_prot.get_el(
+                                                                                  'lastName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
-                    'legalEntityRFInfo', 'contactInfo', 'lastName') or parser_prot.get_el(
+                    'legalEntityRFInfo', 'contactInfo', 'lastName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
                     'individualPersonRFInfo', 'nameInfo', 'lastName')
-            firstName = parser_prot.get_el(application, 'appParticipant', 'contactInfo',
-                                           'firstName') or parser_prot.get_el(application, 'appParticipants',
+            firstName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
+                                              'firstName') or UtilsFunctions.get_el(application, 'appParticipants',
                                                                               'appParticipant', 'contactInfo',
-                                                                              'firstName') or parser_prot.get_el(
+                                                                                    'firstName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
-                    'legalEntityRFInfo', 'contactInfo', 'firstName') or parser_prot.get_el(
+                    'legalEntityRFInfo', 'contactInfo', 'firstName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
                     'individualPersonRFInfo', 'nameInfo', 'firstName')
-            middleName = parser_prot.get_el(application, 'appParticipant', 'contactInfo',
-                                            'middleName') or parser_prot.get_el(application, 'appParticipants',
+            middleName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
+                                               'middleName') or UtilsFunctions.get_el(application, 'appParticipants',
                                                                                 'appParticipant', 'contactInfo',
-                                                                                'middleName') or parser_prot.get_el(
+                                                                                      'middleName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
-                    'legalEntityRFInfo', 'contactInfo', 'middleName') or parser_prot.get_el(
+                    'legalEntityRFInfo', 'contactInfo', 'middleName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
                     'individualPersonRFInfo', 'nameInfo', 'middleName')
             d = f"{lastName} {firstName} {middleName}".strip()
         return d
 
     def get_participant_type(self, application):
-        d = parser_prot.get_el(application, 'appParticipant', 'participantType') or parser_prot.get_el(application,
+        d = UtilsFunctions.get_el(application, 'appParticipant', 'participantType') or UtilsFunctions.get_el(
+            application,
                                                                                                        'appParticipants',
                                                                                                        'appParticipant',
-                                                                                                       'participantType') or parser_prot.get_el(
+            'participantType') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
@@ -84,11 +87,11 @@ class Participiant504:
         return d
 
     def get_country_full_name(self, application):
-        d = parser_prot.get_el(application, 'appParticipant', 'country', 'countryFullName') or parser_prot.get_el(
+        d = UtilsFunctions.get_el(application, 'appParticipant', 'country', 'countryFullName') or UtilsFunctions.get_el(
                 application,
                 'appParticipants',
                 'appParticipant', 'country',
-                'countryFullName') or parser_prot.get_el(
+                'countryFullName') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo', 'country',
@@ -96,14 +99,14 @@ class Participiant504:
         return d
 
     def get_post_address(self, application):
-        d = parser_prot.get_el(application, 'appParticipant', 'postAddress') or parser_prot.get_el(application,
+        d = UtilsFunctions.get_el(application, 'appParticipant', 'postAddress') or UtilsFunctions.get_el(application,
                                                                                                    'appParticipants',
                                                                                                    'appParticipant',
-                                                                                                   'postAddress') or parser_prot.get_el(
+                                                                                                         'postAddress') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
-                'contactInfo', 'orgPostAddress') or parser_prot.get_el(
+                'contactInfo', 'orgPostAddress') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'individualPersonRFInfo',
