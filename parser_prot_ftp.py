@@ -7,6 +7,9 @@ import sys
 import zipfile
 import timeout_decorator
 import xmltodict
+
+import ClassProtocolEF1
+import ClassProtocolEF2
 import parser_prot as parser_protocol
 import parser_prot_class
 from connect_to_db import connect_bd
@@ -445,10 +448,10 @@ def main():
 if __name__ == "__main__":
     logging_parser("Начало парсинга")
     main()
-    logging_parser('Добавлено EF1', parser_prot_class.ProtocolEF1.add_protocolEF1)
-    logging_parser('Обновлено EF1', parser_prot_class.ProtocolEF1.update_protocolEF1)
-    logging_parser('Добавлено EF2', parser_prot_class.ProtocolEF2.add_protocolEF2)
-    logging_parser('Обновлено EF2', parser_prot_class.ProtocolEF2.update_protocolEF2)
+    logging_parser('Добавлено EF1', ClassProtocolEF1.ProtocolEF1.add_protocolEF1)
+    logging_parser('Обновлено EF1', ClassProtocolEF1.ProtocolEF1.update_protocolEF1)
+    logging_parser('Добавлено EF2', ClassProtocolEF2.ProtocolEF2.add_protocolEF2)
+    logging_parser('Обновлено EF2', ClassProtocolEF2.ProtocolEF2.update_protocolEF2)
     logging_parser('Добавлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation',
                    parser_prot_class.ProtocolEF3.add_protocolEF3)
     logging_parser('Обновлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation',
