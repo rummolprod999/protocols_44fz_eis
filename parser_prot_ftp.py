@@ -8,6 +8,7 @@ import zipfile
 import timeout_decorator
 import xmltodict
 
+import ClassProtocolCancel
 import ClassProtocolEF1
 import ClassProtocolEF2
 import ClassProtocolEF3
@@ -472,8 +473,8 @@ if __name__ == "__main__":
     logging_parser('Добавлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2', ClassProtocolOK1.ProtocolOK1.add_protocolOK1)
     logging_parser('Обновлено OK1, OKD1, OKD2, OKD3, OKD4, OKOU1, OKOU2',
                    ClassProtocolOK1.ProtocolOK1.update_protocolOK1)
-    logging_parser('Добавлено Cancel', parser_prot_class.ProtocolCancel.add_protocolCancel)
-    logging_parser('Обновлено Cancel', parser_prot_class.ProtocolCancel.update_protocolCancel)
+    logging_parser('Добавлено Cancel', ClassProtocolCancel.ProtocolCancel.add_protocolCancel)
+    logging_parser('Обновлено Cancel', ClassProtocolCancel.ProtocolCancel.update_protocolCancel)
     logging_parser('Добавлено EZK1, EZK2', parser_prot_class.ProtocolEZK2.add_protocolEZK2)
     logging_parser('Обновлено EZK1, EZK2', parser_prot_class.ProtocolEZK2.update_protocolEZK2)
     logging_parser('Добавлено EOK1', parser_prot_class.ProtocolEOK1.add_protocolEOK1)
