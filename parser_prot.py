@@ -9,8 +9,10 @@ import os
 import pymysql
 
 from connect_to_db import connect_bd
-from parser_prot_class import Type_protocol, Type_protocol504, ProtocolEOK1, ProtocolEZK2, ProtocolEOK2, \
-    ProtocolEZP1, ProtocolEZP2
+from parser_prot_class import Type_protocol, Type_protocol504, ProtocolEZK2, ProtocolEZP2
+from ClassProtocolEZP1 import ProtocolEZP1
+from ClassProtocolEOK1 import ProtocolEOK1
+from ClassProtocolEOK2 import ProtocolEOK2
 from ClassProtocolCancel import ProtocolCancel
 from ClassProtocolOK1 import ProtocolOK1
 from ClassProtocolOK2 import ProtocolOK2
