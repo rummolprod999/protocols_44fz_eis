@@ -1,5 +1,6 @@
 import datetime
 import operator
+import shutil
 from functools import reduce
 
 from VarExecut import file_log
@@ -56,3 +57,16 @@ def get_el_list(d, *kwargs):
     if res is None:
         res = []
     return res
+
+
+unic_files = []
+
+
+def unic(f, path):
+    global unic_files
+    begin_file_list = f.split('_')
+    if not begin_file_list[0] in unic_files:
+        unic_files.append(begin_file_list[0])
+        file_ex = path + '/' + f
+        file_target = './unic_protocol/' + f
+        shutil.copy(file_ex, file_target)

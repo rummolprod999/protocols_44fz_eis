@@ -35,19 +35,8 @@ file_log = VarExecut.file_log
 logging.basicConfig(level=logging.DEBUG, filename=file_log,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 except_file = ()
-unic_files = []
 
 logging_parser = UtilsFunctions.logging_parser
-
-
-def unic(f, path):
-    global unic_files
-    begin_file_list = f.split('_')
-    if not begin_file_list[0] in unic_files:
-        unic_files.append(begin_file_list[0])
-        file_ex = path + '/' + f
-        file_target = './unic_protocol/' + f
-        shutil.copy(file_ex, file_target)
 
 
 def get_xml_to_dict(filexml, dirxml, region, type_f):
@@ -133,14 +122,14 @@ def get_list_ftp_curr(path_parse, region):
     cur_arhiv = con_arhiv.cursor()
     for i in data:
         if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1:
-            cur_arhiv.execute("""SELECT id FROM {0}arhiv_prot WHERE arhiv = %s AND region = %s""".format(PREFIX),
+            cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                               (i, region))
             find_file = cur_arhiv.fetchone()
             if find_file:
                 continue
             else:
                 array_ar.append(i)
-                query_ar = """INSERT INTO {0}arhiv_prot SET arhiv = %s, region = %s""".format(PREFIX)
+                query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
                 query_par = (i, region)
                 cur_arhiv.execute(query_ar, query_par)
                 # with open(file_log, 'a') as flog5:
@@ -172,14 +161,14 @@ def get_list_ftp_prev(path_parse, region):
     for i in data:
         i_prev = "prev_{0}".format(i)
         if i.find(searchstring) != -1:
-            cur_arhiv.execute("""SELECT id FROM {0}arhiv_prot WHERE arhiv = %s AND region = %s""".format(PREFIX),
+            cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                               (i_prev, region))
             find_file = cur_arhiv.fetchone()
             if find_file:
                 continue
             else:
                 array_ar.append(i)
-                query_ar = """INSERT INTO {0}arhiv_prot SET arhiv = %s, region = %s""".format(PREFIX)
+                query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
                 query_par = (i_prev, region)
                 cur_arhiv.execute(query_ar, query_par)
                 # with open(file_log, 'a') as flog5:
