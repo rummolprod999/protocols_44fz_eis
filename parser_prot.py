@@ -61,11 +61,13 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_EZP1Extract:
         parserEZP1Extract(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1Extract)
         pass
-    if list_p[0] == TypeProtocols504.type_EZP2:
+    elif list_p[0] == TypeProtocols504.type_EZP2:
         parserEZP2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP2)
         pass
     else:
-        logging_parser("New type protocol", list_p[0], path_xml)
+        ex_type = ['PP615', 'PR615']
+        if len(list(filter(lambda x: x in list_p[0], ex_type))) == 0:
+            logging_parser("New type protocol", list_p[0], path_xml)
 
 
 def parser(doc, path_xml, filexml, reg, type_f):

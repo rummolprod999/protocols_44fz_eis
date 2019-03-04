@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
 
 def connect_bd_localhost(baza):
-    con = pymysql.connect(host="localhost", user="test", passwd="Dft56Point", db=baza, charset='utf8',
+    con = pymysql.connect(host="localhost", user="test", passwd="*********", db=baza, charset='utf8',
                           init_command='SET NAMES UTF8', cursorclass=pymysql.cursors.DictCursor, autocommit=True)
     return con
 

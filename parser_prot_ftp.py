@@ -45,12 +45,12 @@ def get_xml_to_dict(filexml, dirxml, region, type_f):
     :param dirxml: путь к локальному файлу
     :return:
     """
-    # try:
-    #     unic(filexml, dirxml)
-    # except Exception as ex1:
-    #     logging.exception("Ошибка копирования файла: ")
-    #     with open(file_log, 'a') as flog9:
-    #         flog9.write('Ошибка копирования файла {0} {1}\n\n\n'.format(str(ex1), filexml))
+    try:
+        UtilsFunctions.unic(filexml, dirxml)
+    except Exception as ex1:
+        logging.exception("Ошибка копирования файла: ")
+        with open(file_log, 'a') as flog9:
+            flog9.write('Ошибка копирования файла {0} {1}\n\n\n'.format(str(ex1), filexml))
     path_xml = dirxml + '/' + filexml
     # print(path_xml)
     with open(path_xml) as fd:
