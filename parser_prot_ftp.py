@@ -14,6 +14,7 @@ import ClassProtocolEF2
 import ClassProtocolEF3
 import ClassProtocolEOK1
 import ClassProtocolEOK2
+import ClassProtocolEOK3
 import ClassProtocolEZK2
 import ClassProtocolEZP1
 import ClassProtocolEZP2
@@ -481,4 +482,6 @@ if __name__ == "__main__":
     logging_parser('Обновлено EZP1', ClassProtocolEZP1.ProtocolEZP1.update_protocolEZP1)
     logging_parser('Добавлено EZP2', ClassProtocolEZP2.ProtocolEZP2.add_protocolEZP2)
     logging_parser('Обновлено EZP2', ClassProtocolEZP2.ProtocolEZP2.update_protocolEZP2)
+    logging_parser('Добавлено EOK3', ClassProtocolEOK3.ProtocolEOK3.add_protocolEOK3)
+    logging_parser('Обновлено EOK3', ClassProtocolEOK3.ProtocolEOK3.update_protocolEOK3)
     logging_parser("Конец парсинга")

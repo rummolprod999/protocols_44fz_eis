@@ -4,6 +4,7 @@ from warnings import filterwarnings
 import os
 import pymysql
 
+import ClassProtocolEOK3
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import parserEZP2
@@ -11,6 +12,7 @@ from ClassProtocolEZK2 import parserEZK2
 from ClassProtocolEZP1 import parserEZP1
 from ClassProtocolEOK1 import parserEOK1
 from ClassProtocolEOK2 import parserEOK2
+from ClassProtocolEOK3 import parserEOK3
 from ClassProtocolCancel import parserCancel
 from ClassProtocolOK1 import parserOK1
 from ClassProtocolOK2 import parserOK2
@@ -63,6 +65,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_EZP2:
         parserEZP2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP2)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOK3:
+        parserEOK3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK3)
         pass
     else:
         ex_type = ['PP615', 'PR615']

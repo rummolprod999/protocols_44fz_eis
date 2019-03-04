@@ -2,6 +2,7 @@ import datetime
 
 import dateutil.parser
 
+import ClassProtocolEOK2
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
 from ClassProtocol504 import Protocol504
@@ -10,55 +11,16 @@ from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 
-class ProtocolEOK2(Protocol504, Participiant504):
-    add_protocolEOK2 = 0
-    update_protocolEOK2 = 0
+class ProtocolEOK3(ClassProtocolEOK2.ProtocolEOK2):
+    add_protocolEOK3 = 0
+    update_protocolEOK3 = 0
 
     def __init__(self, protocol, xml):
         super().__init__(protocol, xml)
 
-    def get_participiants(self, application):
-        d = UtilsFunctions.generator_univ(UtilsFunctions.get_el_list(application, 'appParticipants', 'appParticipant'))
-        return d
 
-    def get_app_rating(self, application):
-        d = UtilsFunctions.get_el(application, 'admittedInfo', 'appRating') or UtilsFunctions.get_el(application,
-                                                                                                     'admittedInfo',
-                                                                                                     'appAdmittedInfo',
-                                                                                                     'appRating')
-        if not d:
-            d = 0
-        return d
-
-    def get_abandoned_reason_name(self):
-        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
-        return d
-
-    def get_admission(self, application):
-        d = ''
-        appRejectedReason = UtilsFunctions.get_el(application, 'admittedInfo', 'appNotAdmittedInfo',
-                                                  'appRejectedReasonsInfo',
-                                                  'appRejectedReasonInfo')
-        if appRejectedReason:
-            reasons = UtilsFunctions.generator_univ(appRejectedReason)
-            if UtilsFunctions.check_yeld(reasons):
-                for r in list(UtilsFunctions.generator_univ(appRejectedReason)):
-                    d += f"{UtilsFunctions.get_el(r, 'rejectReason', 'name')} ".strip()
-        else:
-            d = UtilsFunctions.get_el(application, 'admittedInfo', 'singleAppAdmittedInfo', 'admitted')
-            if d == 'true':
-                d = 'Допущен'
-            elif d == 'false':
-                d = 'Не допущен'
-            if not d:
-                d = UtilsFunctions.get_el(application, 'notConsidered')
-                if d == 'true':
-                    d = 'Заявка не рассматривалась'
-        return d
-
-
-def parserEOK2(doc, path_xml, filexml, reg, type_f):
-    p = ProtocolEOK2(doc, filexml)
+def parserEOK3(doc, path_xml, filexml, reg, type_f):
+    p = ProtocolEOK3(doc, filexml)
     purchase_number = p.get_purchaseNumber()
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
@@ -107,9 +69,9 @@ def parserEOK2(doc, path_xml, filexml, reg, type_f):
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        ProtocolEOK2.update_protocolEOK2 += 1
+        ProtocolEOK3.update_protocolEOK2 += 1
     else:
-        ProtocolEOK2.add_protocolEOK2 += 1
+        ProtocolEOK3.add_protocolEOK2 += 1
     for app in p.applications:
         journal_number = p.get_journal_number(app)
         app_rating = p.get_app_rating(app)
