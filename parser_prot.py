@@ -42,6 +42,10 @@ def parserEZP1Extract(doc, path_xml, filexml, reg, type_f):
 def parserOther(doc, path_xml, filexml, reg, type_f):
     prot = doc[list(doc.keys())[0]]
     list_p = [v for v in prot.keys() if v.lower().startswith("ep")]
+    ex_type = ['PR615', 'PP615']
+    for t in ex_type:
+        if t in filexml:
+            return
     if len(list_p) == 0:
         logging_parser("Can not find protocol tag", filexml)
         return
@@ -70,9 +74,7 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         parserEOK3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK3)
         pass
     else:
-        ex_type = ['PP615', 'PR615']
-        if len(list(filter(lambda x: x in list_p[0], ex_type))) == 0:
-            logging_parser("New type protocol", list_p[0], path_xml)
+        logging_parser("New type protocol", list_p[0], path_xml)
 
 
 def parser(doc, path_xml, filexml, reg, type_f):
