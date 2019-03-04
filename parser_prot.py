@@ -4,7 +4,9 @@ from warnings import filterwarnings
 import os
 import pymysql
 
-import ClassProtocolEOK3
+import ClassProtocolCancel504
+import ClassProtocolEOKOU1
+import ClassProtocolEOKOU2
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import parserEZP2
@@ -42,7 +44,7 @@ def parserEZP1Extract(doc, path_xml, filexml, reg, type_f):
 def parserOther(doc, path_xml, filexml, reg, type_f):
     prot = doc[list(doc.keys())[0]]
     list_p = [v for v in prot.keys() if v.lower().startswith("ep")]
-    ex_type = ['PR615', 'PP615']
+    ex_type = ['PR615', 'PP615', 'Evasion', 'fcsProtocolPO', 'P615']
     for t in ex_type:
         if t in filexml:
             return
@@ -72,6 +74,12 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_EOK3:
         parserEOK3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK3)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKOU2:
+        ClassProtocolEOKOU2.parserEOKOU2(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU2)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKOU1 or list_p[0] == TypeProtocols504.type_EOKSingleApp:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU1)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
@@ -107,8 +115,10 @@ def parser(doc, path_xml, filexml, reg, type_f):
             pass
             parserOK1(doc, path_xml, filexml, reg, type_f)
         elif type_f == TypeProtocols.type_Cancel:
-            pass
-            parserCancel(doc, path_xml, filexml, reg, type_f)
+            try:
+                parserCancel(doc, path_xml, filexml, reg, type_f)
+            except Exception:
+                ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, type_f)
         else:
             parserOther(doc, path_xml, filexml, reg, type_f)
     except Exception as e:

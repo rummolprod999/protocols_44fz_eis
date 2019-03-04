@@ -9,12 +9,15 @@ import timeout_decorator
 import xmltodict
 
 import ClassProtocolCancel
+import ClassProtocolCancel504
 import ClassProtocolEF1
 import ClassProtocolEF2
 import ClassProtocolEF3
 import ClassProtocolEOK1
 import ClassProtocolEOK2
 import ClassProtocolEOK3
+import ClassProtocolEOKOU1
+import ClassProtocolEOKOU2
 import ClassProtocolEZK2
 import ClassProtocolEZP1
 import ClassProtocolEZP2
@@ -484,4 +487,10 @@ if __name__ == "__main__":
     logging_parser('Обновлено EZP2', ClassProtocolEZP2.ProtocolEZP2.update_protocolEZP2)
     logging_parser('Добавлено EOK3', ClassProtocolEOK3.ProtocolEOK3.add_protocolEOK3)
     logging_parser('Обновлено EOK3', ClassProtocolEOK3.ProtocolEOK3.update_protocolEOK3)
+    logging_parser('Добавлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.add_protocolCancel)
+    logging_parser('Обновлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.update_protocolCancel)
+    logging_parser('Добавлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.add_protocolEOKOU2)
+    logging_parser('Обновлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.update_protocolEOKOU2)
+    logging_parser('Добавлено EOKOU1', ClassProtocolEOKOU1.ProtocolEOKOU1.add_protocolEOKOU1)
+    logging_parser('Обновлено EOKOU1', ClassProtocolEOKOU1.ProtocolEOKOU1.update_protocolEOKOU1)
     logging_parser("Конец парсинга")

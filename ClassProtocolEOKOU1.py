@@ -2,23 +2,24 @@ import datetime
 
 import dateutil.parser
 
-import ClassProtocolEOK2
+from ClassProtocolEOK2 import ProtocolEOK2
 from connect_to_db import connect_bd
 from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 
-class ProtocolEOK3(ClassProtocolEOK2.ProtocolEOK2):
-    add_protocolEOK3 = 0
-    update_protocolEOK3 = 0
+class ProtocolEOKOU1(ProtocolEOK2):
+    add_protocolEOKOU1 = 0
+    update_protocolEOKOU1 = 0
 
     def __init__(self, protocol, xml):
         super().__init__(protocol, xml)
 
 
-def parserEOK3(doc, path_xml, filexml, reg, type_f):
-    p = ProtocolEOK3(doc, filexml)
+def parserEOKOU1(doc, path_xml, filexml, reg, type_f):
+    p = ProtocolEOKOU1(doc, filexml)
     purchase_number = p.get_purchaseNumber()
+    # print(purchase_number)
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
         return
@@ -32,7 +33,7 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
     lot_number = 1
     abandoned_reason_name = p.get_abandoned_reason_name()
     cur.execute(
-            f"""SELECT id FROM {PREFIX}auction_end_protocol WHERE id_protocol = %s AND purchase_number = %s 
+            f"""SELECT id FROM {PREFIX}auction_start_protocol WHERE id_protocol = %s AND purchase_number = %s 
             AND type_protocol = %s AND lot_number = %s""",
             (id_protocol, purchase_number, type_f, lot_number))
     res_id = cur.fetchone()
@@ -44,34 +45,33 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
     cancel_status = 0
     updated = False
     date_prot = dateutil.parser.parse(protocol_date[:19])
-    cur.execute(f"""SELECT id, protocol_date FROM {PREFIX}auction_end_protocol WHERE purchase_number = %s 
-                            AND type_protocol = %s AND lot_number = %s""",
+    cur.execute(f"""SELECT id, protocol_date FROM {PREFIX}auction_start_protocol WHERE purchase_number = %s 
+                                   AND type_protocol = %s AND lot_number = %s""",
                 (purchase_number, type_f, lot_number))
     res_prot = cur.fetchall()
     if res_prot:
         updated = True
         for r in res_prot:
             if date_prot >= datetime.datetime.strptime(str(r['protocol_date']), "%Y-%m-%d %H:%M:%S"):
-                cur.execute(f"""UPDATE {PREFIX}auction_end_protocol SET cancel = 1 WHERE id = %s""",
+                cur.execute(f"""UPDATE {PREFIX}auction_start_protocol SET cancel = 1 WHERE id = %s""",
                             (r['id'],))
             else:
                 cancel_status = 1
     cur.execute(
-            f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
-                                url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, abandoned_reason_name = %s, 
-                                lot_number = %s""",
+            f"""INSERT INTO {PREFIX}auction_start_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
+                                       url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, abandoned_reason_name = %s, 
+                                       lot_number = %s""",
             (id_protocol, protocol_date, purchase_number, url, print_form, xml, type_f, cancel_status,
              abandoned_reason_name, lot_number))
     id_p = cur.lastrowid
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        ProtocolEOK3.update_protocolEOK2 += 1
+        ProtocolEOKOU1.update_protocolEOKOU1 += 1
     else:
-        ProtocolEOK3.add_protocolEOK2 += 1
+        ProtocolEOKOU1.add_protocolEOKOU1 += 1
     for app in p.applications:
         journal_number = p.get_journal_number(app)
-        app_rating = p.get_app_rating(app)
         admission = p.get_admission(app)
         id_participiant = 0
         inn = p.get_inn(app)
@@ -88,16 +88,14 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
                 id_participiant = res_p['id']
             else:
                 cur.execute(f"""INSERT INTO {PREFIX}auction_participant SET inn = %s, kpp = %s, 
-                                            organization_name = %s, participant_type = %s, country_full_name = %s, 
-                                            post_address = %s""",
+                                                   organization_name = %s, participant_type = %s, country_full_name = %s, 
+                                                   post_address = %s""",
                             (inn, kpp, organization_name, participant_type, country_full_name, post_address))
                 id_participiant = cur.lastrowid
-        if id_participiant == 0:
-            logging_parser('Нет инн', xml, type_f)
 
-        cur.execute(f"""INSERT INTO {PREFIX}auction_end_applications SET id_auction_end_protocol = %s, 
-                                            journal_number = %s, app_rating = %s, admission = %s,
-                                            id_participiant = %s""",
-                    (id_p, journal_number, app_rating, admission, id_participiant))
+        cur.execute(f"""INSERT INTO {PREFIX}auction_start_applications SET id_auction_protocol = %s, 
+                                                   journal_number = %s, admission = %s,
+                                                   id_participiant = %s""",
+                    (id_p, journal_number, admission, id_participiant))
     cur.close()
     con.close()
