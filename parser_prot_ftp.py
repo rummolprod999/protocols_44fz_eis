@@ -18,6 +18,7 @@ import ClassProtocolEOK2
 import ClassProtocolEOK3
 import ClassProtocolEOKOU1
 import ClassProtocolEOKOU2
+import ClassProtocolEOKOU3
 import ClassProtocolEZK2
 import ClassProtocolEZP1
 import ClassProtocolEZP2
@@ -62,10 +63,10 @@ def get_xml_to_dict(filexml, dirxml, region, type_f):
             firs_str = fd.read()
             if True:
                 firs_str = firs_str.replace("xmlns:ns1", "xmlnsns1").replace("xmlns:ns2", "xmlnsns2").replace(
-                    "xmlns:ns3", "xmlnsns3").replace("xmlns:ns4", "xmlnsns4") \
+                        "xmlns:ns3", "xmlnsns3").replace("xmlns:ns4", "xmlnsns4") \
                     .replace("xmlns:ns5", "xmlnsns5").replace("xmlns:ns6", "xmlnsns6").replace("xmlns:ns7",
                                                                                                "xmlnsns7").replace(
-                    "xmlns:ns8", "xmlnsns8")
+                        "xmlns:ns8", "xmlnsns8")
                 firs_str = firs_str.replace("ns1:", "").replace("ns2:", "").replace("ns3:", "").replace("ns4:", "") \
                     .replace("ns5:", "").replace("ns6:", "").replace("ns7:", "").replace("ns8:", "")
             doc = xmltodict.parse(firs_str)
@@ -445,6 +446,9 @@ def main():
 
         except Exception as ex:
             # print('Не удалось получить список архивов ' + str(ex) + ' ' + path_parse)
+            if '550 Failed to change directory' in str(ex):
+                logging.warning(f"Can not find directory {path_parse}")
+                continue
             logging.exception("Ошибка: ")
             with open(file_log, 'a') as flog:
                 flog.write(f'Не удалось получить список архивов {str(ex)} {path_parse}\n')
@@ -491,6 +495,10 @@ if __name__ == "__main__":
     logging_parser('Обновлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.update_protocolCancel)
     logging_parser('Добавлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.add_protocolEOKOU2)
     logging_parser('Обновлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.update_protocolEOKOU2)
-    logging_parser('Добавлено EOKOU1', ClassProtocolEOKOU1.ProtocolEOKOU1.add_protocolEOKOU1)
-    logging_parser('Обновлено EOKOU1', ClassProtocolEOKOU1.ProtocolEOKOU1.update_protocolEOKOU1)
+    logging_parser('Добавлено EOKOU1, EOKSingleApp, EOKSinglePart, EOKOUSingleApp, EOKOUSinglePart',
+                   ClassProtocolEOKOU1.ProtocolEOKOU1.add_protocolEOKOU1)
+    logging_parser('Обновлено EOKOU1, EOKSingleApp, EOKSinglePart, EOKOUSingleApp, EOKOUSinglePart',
+                   ClassProtocolEOKOU1.ProtocolEOKOU1.update_protocolEOKOU1)
+    logging_parser('Добавлено EOKOU3', ClassProtocolEOKOU3.ProtocolEOKOU3.add_protocolEOKOU3)
+    logging_parser('Обновлено EOKOU3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
     logging_parser("Конец парсинга")

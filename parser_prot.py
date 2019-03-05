@@ -7,6 +7,7 @@ import pymysql
 import ClassProtocolCancel504
 import ClassProtocolEOKOU1
 import ClassProtocolEOKOU2
+import ClassProtocolEOKOU3
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import parserEZP2
@@ -78,8 +79,23 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_EOKOU2:
         ClassProtocolEOKOU2.parserEOKOU2(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU2)
         pass
-    elif list_p[0] == TypeProtocols504.type_EOKOU1 or list_p[0] == TypeProtocols504.type_EOKSingleApp:
+    elif list_p[0] == TypeProtocols504.type_EOKOU1:
         ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU1)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKSingleApp:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSingleApp)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKSinglePart:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSinglePart)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKOUSingleApp:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOUSingleApp)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKOUSinglePart:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOUSinglePart)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKOU3:
+        ClassProtocolEOKOU3.parserEOKOU3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU3)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
@@ -118,7 +134,7 @@ def parser(doc, path_xml, filexml, reg, type_f):
             try:
                 parserCancel(doc, path_xml, filexml, reg, type_f)
             except Exception:
-                ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, type_f)
+                ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, TypeProtocols504.type_Cancel504)
         else:
             parserOther(doc, path_xml, filexml, reg, type_f)
     except Exception as e:

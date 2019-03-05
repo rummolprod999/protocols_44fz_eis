@@ -18,20 +18,11 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
         super().__init__(protocol, xml)
 
     def get_protocol_number(self):
-        d = UtilsFunctions.get_el(self.protocol, 'protocolNumber')
+        d = UtilsFunctions.get_el(self.protocol, 'protocolNumber') or UtilsFunctions.get_el(self.protocol,
+                                                                                            'canceledProtocolNumber') or UtilsFunctions.get_el(
+                self.protocol,
+                'commonInfo', 'canceledProtocolNumber')
         return d
-
-    def get_protocol_date(self):
-        d = UtilsFunctions.get_el(self.protocol, 'docPublishDate')
-        if d:
-            try:
-                dt = dateutil.parser.parse(d)
-                d = dt.astimezone(pytz.timezone("Europe/Moscow"))
-            except Exception:
-                d = ''
-        else:
-            d = ''
-        return str(d)
 
     def get_authority_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
@@ -40,7 +31,9 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
                                                                             'reestrPrescription',
                                                                             'authorityName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReason',
-                'courtDecision', 'courtName')
+                'courtDecision', 'courtName') or UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'info')
         return d
 
     def get_doc_name(self):

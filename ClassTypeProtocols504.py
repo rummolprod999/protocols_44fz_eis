@@ -20,3 +20,4 @@ class TypeProtocols504:
     type_EZP1 = 'epProtocolEZP1'
     type_EZP2 = 'epProtocolEZP2'
     type_EZP1Extract = 'epProtocolEZP1Extract'
+    type_Cancel504 = 'epProtocolCancel'

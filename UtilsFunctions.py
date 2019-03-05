@@ -68,5 +68,5 @@ def unic(f, path):
     if not begin_file_list[0] in unic_files:
         unic_files.append(begin_file_list[0])
         file_ex = path + '/' + f
-        file_target = './unic_protocol/' + f
+        file_target = f'./unic_protocol/{f}'
         shutil.copy(file_ex, file_target)

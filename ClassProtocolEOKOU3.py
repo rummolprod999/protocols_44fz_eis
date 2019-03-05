@@ -8,16 +8,16 @@ from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 
-class ProtocolEOK3(ClassProtocolEOK2.ProtocolEOK2):
-    add_protocolEOK3 = 0
-    update_protocolEOK3 = 0
+class ProtocolEOKOU3(ClassProtocolEOK2.ProtocolEOK2):
+    add_protocolEOKOU3 = 0
+    update_protocolEOKOU3 = 0
 
     def __init__(self, protocol, xml):
         super().__init__(protocol, xml)
 
 
-def parserEOK3(doc, path_xml, filexml, reg, type_f):
-    p = ProtocolEOK3(doc, filexml)
+def parserEOKOU3(doc, path_xml, filexml, reg, type_f):
+    p = ProtocolEOKOU3(doc, filexml)
     purchase_number = p.get_purchaseNumber()
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
@@ -66,9 +66,9 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        ProtocolEOK3.update_protocolEOK3 += 1
+        ProtocolEOKOU3.update_protocolEOKOU3 += 1
     else:
-        ProtocolEOK3.add_protocolEOK3 += 1
+        ProtocolEOKOU3.add_protocolEOKOU3 += 1
     for app in p.applications:
         journal_number = p.get_journal_number(app)
         app_rating = p.get_app_rating(app)
