@@ -61,6 +61,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_EOK1:
         parserEOK1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK1)
         pass
+    elif list_p[0] == TypeProtocols504.type_EOKD1:
+        parserEOK1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKD1)
+        pass
     elif list_p[0] == TypeProtocols504.type_EZK2:
         parserEZK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK2)
         pass
