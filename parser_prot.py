@@ -37,11 +37,6 @@ logging.basicConfig(level=logging.DEBUG, filename=file_log,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
-def parserEZP1Extract(doc, path_xml, filexml, reg, type_f):
-    # TODO
-    pass
-
-
 def parserOther(doc, path_xml, filexml, reg, type_f):
     prot = doc[list(doc.keys())[0]]
     list_p = [v for v in prot.keys() if v.lower().startswith("ep")]
@@ -71,7 +66,7 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         parserEZK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK1)
         pass
     elif list_p[0] == TypeProtocols504.type_EZP1Extract:
-        parserEZP1Extract(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1Extract)
+        parserEOK1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1Extract)
         pass
     elif list_p[0] == TypeProtocols504.type_EZP2:
         parserEZP2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP2)
