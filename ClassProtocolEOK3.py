@@ -80,6 +80,7 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
         participant_type = p.get_participant_type(app)
         country_full_name = p.get_country_full_name(app)
         post_address = p.get_post_address(app)
+        price = p.get_price(app)
         if inn:
             cur.execute(f"""SELECT id FROM {PREFIX}auction_participant WHERE inn = %s AND kpp = %s""",
                         (inn, kpp))
@@ -97,7 +98,7 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
 
         cur.execute(f"""INSERT INTO {PREFIX}auction_end_applications SET id_auction_end_protocol = %s, 
                                             journal_number = %s, app_rating = %s, admission = %s,
-                                            id_participiant = %s""",
-                    (id_p, journal_number, app_rating, admission, id_participiant))
+                                            id_participiant = %s, price = %s""",
+                    (id_p, journal_number, app_rating, admission, id_participiant, price))
     cur.close()
     con.close()
