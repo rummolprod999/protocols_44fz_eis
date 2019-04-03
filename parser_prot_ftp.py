@@ -51,7 +51,8 @@ def get_xml_to_dict(filexml, dirxml, region, type_f):
     :return:
     """
     try:
-        UtilsFunctions.unic(filexml, dirxml)
+        # UtilsFunctions.unic(filexml, dirxml)
+        pass
     except Exception as ex1:
         logging.exception("Ошибка копирования файла: ")
         with open(file_log, 'a') as flog9:

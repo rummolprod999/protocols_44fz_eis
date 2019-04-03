@@ -8,6 +8,7 @@ import ClassProtocolCancel504
 import ClassProtocolEOKOU1
 import ClassProtocolEOKOU2
 import ClassProtocolEOKOU3
+import UtilsFunctions
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import parserEZP2
@@ -97,6 +98,13 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
+        try:
+            dir_xml = path_xml.replace(f"/{filexml}", "")
+            UtilsFunctions.copy_new_file(filexml, dir_xml)
+        except Exception as ex1:
+            logging.exception("Ошибка копирования файла: ")
+            with open(file_log, 'a') as flog9:
+                flog9.write('Ошибка копирования файла {0} {1}\n\n\n'.format(str(ex1), filexml))
 
 
 def parser(doc, path_xml, filexml, reg, type_f):
