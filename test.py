@@ -1,7 +1,7 @@
 import parser_prot
 import xmltodict
 
-file_name = "./fcsProtocolPRE_0173100006019000004_22368605.xml"
+file_name = "./unic_protocol/fcsProtocolPRU_9911111112419000123_23009668.xml"
 with open(file_name) as fd:
     try:
         firs_str = fd.read()

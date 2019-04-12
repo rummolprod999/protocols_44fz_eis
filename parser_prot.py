@@ -96,6 +96,21 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_EOKOU3:
         ClassProtocolEOKOU3.parserEOKOU3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU3)
         pass
+    elif list_p[0] == TypeProtocols504.type_EOKD4:
+        ClassProtocolEOKOU3.parserEOKOU3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKD4)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKDSingleApp:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKDSingleApp)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKD2:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKD2)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKD3:
+        ClassProtocolEOKOU3.parserEOKOU3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKD3)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EOKDSinglePart:
+        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKDSinglePart)
+        pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
         try:
