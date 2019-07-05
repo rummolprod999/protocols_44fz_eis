@@ -163,10 +163,10 @@ def get_list_ftp_prev(path_parse, region):
     array_ar = []
     con_arhiv = connect_bd(DB)
     cur_arhiv = con_arhiv.cursor()
-    searchstring = datetime.datetime.now().strftime('%Y%m%d')
+    # searchstring = datetime.datetime.now().strftime('%Y%m%d')
     for i in data:
         i_prev = "prev_{0}".format(i)
-        if i.find(searchstring) != -1:
+        if True:
             cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                               (i_prev, region))
             find_file = cur_arhiv.fetchone()
