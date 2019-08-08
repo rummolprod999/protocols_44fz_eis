@@ -42,11 +42,15 @@ class ProtocolEF3(Protocol, Participiant):
         return d
 
     def get_refusalFact_name(self):
-        d = UtilsFunctions.get_el(self.protocol, 'refusalFact', 'foundation', 'name')
+        d = UtilsFunctions.get_el(self.protocol, 'refusalFact', 'foundation', 'name') or UtilsFunctions.get_el(
+                self.protocol, 'protocolLot', 'refusalFact', 'foundation', 'name')
         return d
 
     def get_ref_explation(self):
-        d = UtilsFunctions.get_el(self.protocol, 'refusalFact', 'explanation')
+        d = UtilsFunctions.get_el(self.protocol, 'refusalFact', 'explanation') or UtilsFunctions.get_el(self.protocol,
+                                                                                                        'protocolLot',
+                                                                                                        'refusalFact',
+                                                                                                        'explanation')
         return d
 
 
