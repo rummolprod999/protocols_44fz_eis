@@ -112,7 +112,7 @@ def get_list_ftp_curr(path_parse, region):
     """
     :param region: регион архива
     :param path_parse: путь для архивов региона
-    :return: возвращаем список архивов за 2016, 2017, 2018, 2019
+    :return: возвращаем список архивов за 2016, 2017, 2018, 2019, 2020
     """
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
@@ -127,7 +127,8 @@ def get_list_ftp_curr(path_parse, region):
     con_arhiv = connect_bd(DB)
     cur_arhiv = con_arhiv.cursor()
     for i in data:
-        if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1:
+        if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
+                '2020') != -1:
             cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                               (i, region))
             find_file = cur_arhiv.fetchone()
@@ -200,7 +201,8 @@ def get_list_ftp_last(path_parse):
     data = ftp2.nlst()
     array_ar = []
     for i in data:
-        if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1:
+        if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
+                '2020') != -1:
             array_ar.append(i)
 
     return array_ar
