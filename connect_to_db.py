@@ -11,6 +11,6 @@ def connect_bd_localhost(baza):
 
 
 def connect_bd(baza):
-    con = pymysql.connect(host="localhost", port=3306, user="root", passwd="1234", db=baza, charset='utf8',
+    con = pymysql.connect(host="localhost", port=3306, user="parser", passwd="Dft56Point", db=baza, charset='utf8',
                           init_command='SET NAMES UTF8', cursorclass=pymysql.cursors.DictCursor, autocommit=True)
     return con
