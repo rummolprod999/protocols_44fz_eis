@@ -391,7 +391,7 @@ def get_ar(m, path_parse1):
             #     flog.write('Не удалось скачать архив ' + str(ex) + ' ' + m + '\n')
             if count > 50:
                 with open(file_log, 'a') as flog:
-                    flog.write('Не удалось скачать архив за ' + count + ' попыток ' + str(ex) + ' ' + m + '\n')
+                    flog.write('Не удалось скачать архив за ' + count + ' попыток ' + str(ex) + ' ' + str(m) + '\n')
                 return 0
             count += 1
 
