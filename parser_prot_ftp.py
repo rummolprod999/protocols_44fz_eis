@@ -117,33 +117,33 @@ def get_list_ftp_curr(path_parse, region):
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
     password = 'free'
-    ftp2 = ftplib.FTP(host)
-    ftp2.set_debuglevel(0)
-    ftp2.encoding = 'utf8'
-    ftp2.login(ftpuser, password)
-    ftp2.cwd(path_parse)
-    data = ftp2.nlst()
-    array_ar = []
-    con_arhiv = connect_bd(DB)
-    cur_arhiv = con_arhiv.cursor()
-    for i in data:
-        if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
-                '2020') != -1 or i.find('2021') != -1:
-            cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
-                              (i, region))
-            find_file = cur_arhiv.fetchone()
-            if find_file:
-                continue
-            else:
-                array_ar.append(i)
-                query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
-                query_par = (i, region)
-                cur_arhiv.execute(query_ar, query_par)
-                # with open(file_log, 'a') as flog5:
-                #     flog5.write('Добавлен новый архив ' + i + '\n')
-    cur_arhiv.close()
-    con_arhiv.close()
-    return array_ar
+    with ftplib.FTP(host) as ftp2:
+        ftp2.set_debuglevel(0)
+        ftp2.encoding = 'utf8'
+        ftp2.login(ftpuser, password)
+        ftp2.cwd(path_parse)
+        data = ftp2.nlst()
+        array_ar = []
+        con_arhiv = connect_bd(DB)
+        cur_arhiv = con_arhiv.cursor()
+        for i in data:
+            if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
+                    '2020') != -1 or i.find('2021') != -1:
+                cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
+                                  (i, region))
+                find_file = cur_arhiv.fetchone()
+                if find_file:
+                    continue
+                else:
+                    array_ar.append(i)
+                    query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
+                    query_par = (i, region)
+                    cur_arhiv.execute(query_ar, query_par)
+                    # with open(file_log, 'a') as flog5:
+                    #     flog5.write('Добавлен новый архив ' + i + '\n')
+        cur_arhiv.close()
+        con_arhiv.close()
+        return array_ar
 
 
 def get_list_ftp_prev(path_parse, region):
@@ -155,34 +155,34 @@ def get_list_ftp_prev(path_parse, region):
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
     password = 'free'
-    ftp2 = ftplib.FTP(host)
-    ftp2.set_debuglevel(0)
-    ftp2.encoding = 'utf8'
-    ftp2.login(ftpuser, password)
-    ftp2.cwd(path_parse)
-    data = ftp2.nlst()
-    array_ar = []
-    con_arhiv = connect_bd(DB)
-    cur_arhiv = con_arhiv.cursor()
-    # searchstring = datetime.datetime.now().strftime('%Y%m%d')
-    for i in data:
-        i_prev = "prev_{0}".format(i)
-        if True:
-            cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
-                              (i_prev, region))
-            find_file = cur_arhiv.fetchone()
-            if find_file:
-                continue
-            else:
-                array_ar.append(i)
-                query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
-                query_par = (i_prev, region)
-                cur_arhiv.execute(query_ar, query_par)
-                # with open(file_log, 'a') as flog5:
-                #     flog5.write('Добавлен новый архив ' + i + '\n')
-    cur_arhiv.close()
-    con_arhiv.close()
-    return array_ar
+    with ftplib.FTP(host) as ftp2:
+        ftp2.set_debuglevel(0)
+        ftp2.encoding = 'utf8'
+        ftp2.login(ftpuser, password)
+        ftp2.cwd(path_parse)
+        data = ftp2.nlst()
+        array_ar = []
+        con_arhiv = connect_bd(DB)
+        cur_arhiv = con_arhiv.cursor()
+        # searchstring = datetime.datetime.now().strftime('%Y%m%d')
+        for i in data:
+            i_prev = "prev_{0}".format(i)
+            if True:
+                cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
+                                  (i_prev, region))
+                find_file = cur_arhiv.fetchone()
+                if find_file:
+                    continue
+                else:
+                    array_ar.append(i)
+                    query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
+                    query_par = (i_prev, region)
+                    cur_arhiv.execute(query_ar, query_par)
+                    # with open(file_log, 'a') as flog5:
+                    #     flog5.write('Добавлен новый архив ' + i + '\n')
+        cur_arhiv.close()
+        con_arhiv.close()
+        return array_ar
 
 
 def get_list_ftp_last(path_parse):
@@ -193,19 +193,19 @@ def get_list_ftp_last(path_parse):
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
     password = 'free'
-    ftp2 = ftplib.FTP(host)
-    ftp2.set_debuglevel(0)
-    ftp2.encoding = 'utf8'
-    ftp2.login(ftpuser, password)
-    ftp2.cwd(path_parse)
-    data = ftp2.nlst()
-    array_ar = []
-    for i in data:
-        if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
-                '2020') != -1 or i.find('2021') != -1:
-            array_ar.append(i)
+    with ftplib.FTP(host) as ftp2:
+        ftp2.set_debuglevel(0)
+        ftp2.encoding = 'utf8'
+        ftp2.login(ftpuser, password)
+        ftp2.cwd(path_parse)
+        data = ftp2.nlst()
+        array_ar = []
+        for i in data:
+            if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
+                    '2020') != -1 or i.find('2021') != -1:
+                array_ar.append(i)
 
-    return array_ar
+        return array_ar
 
 
 def extract_prot(m, path_parse1, region):
@@ -354,21 +354,21 @@ def extract_prot(m, path_parse1, region):
             pass
 
 
-@timeout_decorator.timeout(300)
+@timeout_decorator.timeout(600)
 def down_timeout(m, path_parse1):
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
     password = 'free'
-    ftp2 = ftplib.FTP(host)
-    ftp2.set_debuglevel(0)
-    ftp2.encoding = 'utf8'
-    ftp2.login(ftpuser, password)
-    ftp2.cwd(path_parse1)
-    local_f = '{0}/{1}'.format(TEMP_DIR, str(m))
-    lf = open(local_f, 'wb')
-    ftp2.retrbinary('RETR ' + str(m), lf.write)
-    lf.close()
-    return local_f
+    with ftplib.FTP(host) as ftp2:
+        ftp2.set_debuglevel(0)
+        ftp2.encoding = 'utf8'
+        ftp2.login(ftpuser, password)
+        ftp2.cwd(path_parse1)
+        local_f = '{0}/{1}'.format(TEMP_DIR, str(m))
+        lf = open(local_f, 'wb')
+        ftp2.retrbinary('RETR ' + str(m), lf.write)
+        lf.close()
+        return local_f
 
 
 def get_ar(m, path_parse1):
@@ -391,7 +391,8 @@ def get_ar(m, path_parse1):
             #     flog.write('Не удалось скачать архив ' + str(ex) + ' ' + m + '\n')
             if count > 50:
                 with open(file_log, 'a') as flog:
-                    flog.write('Не удалось скачать архив за ' + count + ' попыток ' + str(ex) + ' ' + str(m) + '\n')
+                    flog.write(
+                        'Не удалось скачать архив за ' + str(count) + ' попыток ' + str(ex) + ' ' + str(m) + '\n')
                 return 0
             count += 1
 
