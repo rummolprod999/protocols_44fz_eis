@@ -396,6 +396,26 @@ def get_ar(m, path_parse1):
                 return 0
             count += 1
 
+def get_list_ftp(path_parse, lmbd):
+    retry = True
+    count = 0
+    while retry:
+        try:
+            lf = lmbd()
+            retry = False
+            return lf
+        except Exception as ex:
+            # print('Не удалось скачать архив ' + str(ex) + ' ' + m)
+            # logging.exception("Ошибка: ")
+            # with open(file_log, 'a') as flog:
+            #     flog.write('Не удалось скачать архив ' + str(ex) + ' ' + m + '\n')
+            if count > 50:
+                with open(file_log, 'a') as flog:
+                    flog.write(
+                            'Не удалось получить список архивов за ' + str(count) + ' попыток ' + str(
+                                ex) + ' ' + path_parse + '\n')
+                return 0
+            count += 1
 
 def main():
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
@@ -428,11 +448,11 @@ def main():
         try:
             # получаем список архивов
             if str(sys.argv[1]) == 'curr':
-                arr_con = get_list_ftp_curr(path_parse, reg['path'])
+                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_curr(path_parse, reg['path']))
             elif str(sys.argv[1]) == 'last':
-                arr_con = get_list_ftp_last(path_parse)
+                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_last(path_parse))
             elif str(sys.argv[1]) == 'prev':
-                arr_con = get_list_ftp_prev(path_parse, reg['path'])
+                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_prev(path_parse, reg['path']))
             else:
                 arr_con = []
                 print('Неверное имя параметра, используйте curr для парсинга текущего месяца и last или prev '
