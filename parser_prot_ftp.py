@@ -4,6 +4,7 @@ import logging
 import os
 import shutil
 import sys
+import time
 import zipfile
 import timeout_decorator
 import xmltodict
@@ -385,6 +386,7 @@ def get_ar(m, path_parse1):
             retry = False
             return lf
         except Exception as ex:
+            time.sleep(5)
             # print('Не удалось скачать архив ' + str(ex) + ' ' + m)
             # logging.exception("Ошибка: ")
             # with open(file_log, 'a') as flog:
@@ -405,6 +407,7 @@ def get_list_ftp(path_parse, lmbd):
             retry = False
             return lf
         except Exception as ex:
+            time.sleep(5)
             # print('Не удалось скачать архив ' + str(ex) + ' ' + m)
             # logging.exception("Ошибка: ")
             # with open(file_log, 'a') as flog:
@@ -414,7 +417,7 @@ def get_list_ftp(path_parse, lmbd):
                     flog.write(
                             'Не удалось получить список архивов за ' + str(count) + ' попыток ' + str(
                                 ex) + ' ' + path_parse + '\n')
-                return 0
+                return []
             count += 1
 
 def main():
