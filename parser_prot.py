@@ -119,7 +119,7 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         logging_parser("New type protocol", list_p[0], path_xml)
         try:
             dir_xml = path_xml.replace(f"/{filexml}", "")
-            UtilsFunctions.copy_new_file(filexml, dir_xml)
+            # UtilsFunctions.copy_new_file(filexml, dir_xml)
         except Exception as ex1:
             logging.exception("Ошибка копирования файла: ")
             with open(file_log, 'a') as flog9:
