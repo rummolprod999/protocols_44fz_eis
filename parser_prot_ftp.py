@@ -251,8 +251,8 @@ def extract_prot(m, path_parse1, region):
             file_list = os.listdir(l_dir)
             list_type_EF1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF1) != -1]
             list_type_EF2 = [file for file in file_list if
-                             file.find(ClassTypeProtocols.TypeProtocols.type_EF2) != -1 and file.find(
-                                 ClassTypeProtocols504.TypeProtocols504.type_EF2020Final) == -1]
+                             (file.find(ClassTypeProtocols.TypeProtocols.type_EF2) != -1 and file.find(
+                                     ClassTypeProtocols504.TypeProtocols504.type_EF2020Final) == -1)]
             list_type_EF3 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF3) != -1]
             list_type_ZK = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_ZK) != -1]
             list_type_ZKAfterProlong = [file for file in file_list if
