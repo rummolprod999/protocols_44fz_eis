@@ -50,8 +50,18 @@ class Protocol504:
         d = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'href')
         return d
 
+    def get_url_external(self):
+        d = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'hrefExternal')
+        return d
+
     def get_print_form(self):
         d = UtilsFunctions.get_el(self.protocol, 'printFormInfo', 'url')
+        if d.startswith("<![CDATA"):
+            d = d[9:-3]
+        return d
+
+    def get_print_form_ext(self):
+        d = UtilsFunctions.get_el(self.protocol, 'extPrintFormInfo', 'url')
         if d.startswith("<![CDATA"):
             d = d[9:-3]
         return d

@@ -25,6 +25,7 @@ from ClassProtocolZPFinal import parserZPFinal
 from ClassProtocolEF3 import parserEF3
 from ClassProtocolEF1 import parserEF1
 from ClassProtocolEF2 import parserEF2
+from ClassProtocolEF2020Final import parserEF2020Final
 from UtilsFunctions import logging_parser
 from VarExecut import LOG_DIR, file_log
 
@@ -71,6 +72,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_EZP2:
         parserEZP2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP2)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EF2020Final:
+        parserEF2020Final(doc, path_xml, filexml, reg, TypeProtocols504.type_EF2020Final)
         pass
     elif list_p[0] == TypeProtocols504.type_EOK3:
         parserEOK3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK3)

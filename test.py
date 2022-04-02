@@ -1,7 +1,9 @@
 import parser_prot
 import xmltodict
 
-file_name = "./fcsProtocolPRE_0173100006019000004_22368605.xml"
+from ClassTypeProtocols504 import TypeProtocols504
+
+file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/epProtocolEF2020Final_0373200068022000001_36545508.xml"
 with open(file_name) as fd:
     try:
         firs_str = fd.read()
@@ -10,12 +12,13 @@ with open(file_name) as fd:
                     "xmlns:ns3", "xmlnsns3").replace("xmlns:ns4", "xmlnsns4") \
                 .replace("xmlns:ns5", "xmlnsns5").replace("xmlns:ns6", "xmlnsns6").replace("xmlns:ns7",
                                                                                            "xmlnsns7").replace(
-                    "xmlns:ns8", "xmlnsns8")
+                    "xmlns:ns8", "xmlnsns8").replace(
+                    "xmlns:ns9", "xmlnsns9")
             firs_str = firs_str.replace("ns1:", "").replace("ns2:", "").replace("ns3:", "").replace("ns4:", "") \
-                .replace("ns5:", "").replace("ns6:", "").replace("ns7:", "").replace("ns8:", "")
+                .replace("ns5:", "").replace("ns6:", "").replace("ns7:", "").replace("ns8:", "").replace("ns9:", "")
         doc = xmltodict.parse(firs_str)
         parser_prot.parser(doc, file_name,
                            file_name, 32,
-                           None)
+                           TypeProtocols504.type_EF2020Final)
     except Exception as ex:
         print(ex)

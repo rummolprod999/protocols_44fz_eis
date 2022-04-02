@@ -23,6 +23,7 @@ import ClassProtocolEOKOU3
 import ClassProtocolEZK2
 import ClassProtocolEZP1
 import ClassProtocolEZP2
+import ClassProtocolEF2020Final
 import ClassProtocolOK1
 import ClassProtocolOK2
 import ClassProtocolZK
@@ -68,9 +69,10 @@ def get_xml_to_dict(filexml, dirxml, region, type_f):
                         "xmlns:ns3", "xmlnsns3").replace("xmlns:ns4", "xmlnsns4") \
                     .replace("xmlns:ns5", "xmlnsns5").replace("xmlns:ns6", "xmlnsns6").replace("xmlns:ns7",
                                                                                                "xmlnsns7").replace(
-                        "xmlns:ns8", "xmlnsns8")
+                        "xmlns:ns8", "xmlnsns8").replace(
+                        "xmlns:ns9", "xmlnsns9")
                 firs_str = firs_str.replace("ns1:", "").replace("ns2:", "").replace("ns3:", "").replace("ns4:", "") \
-                    .replace("ns5:", "").replace("ns6:", "").replace("ns7:", "").replace("ns8:", "")
+                    .replace("ns5:", "").replace("ns6:", "").replace("ns7:", "").replace("ns8:", "").replace("ns9:", "")
             doc = xmltodict.parse(firs_str)
             parser_protocol.parser(doc, path_xml, filexml, region, type_f)
 
@@ -530,4 +532,8 @@ if __name__ == "__main__":
             ClassProtocolEOKOU1.ProtocolEOKOU1.update_protocolEOKOU1)
     logging_parser('Добавлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.add_protocolEOKOU3)
     logging_parser('Обновлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
+    logging_parser('Добавлено epProtocolEF2020Final',
+                   ClassProtocolEF2020Final.ProtocolEF2020Final.add_protocolEF2020Final)
+    logging_parser('Обновлено epProtocolEF2020Final',
+                   ClassProtocolEF2020Final.ProtocolEF2020Final.update_protocolEF2020Final)
     logging_parser("Конец парсинга")
