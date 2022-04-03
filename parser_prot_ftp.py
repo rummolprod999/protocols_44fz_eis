@@ -30,6 +30,7 @@ import ClassProtocolZK
 import ClassProtocolZPFinal
 import ClassTypeProtocols
 import ClassTypeProtocols504
+import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
@@ -539,4 +540,8 @@ if __name__ == "__main__":
                    ClassProtocolEF2020Final.ProtocolEF2020Final.add_protocolEF2020Final)
     logging_parser('Обновлено epProtocolEF2020Final',
                    ClassProtocolEF2020Final.ProtocolEF2020Final.update_protocolEF2020Final)
+    logging_parser('Добавлено ProtocolOKOUSingleApp',
+                   ClassProtocolEOKOUSingleApp.ProtocolEOKOUSingleApp.add_protocolEOKOUSingleApp)
+    logging_parser('Обновлено ProtocolOKOUSingleApp',
+                   ClassProtocolEOKOUSingleApp.ProtocolEOKOUSingleApp.update_protocoEOKOUSingleApp)
     logging_parser("Конец парсинга")

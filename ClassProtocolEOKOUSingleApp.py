@@ -1,19 +1,18 @@
 import datetime
 
 import dateutil.parser
-import json
 
-import UtilsFunctions
-from ClassParticipiant504 import Participiant504
-from ClassProtocol504 import Protocol504
+from ClassProtocolEOK2 import ProtocolEOK2
 from connect_to_db import connect_bd
 from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+import UtilsFunctions
+import json
 
 
-class ProtocolEF2020Final(Protocol504, Participiant504):
-    add_protocolEF2020Final = 0
-    update_protocolEF2020Final = 0
+class ProtocolEOKOUSingleApp(ProtocolEOK2):
+    add_protocolEOKOUSingleApp = 0
+    update_protocoEOKOUSingleApp = 0
 
     def get_app_rating(self, application):
         d = UtilsFunctions.get_el(application, 'admittedInfo', 'appAdmittedInfo', 'appRating')
@@ -22,19 +21,11 @@ class ProtocolEF2020Final(Protocol504, Participiant504):
         return d
 
     def get_admission(self, application):
-        d = ''
-        appRejectedReason = UtilsFunctions.get_el(application, 'admittedInfo', 'appNotAdmittedInfo',
-                                                  'appRejectedReasonsInfo',
-                                                  'appRejectedReasonInfo')
-        if appRejectedReason:
-            reasons = UtilsFunctions.generator_univ(appRejectedReason)
-            if UtilsFunctions.check_yeld(reasons):
-                for r in list(UtilsFunctions.generator_univ(appRejectedReason)):
-                    d += f"{UtilsFunctions.get_el(r, 'rejectReason', 'name')} ".strip()
-        return d
+
+        return UtilsFunctions.get_el(application, 'admittedInfo', 'appAdmittedInfo', 'admitted')
 
     def get_price(self, application):
-        d = UtilsFunctions.get_el(application, 'finalPrice')
+        d = UtilsFunctions.get_el(application, 'offerPrice')
         if not d:
             d = UtilsFunctions.get_el(application, 'lastPriceOffer', 'price')
         return d
@@ -50,9 +41,21 @@ class ProtocolEF2020Final(Protocol504, Participiant504):
             return f'{d}|{k}'
         return d or k
 
+    def get_dop_info(self, p):
+        dop_info = p.protocol
+        del dop_info['extPrintFormInfo']['signature']
+        dop_info = json.dumps(dop_info, sort_keys=False,
+                              indent=4,
+                              ensure_ascii=False,
+                              separators=(',', ': '))
+        return dop_info
 
-def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
-    p = ProtocolEF2020Final(doc, filexml)
+    def __init__(self, protocol, xml):
+        super().__init__(protocol, xml)
+
+
+def parserEOKOUSingleApp(doc, path_xml, filexml, reg, type_f):
+    p = ProtocolEOKOUSingleApp(doc, filexml)
     purchase_number = p.get_purchaseNumber()
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
@@ -68,7 +71,7 @@ def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
     cur = con.cursor()
     cur.execute(
             f"""SELECT id FROM {PREFIX}auction_end_protocol WHERE id_protocol = %s AND purchase_number = %s 
-                AND type_protocol = %s""",
+                    AND type_protocol = %s""",
             (id_protocol, purchase_number, type_f))
     res_id = cur.fetchone()
     if res_id:
@@ -80,7 +83,7 @@ def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
     updated = False
     date_prot = dateutil.parser.parse(protocol_date[:19])
     cur.execute(f"""SELECT id, protocol_date FROM {PREFIX}auction_end_protocol WHERE purchase_number = %s 
-                        AND type_protocol = %s""",
+                            AND type_protocol = %s""",
                 (purchase_number, type_f))
     res_prot = cur.fetchall()
     if res_prot:
@@ -91,24 +94,19 @@ def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
                             (r['id'],))
             else:
                 cancel_status = 1
-    dop_info = p.protocol
-    del dop_info['extPrintFormInfo']['signature']
-    dop_info = json.dumps(dop_info, sort_keys=False,
-                          indent=4,
-                          ensure_ascii=False,
-                          separators=(',', ': '))
+    dop_info = p.get_dop_info(p)
     cur.execute(
             f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
-                            url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, lot_number = %s,  abandoned_reason_name = %s, dop_info = %s""",
+                                url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, lot_number = %s,  abandoned_reason_name = %s, dop_info = %s""",
             (id_protocol, protocol_date, purchase_number, url, print_form, xml, type_f, cancel_status, lot_number,
              abandoned_reason_name, dop_info))
     id_p = cur.lastrowid
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        ProtocolEF2020Final.update_protocolEF2020Final += 1
+        ProtocolEOKOUSingleApp.update_protocolEOKOUSingleApp += 1
     else:
-        ProtocolEF2020Final.add_protocolEF2020Final += 1
+        ProtocolEOKOUSingleApp.add_protocolEOKOUSingleApp += 1
     for app in p.applications:
         id_participiant = 0
         journal_number = p.get_journal_number(app)
@@ -126,8 +124,8 @@ def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
                 id_participiant = res_p['id']
             else:
                 cur.execute(f"""INSERT INTO {PREFIX}auction_participant SET inn = %s, kpp = %s, 
-                                organization_name = %s, participant_type = %s, country_full_name = %s, 
-                                post_address = %s""",
+                                    organization_name = %s, participant_type = %s, country_full_name = %s, 
+                                    post_address = %s""",
                             (inn, kpp, organization_name, participant_type, country_full_name, post_address))
                 id_participiant = cur.lastrowid
         if id_participiant == 0:
@@ -137,8 +135,8 @@ def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
         admission = p.get_admission(app)
         price = p.get_price(app)
         cur.execute(f"""INSERT INTO {PREFIX}auction_end_applications SET id_auction_end_protocol = %s, 
-                                journal_number = %s, app_rating = %s, admission = %s, 
-                                id_participiant = %s, price = %s""",
+                                    journal_number = %s, app_rating = %s, admission = %s, 
+                                    id_participiant = %s, price = %s""",
                     (id_p, journal_number, app_rating,
                      admission, id_participiant, price))
     cur.close()

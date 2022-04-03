@@ -8,6 +8,7 @@ import ClassProtocolCancel504
 import ClassProtocolEOKOU1
 import ClassProtocolEOKOU2
 import ClassProtocolEOKOU3
+import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
@@ -25,6 +26,7 @@ from ClassProtocolZPFinal import parserZPFinal
 from ClassProtocolEF3 import parserEF3
 from ClassProtocolEF1 import parserEF1
 from ClassProtocolEF2 import parserEF2
+from ClassProtocolEOKOUSingleApp import parserEOKOUSingleApp
 from ClassProtocolEF2020Final import parserEF2020Final
 from UtilsFunctions import logging_parser
 from VarExecut import LOG_DIR, file_log
@@ -92,7 +94,8 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSinglePart)
         pass
     elif list_p[0] == TypeProtocols504.type_EOKOUSingleApp:
-        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOUSingleApp)
+        ClassProtocolEOKOUSingleApp.parserEOKOUSingleApp(doc, path_xml, filexml, reg,
+                                                         TypeProtocols504.type_EOKOUSingleApp)
         pass
     elif list_p[0] == TypeProtocols504.type_EOKOUSinglePart:
         ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOUSinglePart)
