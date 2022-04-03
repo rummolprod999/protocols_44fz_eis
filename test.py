@@ -3,7 +3,7 @@ import xmltodict
 
 from ClassTypeProtocols504 import TypeProtocols504
 
-file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/fcsProtocolEOKOUSingleApp_0773100000321000140_36545399.xml"
+file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/fcsProtocolEOK2_0173100011121000120_36545250.xml"
 with open(file_name) as fd:
     try:
         firs_str = fd.read()

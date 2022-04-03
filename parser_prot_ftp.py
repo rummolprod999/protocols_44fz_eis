@@ -540,8 +540,8 @@ if __name__ == "__main__":
                    ClassProtocolEF2020Final.ProtocolEF2020Final.add_protocolEF2020Final)
     logging_parser('Обновлено epProtocolEF2020Final',
                    ClassProtocolEF2020Final.ProtocolEF2020Final.update_protocolEF2020Final)
-    logging_parser('Добавлено ProtocolOKOUSingleApp',
+    logging_parser('Добавлено ProtocolEOKOUSingleApp',
                    ClassProtocolEOKOUSingleApp.ProtocolEOKOUSingleApp.add_protocolEOKOUSingleApp)
-    logging_parser('Обновлено ProtocolOKOUSingleApp',
+    logging_parser('Обновлено ProtocolEOKOUSingleApp',
                    ClassProtocolEOKOUSingleApp.ProtocolEOKOUSingleApp.update_protocoEOKOUSingleApp)
     logging_parser("Конец парсинга")

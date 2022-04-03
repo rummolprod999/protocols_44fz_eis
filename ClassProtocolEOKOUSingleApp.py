@@ -20,10 +20,6 @@ class ProtocolEOKOUSingleApp(ProtocolEOK2):
             d = 0
         return d
 
-    def get_admission(self, application):
-
-        return UtilsFunctions.get_el(application, 'admittedInfo', 'appAdmittedInfo', 'admitted')
-
     def get_price(self, application):
         d = UtilsFunctions.get_el(application, 'offerPrice')
         if not d:
@@ -33,22 +29,6 @@ class ProtocolEOKOUSingleApp(ProtocolEOK2):
     def get_abandoned_reason_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
         return d
-
-    def get_abandoned_reason(self):
-        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
-        k = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'code')
-        if not d and not k:
-            return f'{d}|{k}'
-        return d or k
-
-    def get_dop_info(self, p):
-        dop_info = p.protocol
-        del dop_info['extPrintFormInfo']['signature']
-        dop_info = json.dumps(dop_info, sort_keys=False,
-                              indent=4,
-                              ensure_ascii=False,
-                              separators=(',', ': '))
-        return dop_info
 
     def __init__(self, protocol, xml):
         super().__init__(protocol, xml)

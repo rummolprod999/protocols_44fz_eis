@@ -43,14 +43,6 @@ class ProtocolEF2020Final(Protocol504, Participiant504):
         d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
         return d
 
-    def get_abandoned_reason(self):
-        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
-        k = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'code')
-        if not d and not k:
-            return f'{d}|{k}'
-        return d or k
-
-
 def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
     p = ProtocolEF2020Final(doc, filexml)
     purchase_number = p.get_purchaseNumber()
@@ -91,12 +83,7 @@ def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
                             (r['id'],))
             else:
                 cancel_status = 1
-    dop_info = p.protocol
-    del dop_info['extPrintFormInfo']['signature']
-    dop_info = json.dumps(dop_info, sort_keys=False,
-                          indent=4,
-                          ensure_ascii=False,
-                          separators=(',', ': '))
+    dop_info = p.get_dop_info(p)
     cur.execute(
             f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
                             url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, lot_number = %s,  abandoned_reason_name = %s, dop_info = %s""",

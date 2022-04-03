@@ -1,5 +1,6 @@
 import dateutil.parser
 import pytz
+import json
 
 import UtilsFunctions
 
@@ -69,3 +70,26 @@ class Protocol504:
     def get_journal_number(self, application):
         d = UtilsFunctions.get_el(application, 'commonInfo', 'appNumber')
         return d
+
+    def get_dop_info(self, p):
+        dop_info = p.protocol
+        try:
+            del dop_info['extPrintFormInfo']['signature']
+        except:
+            pass
+        try:
+            del dop_info['attachmentsInfo']['attachmentInfo']['cryptoSigns']
+        except:
+            pass
+        dop_info = json.dumps(dop_info, sort_keys=False,
+                              indent=4,
+                              ensure_ascii=False,
+                              separators=(',', ': '))
+        return dop_info
+
+    def get_abandoned_reason(self):
+        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
+        k = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'code')
+        if d and k:
+            return f'{d}|{k}'
+        return d or k

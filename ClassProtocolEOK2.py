@@ -1,6 +1,7 @@
 import datetime
 
 import dateutil.parser
+import json
 
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
@@ -71,13 +72,13 @@ def parserEOK2(doc, path_xml, filexml, reg, type_f):
         return
     xml = path_xml[path_xml.find('/') + 1:][(path_xml[path_xml.find('/') + 1:]).find('/') + 1:]
     id_protocol = p.get_id()
-    url = p.get_url()
-    print_form = p.get_print_form()
+    url = p.get_url_external()
+    print_form = p.get_print_form_ext()
     protocol_date = p.get_protocol_date()
     con = connect_bd(DB)
     cur = con.cursor()
     lot_number = 1
-    abandoned_reason_name = p.get_abandoned_reason_name()
+    abandoned_reason_name = p.get_abandoned_reason()
     cur.execute(
             f"""SELECT id FROM {PREFIX}auction_end_protocol WHERE id_protocol = %s AND purchase_number = %s 
             AND type_protocol = %s AND lot_number = %s""",
@@ -89,6 +90,7 @@ def parserEOK2(doc, path_xml, filexml, reg, type_f):
         con.close()
         return
     cancel_status = 0
+    dop_info = p.get_dop_info(p)
     updated = False
     date_prot = dateutil.parser.parse(protocol_date[:19])
     cur.execute(f"""SELECT id, protocol_date FROM {PREFIX}auction_end_protocol WHERE purchase_number = %s 
@@ -106,9 +108,9 @@ def parserEOK2(doc, path_xml, filexml, reg, type_f):
     cur.execute(
             f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
                                 url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, abandoned_reason_name = %s, 
-                                lot_number = %s""",
+                                lot_number = %s, dop_info = %s""",
             (id_protocol, protocol_date, purchase_number, url, print_form, xml, type_f, cancel_status,
-             abandoned_reason_name, lot_number))
+             abandoned_reason_name, lot_number, dop_info))
     id_p = cur.lastrowid
     if not id_p:
         logging_parser('Не получили id', xml)
