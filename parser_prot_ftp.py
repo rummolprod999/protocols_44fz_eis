@@ -29,6 +29,7 @@ import ClassProtocolOK2
 import ClassProtocolZK
 import ClassProtocolZPFinal
 import ClassTypeProtocols
+import ClassProtocolEFSinglePart
 import ClassTypeProtocols504
 import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
@@ -544,4 +545,8 @@ if __name__ == "__main__":
                    ClassProtocolEOKOUSingleApp.ProtocolEOKOUSingleApp.add_protocolEOKOUSingleApp)
     logging_parser('Обновлено ProtocolEOKOUSingleApp',
                    ClassProtocolEOKOUSingleApp.ProtocolEOKOUSingleApp.update_protocoEOKOUSingleApp)
+    logging_parser('Добавлено EFSinglePart',
+                   ClassProtocolEFSinglePart.ProtocolEFSinglePart.add_protocolEFSinglePart)
+    logging_parser('Обновлено EFSinglePart',
+                   ClassProtocolEFSinglePart.ProtocolEFSinglePart.update_protocolEFSinglePart)
     logging_parser("Конец парсинга")

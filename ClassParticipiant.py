@@ -89,11 +89,15 @@ class Participiant:
 
     def get_post_address(self, application):
         d = UtilsFunctions.get_el(application, 'appParticipant', 'postAddress') or UtilsFunctions.get_el(application,
-                                                                                                   'appParticipants',
-                                                                                                   'appParticipant',
+                                                                                                         'appParticipants',
+                                                                                                         'appParticipant',
                                                                                                          'postAddress') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'individualPersonRFInfo',
-                'postAddress')
+                'postAddress') or UtilsFunctions.get_el(
+                application,
+                'appParticipantInfo',
+                'legalEntityRFInfo',
+                'contactInfo', 'orgFactAddress')
         return d

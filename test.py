@@ -2,8 +2,9 @@ import parser_prot
 import xmltodict
 
 from ClassTypeProtocols504 import TypeProtocols504
+from ClassTypeProtocols import TypeProtocols
 
-file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/fcsProtocolEOK2_0173100011121000120_36545250.xml"
+file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/fcsProtocolEFSinglePart_0142200001320017304_30706080.xml"
 with open(file_name) as fd:
     try:
         firs_str = fd.read()
@@ -19,6 +20,6 @@ with open(file_name) as fd:
         doc = xmltodict.parse(firs_str)
         parser_prot.parser(doc, file_name,
                            file_name, 32,
-                           TypeProtocols504.type_EF2020Final)
+                           TypeProtocols.type_EFSinglePart)
     except Exception as ex:
         print(ex)

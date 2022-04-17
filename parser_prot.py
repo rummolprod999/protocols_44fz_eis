@@ -26,6 +26,7 @@ from ClassProtocolZPFinal import parserZPFinal
 from ClassProtocolEF3 import parserEF3
 from ClassProtocolEF1 import parserEF1
 from ClassProtocolEF2 import parserEF2
+from ClassProtocolEFSinglePart import parserEFSinglePart
 from ClassProtocolEOKOUSingleApp import parserEOKOUSingleApp
 from ClassProtocolEF2020Final import parserEF2020Final
 from UtilsFunctions import logging_parser
@@ -137,11 +138,14 @@ def parser(doc, path_xml, filexml, reg, type_f):
         elif type_f == TypeProtocols.type_EF2:
             pass
             parserEF2(doc, path_xml, filexml, reg, type_f)
-        elif (type_f == TypeProtocols.type_EF3 or type_f == TypeProtocols.type_EFSingleApp or
-              type_f == TypeProtocols.type_EFSinglePart or type_f == TypeProtocols.type_Deviation or
+        elif (type_f == TypeProtocols.type_EF3 or type_f == TypeProtocols.type_EFSingleApp
+              or type_f == TypeProtocols.type_Deviation or
               type_f == TypeProtocols.type_EFInvalidation):
             pass
             parserEF3(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols.type_EFSinglePart:
+            pass
+            parserEFSinglePart(doc, path_xml, filexml, reg, type_f)
         elif type_f == TypeProtocols.type_ZK or type_f == TypeProtocols.type_ZKAfterProlong:
             pass
             parserZK(doc, path_xml, filexml, reg, type_f)
