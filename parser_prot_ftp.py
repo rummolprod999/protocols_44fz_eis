@@ -35,6 +35,7 @@ import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
+from ClassProtocolEZK2020FinalPart import ProtocolEZK2020FinalPart
 from connect_to_db import connect_bd
 
 PREFIX = VarExecut.PREFIX
@@ -549,4 +550,8 @@ if __name__ == "__main__":
                    ClassProtocolEFSinglePart.ProtocolEFSinglePart.add_protocolEFSinglePart)
     logging_parser('Обновлено EFSinglePart',
                    ClassProtocolEFSinglePart.ProtocolEFSinglePart.update_protocolEFSinglePart)
+    logging_parser('Добавлено epProtocolEZK2020FinalPart',
+                   ProtocolEZK2020FinalPart.add_protocolEZK2020FinalPart)
+    logging_parser('Обновлено epProtocolEZK2020FinalPart',
+                   ProtocolEZK2020FinalPart.update_protocolEZK2020FinalPart)
     logging_parser("Конец парсинга")
