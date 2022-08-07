@@ -24,3 +24,4 @@ class TypeProtocols504:
     type_EF2020Final = 'epProtocolEF2020Final'
     type_EZK2020FinalPart = 'epProtocolEZK2020FinalPart'
     type_EF2020SubmitOffers = 'epProtocolEF2020SubmitOffers'
+    type_epProtocolEOK2020SecondSections = 'epProtocolEOK2020SecondSections'

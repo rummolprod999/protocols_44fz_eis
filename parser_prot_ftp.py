@@ -36,6 +36,7 @@ import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
 from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
+from ClassProtocolEOK2020SecondSections import ProtocolEOK2020SecondSections
 from ClassProtocolEZK2020FinalPart import ProtocolEZK2020FinalPart
 from connect_to_db import connect_bd
 
@@ -564,4 +565,8 @@ if __name__ == "__main__":
                    ProtocolEF2020SubmitOffers.add)
     logging_parser('Обновлено epProtocolEF2020SubmitOffers',
                    ProtocolEF2020SubmitOffers.update)
+    logging_parser('Добавлено epProtocolEOK2020SecondSections',
+                   ProtocolEOK2020SecondSections.add)
+    logging_parser('Обновлено epProtocolEOK2020SecondSections',
+                   ProtocolEOK2020SecondSections.update)
     logging_parser("Конец парсинга")
