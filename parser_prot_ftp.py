@@ -35,6 +35,7 @@ import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
+from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
 from ClassProtocolEZK2020FinalPart import ProtocolEZK2020FinalPart
 from connect_to_db import connect_bd
 
@@ -208,8 +209,7 @@ def get_list_ftp_last(path_parse):
         data = ftp2.nlst()
         array_ar = []
         for i in data:
-            if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
-                    '2020') != -1 or i.find('2021') != -1 or i.find('2022') != -1:
+            if i.find('2022') != -1:
                 array_ar.append(i)
 
         return array_ar
@@ -554,4 +554,8 @@ if __name__ == "__main__":
                    ProtocolEZK2020FinalPart.add_protocolEZK2020FinalPart)
     logging_parser('Обновлено epProtocolEZK2020FinalPart',
                    ProtocolEZK2020FinalPart.update_protocolEZK2020FinalPart)
+    logging_parser('Добавлено epProtocolEF2020SubmitOffers',
+                   ProtocolEF2020SubmitOffers.add)
+    logging_parser('Обновлено epProtocolEF2020SubmitOffers',
+                   ProtocolEF2020SubmitOffers.update)
     logging_parser("Конец парсинга")

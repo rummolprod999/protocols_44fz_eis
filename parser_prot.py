@@ -10,6 +10,7 @@ import ClassProtocolEOKOU2
 import ClassProtocolEOKOU3
 import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
+from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
 from ClassProtocolEZK2020FinalPart import parserEZK2020FinalPart
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
@@ -83,6 +84,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_EZK2020FinalPart:
         parserEZK2020FinalPart(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK2020FinalPart)
+        pass
+    elif list_p[0] == TypeProtocols504.type_EF2020SubmitOffers:
+        parserEF2020SubmitOffers(doc, path_xml, filexml, reg, TypeProtocols504.type_EF2020SubmitOffers)
         pass
     elif list_p[0] == TypeProtocols504.type_EOK3:
         parserEOK3(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK3)
