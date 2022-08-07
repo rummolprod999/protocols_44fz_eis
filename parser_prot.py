@@ -150,7 +150,8 @@ def parser(doc, path_xml, filexml, reg, type_f):
             parserEF2(doc, path_xml, filexml, reg, type_f)
         elif (type_f == TypeProtocols.type_EF3 or type_f == TypeProtocols.type_EFSingleApp
               or type_f == TypeProtocols.type_Deviation or
-              type_f == TypeProtocols.type_EFInvalidation):
+              type_f == TypeProtocols.type_EFInvalidation or
+              type_f == TypeProtocols.type_ProtocolEvasion):
             pass
             parserEF3(doc, path_xml, filexml, reg, type_f)
         elif type_f == TypeProtocols.type_EFSinglePart:

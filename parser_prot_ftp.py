@@ -274,6 +274,8 @@ def extract_prot(m, path_parse1, region):
                                    file.find(ClassTypeProtocols.TypeProtocols.type_Deviation) != -1]
             list_type_EFInvalidation = [file for file in file_list if
                                         file.find(ClassTypeProtocols.TypeProtocols.type_EFInvalidation) != -1]
+            list_type_ProtocolEvasion = [file for file in file_list if
+                                         file.find(ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion) != -1]
             list_type_OKSingleApp = [file for file in file_list if
                                      file.find(ClassTypeProtocols.TypeProtocols.type_OKSingleApp) != -1]
             list_type_OKDSingleApp = [file for file in file_list if
@@ -298,7 +300,9 @@ def extract_prot(m, path_parse1, region):
                              - set(list_type_Deviation) - set(list_type_EFInvalidation) - set(
                     list_type_OKSingleApp) - set(list_type_OKOUSingleApp) \
                              - set(list_type_OK1) - set(list_type_OKD1) - set(list_type_OKD2) - set(list_type_OKD3) \
-                             - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel)
+                             - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel) \
+                             - set(list_type_ProtocolEvasion)
+
         except Exception as ex:
             # print('Не удалось получить список файлов ' + str(ex) + ' ' + l_dir)
             logging.exception("Ошибка: ")
@@ -353,6 +357,8 @@ def extract_prot(m, path_parse1, region):
                 bolter(f23, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKOU2)
             for f24 in list_type_Cancel:
                 bolter(f24, l_dir, region, ClassTypeProtocols.TypeProtocols.type_Cancel)
+            for f26 in list_type_ProtocolEvasion:
+                bolter(f26, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion)
             for f25 in set_type_Other:
                 bolter(f25, l_dir, region, None)
 
@@ -497,9 +503,9 @@ if __name__ == "__main__":
     logging_parser('Обновлено EF1', ClassProtocolEF1.ProtocolEF1.update_protocolEF1)
     logging_parser('Добавлено EF2', ClassProtocolEF2.ProtocolEF2.add_protocolEF2)
     logging_parser('Обновлено EF2', ClassProtocolEF2.ProtocolEF2.update_protocolEF2)
-    logging_parser('Добавлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation',
+    logging_parser('Добавлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation, ProtocolEvasion',
                    ClassProtocolEF3.ProtocolEF3.add_protocolEF3)
-    logging_parser('Обновлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation',
+    logging_parser('Обновлено EF3, SingleApp, SinglePart, ProtocolDeviation, EFInvalidation, ProtocolEvasion',
                    ClassProtocolEF3.ProtocolEF3.update_protocolEF3)
     logging_parser('Добавлено ZK и ZKProlongation', ClassProtocolZK.ProtocolZK.add_protocolZK)
     logging_parser('Обновлено ZK и ZKProlongation', ClassProtocolZK.ProtocolZK.update_protocolZK)
