@@ -3,6 +3,7 @@ import datetime
 import dateutil.parser
 
 import ClassProtocolEOK2
+import UtilsFunctions
 from connect_to_db import connect_bd
 from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
@@ -11,6 +12,30 @@ from UtilsFunctions import logging_parser
 class ProtocolEOK3(ClassProtocolEOK2.ProtocolEOK2):
     add_protocolEOK3 = 0
     update_protocolEOK3 = 0
+
+    def get_app_rating(self, application):
+        d = UtilsFunctions.get_el(application, 'admittedInfo', 'appAdmittedInfo', 'appRating')
+        if not d:
+            d = 0
+        return d
+
+    def get_price(self, application):
+        d = UtilsFunctions.get_el(application, 'offerPrice')
+        if not d:
+            d = UtilsFunctions.get_el(application, 'lastPriceOffer', 'price')
+        if not d:
+            d_list = UtilsFunctions.get_el_list(application, 'admittedInfo', 'appAdmittedInfo', 'conditionsScoringInfo',
+                                                'conditionScoringInfo')
+            for e in d_list:
+                if UtilsFunctions.get_el(e, 'costCriterionInfo', 'code') == 'CP':
+                    d = UtilsFunctions.get_el(e, 'costCriterionInfo', 'offer')
+        if not d:
+            d = UtilsFunctions.get_el(application, 'admittedInfo', 'singleAppAdmittedInfo', 'finalPrice')
+        return d
+
+    def get_abandoned_reason_name(self):
+        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
+        return d
 
     def __init__(self, protocol, xml):
         super().__init__(protocol, xml)
@@ -24,8 +49,8 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
         return
     xml = path_xml[path_xml.find('/') + 1:][(path_xml[path_xml.find('/') + 1:]).find('/') + 1:]
     id_protocol = p.get_id()
-    url = p.get_url()
-    print_form = p.get_print_form()
+    url = p.get_url_external()
+    print_form = p.get_print_form_ext()
     protocol_date = p.get_protocol_date()
     con = connect_bd(DB)
     cur = con.cursor()
@@ -56,12 +81,13 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
                             (r['id'],))
             else:
                 cancel_status = 1
+    dop_info = p.get_dop_info(p)
     cur.execute(
             f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
                                 url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, abandoned_reason_name = %s, 
-                                lot_number = %s""",
+                                lot_number = %s, dop_info = %s""",
             (id_protocol, protocol_date, purchase_number, url, print_form, xml, type_f, cancel_status,
-             abandoned_reason_name, lot_number))
+             abandoned_reason_name, lot_number, dop_info))
     id_p = cur.lastrowid
     if not id_p:
         logging_parser('Не получили id', xml)
@@ -79,7 +105,7 @@ def parserEOK3(doc, path_xml, filexml, reg, type_f):
         organization_name = p.get_organization_name(app)
         participant_type = p.get_participant_type(app)
         country_full_name = p.get_country_full_name(app)
-        post_address = p.get_post_address(app)
+        post_address = p.get_post_address(app) + " | " + p.get_fact_address(app) if p.get_fact_address(app) else ""
         price = p.get_price(app)
         if inn:
             cur.execute(f"""SELECT id FROM {PREFIX}auction_participant WHERE inn = %s AND kpp = %s""",

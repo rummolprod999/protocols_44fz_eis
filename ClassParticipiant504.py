@@ -115,3 +115,11 @@ class Participiant504:
                 'legalEntityRFInfo',
                 'contactInfo', 'orgFactAddress')
         return d
+
+    def get_fact_address(self, application):
+        d = UtilsFunctions.get_el(
+                application,
+                'appParticipantInfo',
+                'legalEntityRFInfo',
+                'contactInfo', 'orgFactAddress')
+        return d

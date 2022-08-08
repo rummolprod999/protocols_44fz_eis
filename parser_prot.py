@@ -101,7 +101,7 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU1)
         pass
     elif list_p[0] == TypeProtocols504.type_EOKSingleApp:
-        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSingleApp)
+        parserEOK2020SecondSections(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSingleApp)
         pass
     elif list_p[0] == TypeProtocols504.type_EOKSinglePart:
         ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSinglePart)
