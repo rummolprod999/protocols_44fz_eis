@@ -11,6 +11,7 @@ import ClassProtocolEOKOU3
 import ClassProtocolEOKOUSingleApp
 import ClassProtocolEOKOUSinglePart
 import UtilsFunctions
+from ClassProtocolDeviation import parserProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
 from ClassProtocolEOK2020Final import parserEOK2020Final
 from ClassProtocolEOK2020SecondSections import parserEOK2020SecondSections
@@ -137,6 +138,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_epProtocolEOK2020Final:
         parserEOK2020Final(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEOK2020Final)
+        pass
+    elif list_p[0] == TypeProtocols504.type_epProtocolDeviation:
+        parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolDeviation)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)

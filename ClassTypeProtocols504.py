@@ -26,3 +26,4 @@ class TypeProtocols504:
     type_EF2020SubmitOffers = 'epProtocolEF2020SubmitOffers'
     type_epProtocolEOK2020SecondSections = 'epProtocolEOK2020SecondSections'
     type_epProtocolEOK2020Final = 'epProtocolEOK2020Final'
+    type_epProtocolDeviation = 'epProtocolDeviation'
