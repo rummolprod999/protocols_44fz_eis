@@ -16,6 +16,7 @@ from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
 from ClassProtocolEOK2020Final import parserEOK2020Final
 from ClassProtocolEOK2020SecondSections import parserEOK2020SecondSections
 from ClassProtocolEZK2020FinalPart import parserEZK2020FinalPart
+from ClassProtocolEZP1Extract import parserEZP1Extract
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import parserEZP2
@@ -76,9 +77,6 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_EZK1:
         parserEZK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK1)
-        pass
-    elif list_p[0] == TypeProtocols504.type_EZP1Extract:
-        parserEOK1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1Extract)
         pass
     elif list_p[0] == TypeProtocols504.type_EZP2:
         parserEZP2(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP2)
@@ -141,6 +139,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_epProtocolDeviation:
         parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolDeviation)
+        pass
+    elif list_p[0] == TypeProtocols504.type_epProtocolEZP1Extract:
+        parserEZP1Extract(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEZP1Extract)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)

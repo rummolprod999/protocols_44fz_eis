@@ -40,6 +40,7 @@ from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
 from ClassProtocolEOK2020Final import ProtocolEOK2020Final
 from ClassProtocolEOK2020SecondSections import ProtocolEOK2020SecondSections
 from ClassProtocolEZK2020FinalPart import ProtocolEZK2020FinalPart
+from ClassProtocolEZP1Extract import ProtocolEZP1Extract
 from connect_to_db import connect_bd
 
 PREFIX = VarExecut.PREFIX
@@ -579,4 +580,8 @@ if __name__ == "__main__":
                    ProtocolDeviation.add)
     logging_parser('Обновлено epProtocolDeviation',
                    ProtocolDeviation.update)
+    logging_parser('Добавлено fcsProtocolVPP',
+                   ProtocolEZP1Extract.add)
+    logging_parser('Обновлено fcsProtocolVPP',
+                   ProtocolEZP1Extract.update)
     logging_parser("Конец парсинга")
