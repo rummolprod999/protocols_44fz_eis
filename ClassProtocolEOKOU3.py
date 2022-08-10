@@ -24,8 +24,8 @@ def parserEOKOU3(doc, path_xml, filexml, reg, type_f):
         return
     xml = path_xml[path_xml.find('/') + 1:][(path_xml[path_xml.find('/') + 1:]).find('/') + 1:]
     id_protocol = p.get_id()
-    url = p.get_url()
-    print_form = p.get_print_form()
+    url = p.get_url_external()
+    print_form = p.get_print_form_ext()
     protocol_date = p.get_protocol_date()
     con = connect_bd(DB)
     cur = con.cursor()
@@ -56,12 +56,13 @@ def parserEOKOU3(doc, path_xml, filexml, reg, type_f):
                             (r['id'],))
             else:
                 cancel_status = 1
+    dop_info = p.get_dop_info(p)
     cur.execute(
             f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
-                                url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, abandoned_reason_name = %s, 
-                                lot_number = %s""",
+                                    url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, abandoned_reason_name = %s, 
+                                    lot_number = %s, dop_info = %s""",
             (id_protocol, protocol_date, purchase_number, url, print_form, xml, type_f, cancel_status,
-             abandoned_reason_name, lot_number))
+             abandoned_reason_name, lot_number, dop_info))
     id_p = cur.lastrowid
     if not id_p:
         logging_parser('Не получили id', xml)

@@ -539,16 +539,12 @@ if __name__ == "__main__":
     logging_parser('Обновлено EOK3', ClassProtocolEOK3.ProtocolEOK3.update_protocolEOK3)
     logging_parser('Добавлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.add_protocolCancel)
     logging_parser('Обновлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.update_protocolCancel)
-    logging_parser('Добавлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.add_protocolEOKOU2)
-    logging_parser('Обновлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.update_protocolEOKOU2)
     logging_parser(
             'Добавлено EOKOU1, EOKSingleApp, EOKSinglePart, EOKOUSingleApp, EOKOUSinglePart, EOKDSingleApp, EOKD2, EOKDSinglePart',
             ClassProtocolEOKOU1.ProtocolEOKOU1.add_protocolEOKOU1)
     logging_parser(
             'Обновлено EOKOU1, EOKSingleApp, EOKSinglePart, EOKOUSingleApp, EOKOUSinglePart, EOKDSingleApp, EOKD2, EOKDSinglePart',
             ClassProtocolEOKOU1.ProtocolEOKOU1.update_protocolEOKOU1)
-    logging_parser('Добавлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.add_protocolEOKOU3)
-    logging_parser('Обновлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
     logging_parser('Добавлено epProtocolEF2020Final',
                    ClassProtocolEF2020Final.ProtocolEF2020Final.add_protocolEF2020Final)
     logging_parser('Обновлено epProtocolEF2020Final',
@@ -585,4 +581,8 @@ if __name__ == "__main__":
                    ProtocolEZP1Extract.add)
     logging_parser('Обновлено fcsProtocolVPP',
                    ProtocolEZP1Extract.update)
+    logging_parser('Добавлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.add_protocolEOKOU2)
+    logging_parser('Обновлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.update_protocolEOKOU2)
+    logging_parser('Добавлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.add_protocolEOKOU3)
+    logging_parser('Обновлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
     logging_parser("Конец парсинга")
