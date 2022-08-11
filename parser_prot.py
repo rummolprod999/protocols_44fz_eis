@@ -195,6 +195,6 @@ def parser(doc, path_xml, filexml, reg, type_f):
         else:
             parserOther(doc, path_xml, filexml, reg, type_f)
     except Exception as e:
-        logging_parser("Ошибка в функции parser", e, path_xml, type_f)
+        logging_parser("Ошибка в функции parser", e, traceback.format_exc(), path_xml, type_f)
         traceback.print_tb(e.__traceback__)
         pass
