@@ -35,6 +35,7 @@ import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
+from ClassPprf615ProtocolEF1 import Pprf615ProtocolEF1
 from ClassProtocolDeviation import ProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
 from ClassProtocolEOK2020Final import ProtocolEOK2020Final
@@ -585,4 +586,6 @@ if __name__ == "__main__":
     logging_parser('Обновлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.update_protocolEOKOU2)
     logging_parser('Добавлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.add_protocolEOKOU3)
     logging_parser('Обновлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
+    logging_parser('Добавлено fcsProtocolPR615', Pprf615ProtocolEF1.add)
+    logging_parser('Обновлено fcsProtocolPR615', Pprf615ProtocolEF1.update)
     logging_parser("Конец парсинга")

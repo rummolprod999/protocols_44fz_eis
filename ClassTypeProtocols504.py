@@ -28,3 +28,4 @@ class TypeProtocols504:
     type_epProtocolEOK2020Final = 'epProtocolEOK2020Final'
     type_epProtocolDeviation = 'epProtocolDeviation'
     type_epProtocolEZP1Extract = 'epProtocolEZP1Extract'
+    type_pprf615ProtocolEF1 = 'pprf615ProtocolEF1'

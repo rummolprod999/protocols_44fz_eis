@@ -52,7 +52,7 @@ def get_el(d, *kwargs):
 def get_el_list(d, *kwargs):
     try:
         res = get_from_dict(d, kwargs)
-    except Exception:
+    except Exception as ex:
         res = []
     if res is None:
         res = []

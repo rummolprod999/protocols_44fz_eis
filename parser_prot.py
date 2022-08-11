@@ -11,6 +11,7 @@ import ClassProtocolEOKOU3
 import ClassProtocolEOKOUSingleApp
 import ClassProtocolEOKOUSinglePart
 import UtilsFunctions
+from ClassPprf615ProtocolEF1 import parserPprf615ProtocolEF1
 from ClassProtocolDeviation import parserProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
 from ClassProtocolEOK2020Final import parserEOK2020Final
@@ -52,8 +53,8 @@ logging.basicConfig(level=logging.DEBUG, filename=file_log,
 
 def parserOther(doc, path_xml, filexml, reg, type_f):
     prot = doc[list(doc.keys())[0]]
-    list_p = [v for v in prot.keys() if v.lower().startswith("ep")]
-    ex_type = ['PR615', 'PP615', 'Evasion', 'fcsProtocolPO', 'P615']
+    list_p = [v for v in prot.keys() if (v.lower().startswith("ep") or v.lower().startswith("pprf"))]
+    ex_type = ['PP615', 'Evasion', 'fcsProtocolPO', 'P615']
     for t in ex_type:
         if t in filexml:
             return
@@ -142,6 +143,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_epProtocolEZP1Extract:
         parserEZP1Extract(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEZP1Extract)
+        pass
+    elif list_p[0] == TypeProtocols504.type_pprf615ProtocolEF1:
+        parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, TypeProtocols504.type_pprf615ProtocolEF1)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)

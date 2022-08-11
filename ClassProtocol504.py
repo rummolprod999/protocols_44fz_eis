@@ -8,7 +8,7 @@ import UtilsFunctions
 class Protocol504:
     def __init__(self, protocol, xml):
         prot = protocol[list(protocol.keys())[0]]
-        list_p = [v for v in prot.keys() if v.lower().startswith("ep")]
+        list_p = [v for v in prot.keys() if (v.lower().startswith("ep") or v.lower().startswith("pprf"))]
         self.protocol = prot[list_p[0]]
         self.xml = xml
         if 'protocolInfo' in self.protocol:

@@ -1,6 +1,9 @@
 import datetime
 
 import dateutil.parser
+import json
+import pytz
+import itertools
 
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
@@ -10,12 +13,12 @@ from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 
-class ProtocolEZP2(Protocol504, Participiant504):
-    add_protocolEZP2 = 0
-    update_protocolEZP2 = 0
+class Pprf615ProtocolEF1(Protocol504, Participiant504):
+    add = 0
+    update = 0
 
     def get_app_rating(self, application):
-        d = UtilsFunctions.get_el(application, 'admittedInfo', 'appAdmittedInfo', 'appRating')
+        d = UtilsFunctions.get_el(application, 'commonInfo', 'appRating')
         if not d:
             d = 0
         return d
@@ -31,7 +34,7 @@ class ProtocolEZP2(Protocol504, Participiant504):
                 for r in list(UtilsFunctions.generator_univ(appRejectedReason)):
                     d += f"{UtilsFunctions.get_el(r, 'rejectReason', 'name')} ".strip()
         else:
-            d = UtilsFunctions.get_el(application, 'admittedInfo', 'singleAppAdmittedInfo',
+            d = UtilsFunctions.get_el(application, 'admittedInfo',
                                       'admitted') or UtilsFunctions.get_el(application, 'admittedInfo',
                                                                            'appAdmittedInfo', 'admitted')
             if d == 'true':
@@ -45,7 +48,9 @@ class ProtocolEZP2(Protocol504, Participiant504):
         return d
 
     def get_price(self, application):
-        d = UtilsFunctions.get_el(application, 'admittedInfo', 'singleAppAdmittedInfo', 'price')
+        d = UtilsFunctions.get_el(application, 'finalPrice')
+        if not d:
+            d = UtilsFunctions.get_el(application, 'lastPriceOffer', 'price')
         return d
 
     def get_abandoned_reason(self):
@@ -55,9 +60,31 @@ class ProtocolEZP2(Protocol504, Participiant504):
             return f'{d}|{k}'
         return d or k
 
+    def get_protocol_date(self):
+        d = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'docPublishDate')
+        if d:
+            try:
+                dt = dateutil.parser.parse(d)
+                d = dt.astimezone(pytz.timezone("Europe/Moscow"))
+            except Exception:
+                d = ''
+        else:
+            d = ''
+        return str(d)
 
-def parserEZP2(doc, path_xml, filexml, reg, type_f):
-    p = ProtocolEZP2(doc, filexml)
+    def get_applications(self):
+        d = UtilsFunctions.generator_univ(
+            UtilsFunctions.get_el_list(self.protocol, 'protocolInfo', 'applications', 'application'))
+        return d
+
+    def get_journal_number(self, application):
+        d = UtilsFunctions.get_el(application, 'journalNumber')
+        return d
+
+
+def parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, type_f):
+    type_f = "fcsProtocolPR615"
+    p = Pprf615ProtocolEF1(doc, filexml)
     purchase_number = p.get_purchaseNumber()
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
@@ -99,17 +126,18 @@ def parserEZP2(doc, path_xml, filexml, reg, type_f):
     dop_info = p.get_dop_info(p)
     cur.execute(
             f"""INSERT INTO {PREFIX}auction_end_protocol SET id_protocol = %s, protocol_date =  %s, purchase_number = %s, 
-                                url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, lot_number = %s,  abandoned_reason_name = %s, dop_info = %s""",
+                            url = %s, print_form = %s, xml = %s, type_protocol = %s, cancel = %s, lot_number = %s,  abandoned_reason_name = %s, dop_info = %s""",
             (id_protocol, protocol_date, purchase_number, url, print_form, xml, type_f, cancel_status, lot_number,
              abandoned_reason_name, dop_info))
     id_p = cur.lastrowid
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        ProtocolEZP2.update_protocolEZP2 += 1
+        Pprf615ProtocolEF1.update += 1
     else:
-        ProtocolEZP2.add_protocolEZP2 += 1
-    for app in p.applications:
+        Pprf615ProtocolEF1.add += 1
+    applications = p.get_applications()
+    for app in applications:
         id_participiant = 0
         journal_number = p.get_journal_number(app)
         inn = p.get_inn(app)
@@ -117,7 +145,7 @@ def parserEZP2(doc, path_xml, filexml, reg, type_f):
         organization_name = p.get_organization_name(app)
         participant_type = p.get_participant_type(app)
         country_full_name = p.get_country_full_name(app)
-        post_address = p.get_post_address(app)
+        post_address = p.get_fact_address(app)
         if inn:
             cur.execute(f"""SELECT id FROM {PREFIX}auction_participant WHERE inn = %s AND kpp = %s""",
                         (inn, kpp))
@@ -131,7 +159,8 @@ def parserEZP2(doc, path_xml, filexml, reg, type_f):
                             (inn, kpp, organization_name, participant_type, country_full_name, post_address))
                 id_participiant = cur.lastrowid
         if id_participiant == 0:
-            logging_parser('Нет инн', xml, type_f)
+            # logging_parser('Нет инн', xml, type_f)
+            pass
         app_rating = p.get_app_rating(app)
         admission = p.get_admission(app)
         price = p.get_price(app)
