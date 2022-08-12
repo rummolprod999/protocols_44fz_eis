@@ -277,7 +277,8 @@ def extract_prot(m, path_parse1, region):
             list_type_ZPFinal = [file for file in file_list if
                                  file.find(ClassTypeProtocols.TypeProtocols.type_ZPFinal) != -1]
             list_type_Deviation = [file for file in file_list if
-                                   file.find(ClassTypeProtocols.TypeProtocols.type_Deviation) != -1]
+                                   file.find(ClassTypeProtocols.TypeProtocols.type_Deviation) != -1 and file.find(
+                                           ClassTypeProtocols504.TypeProtocols504.type_epProtocolDeviation) == -1]
             list_type_EFInvalidation = [file for file in file_list if
                                         file.find(ClassTypeProtocols.TypeProtocols.type_EFInvalidation) != -1]
             list_type_ProtocolEvasion = [file for file in file_list if
