@@ -151,6 +151,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_epProtocolEZT2020Final:
         parserEZT2020Final(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEZT2020Final)
         pass
+    elif list_p[0] == TypeProtocols504.type_Cancel504:
+        ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, TypeProtocols504.type_Cancel504)
+        pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
         try:

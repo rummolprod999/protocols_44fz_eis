@@ -300,7 +300,8 @@ def extract_prot(m, path_parse1, region):
             list_type_OKOU2 = [file for file in file_list if
                                file.find(ClassTypeProtocols.TypeProtocols.type_OKOU2) != -1]
             list_type_Cancel = [file for file in file_list if
-                                file.find(ClassTypeProtocols.TypeProtocols.type_Cancel) != -1]
+                                file.find(ClassTypeProtocols.TypeProtocols.type_Cancel) != -1 and file.find(
+                                        ClassTypeProtocols504.TypeProtocols504.type_Cancel504) == -1]
             set_type_Other = set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
                     list_type_ZK) \
                              - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \

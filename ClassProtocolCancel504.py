@@ -34,7 +34,13 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
                 'courtDecision', 'courtName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReasonInfo',
                 'info')
-        return d
+        name = UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'authorityName')
+        tp = UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'authorityType')
+        return d + " | " + name + " | " + tp
 
     def get_doc_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
@@ -42,8 +48,16 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
                                                                       'authorityPrescription', 'reestrPrescription',
                                                                       'docName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReason',
-                'courtDecision', 'docName')
-        return d
+                'courtDecision', 'docName') or UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty', 'docName')
+        dn = UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty', 'docNumber')
+        dd = UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty', 'docDate')
+        return d + " | " + dn + " | " + dd
 
 
 def parserCancel504(doc, path_xml, filexml, reg, type_f):
@@ -56,8 +70,8 @@ def parserCancel504(doc, path_xml, filexml, reg, type_f):
     xml = path_xml[path_xml.find('/') + 1:][(path_xml[path_xml.find('/') + 1:]).find('/') + 1:]
     id_protocol = p.get_id()
     protocol_number = p.get_protocol_number()
-    url = p.get_url()
-    print_form = p.get_print_form()
+    url = p.get_url_external()
+    print_form = p.get_print_form_ext()
     protocol_date = p.get_protocol_date()
     authority_name = p.get_authority_name()
     doc_name = p.get_doc_name()
