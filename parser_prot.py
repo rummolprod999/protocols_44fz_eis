@@ -16,6 +16,7 @@ from ClassProtocolDeviation import parserProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
 from ClassProtocolEOK2020Final import parserEOK2020Final
 from ClassProtocolEOK2020SecondSections import parserEOK2020SecondSections
+from ClassProtocolEOKOU1New import parserEOKOU1New
 from ClassProtocolEZK2020FinalPart import parserEZK2020FinalPart
 from ClassProtocolEZP1Extract import parserEZP1Extract
 from ClassProtocolEZT2020Final import parserEZT2020Final
@@ -96,7 +97,7 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         ClassProtocolEOKOU2.parserEOKOU2(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU2)
         pass
     elif list_p[0] == TypeProtocols504.type_EOKOU1:
-        ClassProtocolEOKOU1.parserEOKOU1(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU1)
+        parserEOKOU1New(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKOU1)
         pass
     elif list_p[0] == TypeProtocols504.type_EOKSingleApp:
         parserEOK2020SecondSections(doc, path_xml, filexml, reg, TypeProtocols504.type_EOKSingleApp)
