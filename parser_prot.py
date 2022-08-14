@@ -62,9 +62,6 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     if len(list_p) == 0:
         logging_parser("Can not find protocol tag", filexml)
         return
-    if list_p[0] == TypeProtocols504.type_EZP1:
-        parserEZP1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1)
-        pass
     elif list_p[0] == TypeProtocols504.type_EOK2:
         parserEOK2(doc, path_xml, filexml, reg, TypeProtocols504.type_EOK2)
         pass
@@ -153,6 +150,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_Cancel504:
         ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, TypeProtocols504.type_Cancel504)
+        pass
+    if list_p[0] == TypeProtocols504.type_EZP1:
+        parserEZP1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)
