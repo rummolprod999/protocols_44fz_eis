@@ -18,6 +18,7 @@ from ClassProtocolEOK2020Final import parserEOK2020Final
 from ClassProtocolEOK2020SecondSections import parserEOK2020SecondSections
 from ClassProtocolEZK2020FinalPart import parserEZK2020FinalPart
 from ClassProtocolEZP1Extract import parserEZP1Extract
+from ClassProtocolEZT2020Final import parserEZT2020Final
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 from ClassProtocolEZP2 import parserEZP2
@@ -146,6 +147,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_pprf615ProtocolEF1:
         parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, TypeProtocols504.type_pprf615ProtocolEF1)
+        pass
+    elif list_p[0] == TypeProtocols504.type_epProtocolEZT2020Final:
+        parserEZT2020Final(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEZT2020Final)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)

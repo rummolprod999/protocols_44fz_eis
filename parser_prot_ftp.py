@@ -42,6 +42,7 @@ from ClassProtocolEOK2020Final import ProtocolEOK2020Final
 from ClassProtocolEOK2020SecondSections import ProtocolEOK2020SecondSections
 from ClassProtocolEZK2020FinalPart import ProtocolEZK2020FinalPart
 from ClassProtocolEZP1Extract import ProtocolEZP1Extract
+from ClassProtocolEZT2020Final import ProtocolEZT2020Final
 from connect_to_db import connect_bd
 
 PREFIX = VarExecut.PREFIX
@@ -589,4 +590,6 @@ if __name__ == "__main__":
     logging_parser('Обновлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
     logging_parser('Добавлено fcsProtocolPR615', Pprf615ProtocolEF1.add)
     logging_parser('Обновлено fcsProtocolPR615', Pprf615ProtocolEF1.update)
+    logging_parser('Добавлено epProtocolEZT2020Final', ProtocolEZT2020Final.add)
+    logging_parser('Обновлено epProtocolEZT2020Final', ProtocolEZT2020Final.update)
     logging_parser("Конец парсинга")
