@@ -395,6 +395,55 @@ def down_timeout(m, path_parse1):
         lf.close()
         return local_f
 
+def parser_propocols(path_array, path_on_ftp):
+    for reg in path_array:
+        # if int(reg["id"]) != 81:
+        #     continue
+        if len(sys.argv) == 1:
+            print(
+                    'Недостаточно параметров для запуска, используйте curr для парсинга текущего месяца и last или prev'
+                    ' для '
+                    'прошлых')
+            exit()
+        elif str(sys.argv[1]) == 'last':
+            path_parse = 'fcs_regions/' + reg['path'] + '/' + path_on_ftp + '/'
+        elif str(sys.argv[1]) == 'curr':
+            path_parse = 'fcs_regions/' + reg['path'] + '/' + path_on_ftp + '/currMonth/'
+        elif str(sys.argv[1]) == 'prev':
+            path_parse = 'fcs_regions/' + reg['path'] + '/' + path_on_ftp + '/prevMonth/'
+
+        try:
+            # получаем список архивов
+            if str(sys.argv[1]) == 'curr':
+                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_curr(path_parse, reg['path']))
+            elif str(sys.argv[1]) == 'last':
+                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_last(path_parse))
+            elif str(sys.argv[1]) == 'prev':
+                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_prev(path_parse, reg['path']))
+            else:
+                arr_con = []
+                print('Неверное имя параметра, используйте curr для парсинга текущего месяца и last или prev '
+                      'для прошлых')
+                exit()
+            for j in arr_con:
+                try:
+                    extract_prot(j, path_parse, reg['conf'])
+                except Exception as exc:
+                    print('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j)
+                    logging.exception("Ошибка: ")
+                    with open(file_log, 'a') as flog:
+                        flog.write('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j + '\n')
+                    continue
+
+        except Exception as ex:
+            # print('Не удалось получить список архивов ' + str(ex) + ' ' + path_parse)
+            if '550 Failed to change directory' in str(ex):
+                logging.warning(f"Can not find directory {path_parse}")
+                continue
+            logging.exception("Ошибка: ")
+            with open(file_log, 'a') as flog:
+                flog.write(f'Не удалось получить список архивов {str(ex)} {path_parse}\n')
+            continue
 
 def get_ar(m, path_parse1):
     """
@@ -456,55 +505,7 @@ def main():
     cur_region.close()
     con_region.close()
 
-    for reg in path_array:
-        # if int(reg["id"]) != 81:
-        #     continue
-        if len(sys.argv) == 1:
-            print(
-                    'Недостаточно параметров для запуска, используйте curr для парсинга текущего месяца и last или prev'
-                    ' для '
-                    'прошлых')
-            exit()
-        elif str(sys.argv[1]) == 'last':
-            path_parse = 'fcs_regions/' + reg['path'] + '/protocols/'
-        elif str(sys.argv[1]) == 'curr':
-            path_parse = 'fcs_regions/' + reg['path'] + '/protocols/currMonth/'
-        elif str(sys.argv[1]) == 'prev':
-            path_parse = 'fcs_regions/' + reg['path'] + '/protocols/prevMonth/'
-
-        try:
-            # получаем список архивов
-            if str(sys.argv[1]) == 'curr':
-                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_curr(path_parse, reg['path']))
-            elif str(sys.argv[1]) == 'last':
-                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_last(path_parse))
-            elif str(sys.argv[1]) == 'prev':
-                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_prev(path_parse, reg['path']))
-            else:
-                arr_con = []
-                print('Неверное имя параметра, используйте curr для парсинга текущего месяца и last или prev '
-                      'для прошлых')
-                exit()
-            for j in arr_con:
-                try:
-                    extract_prot(j, path_parse, reg['conf'])
-                except Exception as exc:
-                    print('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j)
-                    logging.exception("Ошибка: ")
-                    with open(file_log, 'a') as flog:
-                        flog.write('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j + '\n')
-                    continue
-
-        except Exception as ex:
-            # print('Не удалось получить список архивов ' + str(ex) + ' ' + path_parse)
-            if '550 Failed to change directory' in str(ex):
-                logging.warning(f"Can not find directory {path_parse}")
-                continue
-            logging.exception("Ошибка: ")
-            with open(file_log, 'a') as flog:
-                flog.write(f'Не удалось получить список архивов {str(ex)} {path_parse}\n')
-            continue
-
+    parser_propocols(path_array, 'protocols')
 
 if __name__ == "__main__":
     logging_parser("Начало парсинга")
