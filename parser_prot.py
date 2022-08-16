@@ -11,7 +11,9 @@ import ClassProtocolEOKOU3
 import ClassProtocolEOKOUSingleApp
 import ClassProtocolEOKOUSinglePart
 import UtilsFunctions
+from ClassAddInfo import parserAddInfo
 from ClassPprf615ProtocolEF1 import parserPprf615ProtocolEF1
+from ClassProtocolAddInfoInvalid import parserAddInfoInvalid
 from ClassProtocolDeviation import parserProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
 from ClassProtocolEOK2020Final import parserEOK2020Final
@@ -204,6 +206,12 @@ def parser(doc, path_xml, filexml, reg, type_f):
                 parserCancel(doc, path_xml, filexml, reg, type_f)
             except Exception:
                 ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, TypeProtocols504.type_Cancel504)
+        elif type_f == TypeProtocols504.type_fcsAddInfo:
+            pass
+            parserAddInfo(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols504.type_fcsAddInfoInvalid:
+            pass
+            parserAddInfoInvalid(doc, path_xml, filexml, reg, type_f)
         else:
             parserOther(doc, path_xml, filexml, reg, type_f)
     except Exception as e:

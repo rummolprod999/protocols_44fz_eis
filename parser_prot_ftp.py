@@ -35,7 +35,9 @@ import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
+from ClassAddInfo import ProtocolAddInfo
 from ClassPprf615ProtocolEF1 import Pprf615ProtocolEF1
+from ClassProtocolAddInfoInvalid import ProtocolAddInfoInvalid
 from ClassProtocolDeviation import ProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
 from ClassProtocolEOK2020Final import ProtocolEOK2020Final
@@ -303,6 +305,11 @@ def extract_prot(m, path_parse1, region):
             list_type_Cancel = [file for file in file_list if
                                 file.find(ClassTypeProtocols.TypeProtocols.type_Cancel) != -1 and file.find(
                                         ClassTypeProtocols504.TypeProtocols504.type_Cancel504) == -1]
+            list_type_AddInfoInvalid = [file for file in file_list if
+                                        file.find(ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid) != -1]
+            list_type_AddInfo = [file for file in file_list if
+                                 file.find(ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfo) != -1 and file.find(
+                                         ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid) == -1]
             set_type_Other = set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
                     list_type_ZK) \
                              - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \
@@ -311,7 +318,7 @@ def extract_prot(m, path_parse1, region):
                     list_type_OKSingleApp) - set(list_type_OKOUSingleApp) \
                              - set(list_type_OK1) - set(list_type_OKD1) - set(list_type_OKD2) - set(list_type_OKD3) \
                              - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel) \
-                             - set(list_type_ProtocolEvasion)
+                             - set(list_type_ProtocolEvasion - set(list_type_AddInfo) - set(list_type_AddInfoInvalid))
 
         except Exception as ex:
             # print('Не удалось получить список файлов ' + str(ex) + ' ' + l_dir)
@@ -369,6 +376,10 @@ def extract_prot(m, path_parse1, region):
                 bolter(f24, l_dir, region, ClassTypeProtocols.TypeProtocols.type_Cancel)
             for f26 in list_type_ProtocolEvasion:
                 bolter(f26, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion)
+            for f27 in list_type_AddInfo:
+                bolter(f27, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfo)
+            for f28 in list_type_AddInfo:
+                bolter(f28, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid)
             for f25 in set_type_Other:
                 bolter(f25, l_dir, region, None)
 
@@ -506,6 +517,7 @@ def main():
     con_region.close()
 
     parser_propocols(path_array, 'protocols')
+    parser_propocols(path_array, 'addinfo')
 
 if __name__ == "__main__":
     logging_parser("Начало парсинга")
@@ -601,4 +613,16 @@ if __name__ == "__main__":
     logging_parser(
             'Обновлено EOKOU1',
             ProtocolEOKOU1New.update)
+    logging_parser(
+            'Добавлено AddInfo',
+            ProtocolAddInfo.add)
+    logging_parser(
+            'Обновлено AddInfo',
+            ProtocolAddInfo.update)
+    logging_parser(
+            'Добавлено AddInfoInvalid',
+            ProtocolAddInfoInvalid.add)
+    logging_parser(
+            'Обновлено AddInfoInvalid',
+            ProtocolAddInfoInvalid.update)
     logging_parser("Конец парсинга")

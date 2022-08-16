@@ -80,7 +80,11 @@ class Protocol504:
         try:
             del dop_info['attachmentsInfo']['attachmentInfo']['cryptoSigns']
         except:
-            pass
+            try:
+                for e in dop_info['attachmentsInfo']['attachmentInfo']:
+                    del e['cryptoSigns']
+            except:
+                pass
         dop_info = json.dumps(dop_info, sort_keys=False,
                               indent=4,
                               ensure_ascii=False,

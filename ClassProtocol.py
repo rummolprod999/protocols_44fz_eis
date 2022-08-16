@@ -66,9 +66,17 @@ class Protocol:
         return d
 
     def get_print_form_ext(self):
-        d = UtilsFunctions.get_el(self.protocol, 'attachments', 'attachment', 'url')
-        if d:
-            return d
+        try:
+            d = UtilsFunctions.get_el_list(self.protocol, 'attachments', 'attachment')
+
+            if len(d) > 0:
+                d = UtilsFunctions.get_el(d[0], 'url')
+                if d:
+                    return d
+        except:
+            d = UtilsFunctions.get_el(self.protocol, 'attachments', 'attachment', 'url')
+            if d:
+                return d
         d = UtilsFunctions.get_el(self.protocol, 'extPrintFormInfo', 'url')
         if d.startswith("<![CDATA"):
             d = d[9:-3]
@@ -90,7 +98,11 @@ class Protocol:
         try:
             del dop_info['attachmentsInfo']['attachmentInfo']['cryptoSigns']
         except:
-            pass
+            try:
+                for e in dop_info['attachmentsInfo']['attachmentInfo']:
+                    del e['cryptoSigns']
+            except:
+                pass
         dop_info = json.dumps(dop_info, sort_keys=False,
                               indent=4,
                               ensure_ascii=False,
