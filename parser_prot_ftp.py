@@ -318,7 +318,7 @@ def extract_prot(m, path_parse1, region):
                     list_type_OKSingleApp) - set(list_type_OKOUSingleApp) \
                              - set(list_type_OK1) - set(list_type_OKD1) - set(list_type_OKD2) - set(list_type_OKD3) \
                              - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel) \
-                             - set(list_type_ProtocolEvasion - set(list_type_AddInfo) - set(list_type_AddInfoInvalid))
+                             - set(list_type_ProtocolEvasion) - set(list_type_AddInfo) - set(list_type_AddInfoInvalid)
 
         except Exception as ex:
             # print('Не удалось получить список файлов ' + str(ex) + ' ' + l_dir)
