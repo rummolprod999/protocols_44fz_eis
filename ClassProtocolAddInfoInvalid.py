@@ -17,12 +17,6 @@ class ProtocolAddInfoInvalid(ProtocolAddInfo):
     add = 0
     update = 0
 
-    def get_purchaseNumber(self):
-        d = UtilsFunctions.get_el(self.protocol, 'contract', 'regNum')
-        if not d:
-            d = UtilsFunctions.get_el(self.protocol, 'contractNotPublished', 'number')
-        return d
-
     def get_protocol_date(self):
         d = UtilsFunctions.get_el(self.protocol, 'invalidityInfo', 'date')
         if not d:
