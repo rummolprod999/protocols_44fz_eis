@@ -89,6 +89,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_EZK2020FinalPart:
         parserEZK2020FinalPart(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK2020FinalPart)
         pass
+    elif list_p[0] == TypeProtocols504.type_EZK2020Final:
+        parserEZK2020FinalPart(doc, path_xml, filexml, reg, TypeProtocols504.type_EZK2020FinalPart)
+        pass
     elif list_p[0] == TypeProtocols504.type_EF2020SubmitOffers:
         parserEF2020SubmitOffers(doc, path_xml, filexml, reg, TypeProtocols504.type_EF2020SubmitOffers)
         pass

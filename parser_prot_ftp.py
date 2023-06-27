@@ -575,9 +575,9 @@ if __name__ == "__main__":
                    ClassProtocolEFSinglePart.ProtocolEFSinglePart.add_protocolEFSinglePart)
     logging_parser('Обновлено EFSinglePart',
                    ClassProtocolEFSinglePart.ProtocolEFSinglePart.update_protocolEFSinglePart)
-    logging_parser('Добавлено epProtocolEZK2020FinalPart',
+    logging_parser('Добавлено epProtocolEZK2020FinalPart, epProtocolEZK2020Final',
                    ProtocolEZK2020FinalPart.add_protocolEZK2020FinalPart)
-    logging_parser('Обновлено epProtocolEZK2020FinalPart',
+    logging_parser('Обновлено epProtocolEZK2020FinalPart, epProtocolEZK2020Final',
                    ProtocolEZK2020FinalPart.update_protocolEZK2020FinalPart)
     logging_parser('Добавлено epProtocolEF2020SubmitOffers',
                    ProtocolEF2020SubmitOffers.add)

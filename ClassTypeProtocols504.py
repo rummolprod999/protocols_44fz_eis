@@ -23,6 +23,7 @@ class TypeProtocols504:
     type_Cancel504 = 'epProtocolCancel'
     type_EF2020Final = 'epProtocolEF2020Final'
     type_EZK2020FinalPart = 'epProtocolEZK2020FinalPart'
+    type_EZK2020Final = 'epProtocolEZK2020Final'
     type_EF2020SubmitOffers = 'epProtocolEF2020SubmitOffers'
     type_epProtocolEOK2020SecondSections = 'epProtocolEOK2020SecondSections'
     type_epProtocolEOK2020Final = 'epProtocolEOK2020Final'
