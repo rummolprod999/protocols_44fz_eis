@@ -44,7 +44,8 @@ class ProtocolDeviation(Protocol504, Participiant504):
         return d
 
     def get_abandoned_reason_name(self):
-        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
+        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name') or \
+            UtilsFunctions.get_el(self.protocol, 'abandonedReason', 'name')
         return d
 
     def get_refusalFact(self):

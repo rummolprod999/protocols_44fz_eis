@@ -145,6 +145,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_epProtocolDeviation:
         parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolDeviation)
         pass
+    elif list_p[0] == TypeProtocols504.type_epNoticeApplicationsAbsence:
+        parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epNoticeApplicationsAbsence)
+        pass
     elif list_p[0] == TypeProtocols504.type_epProtocolEZP1Extract:
         parserEZP1Extract(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEZP1Extract)
         pass

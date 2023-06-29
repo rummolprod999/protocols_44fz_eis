@@ -56,7 +56,9 @@ class Protocol504:
         return d
 
     def get_print_form(self):
-        d = UtilsFunctions.get_el(self.protocol, 'printFormInfo', 'url')
+        d = UtilsFunctions.get_el(self.protocol, 'printFormInfo', 'url') or UtilsFunctions.get_el(self.protocol,
+                                                                                                  'extPrintFormInfo',
+                                                                                                  'url')
         if d.startswith("<![CDATA"):
             d = d[9:-3]
         return d
@@ -92,8 +94,10 @@ class Protocol504:
         return dop_info
 
     def get_abandoned_reason(self):
-        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
-        k = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'code')
+        d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name') or UtilsFunctions.get_el(
+            self.protocol, 'abandonedReason', 'name')
+        k = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'code') or UtilsFunctions.get_el(
+            self.protocol, 'abandonedReason', 'name')
         if d and k:
             return f'{d}|{k}'
         return d or k
