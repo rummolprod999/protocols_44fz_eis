@@ -58,7 +58,7 @@ logging.basicConfig(level=logging.DEBUG, filename=file_log,
 def parserOther(doc, path_xml, filexml, reg, type_f):
     prot = doc[list(doc.keys())[0]]
     list_p = [v for v in prot.keys() if (v.lower().startswith("ep") or v.lower().startswith("pprf"))]
-    ex_type = ['PP615', 'Evasion', 'fcsProtocolPO', 'P615']
+    ex_type = ['PP615', 'fcsProtocolPO', 'P615']
     for t in ex_type:
         if t in filexml:
             return
@@ -147,6 +147,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_epProtocolDeviation:
         parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolDeviation)
+        pass
+    elif list_p[0] == TypeProtocols504.type_epProtocolEvasion:
+        parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEvasion)
         pass
     elif list_p[0] == TypeProtocols504.type_epNoticeApplicationsAbsence:
         parserProtocolDeviation(doc, path_xml, filexml, reg, TypeProtocols504.type_epNoticeApplicationsAbsence)

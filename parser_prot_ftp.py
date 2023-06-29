@@ -289,7 +289,9 @@ def extract_prot(m, path_parse1, region):
             list_type_EFInvalidation = [file for file in file_list if
                                         file.find(ClassTypeProtocols.TypeProtocols.type_EFInvalidation) != -1]
             list_type_ProtocolEvasion = [file for file in file_list if
-                                         file.find(ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion) != -1]
+                                         file.find(
+                                             ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion) != -1 and file.find(
+                                             ClassTypeProtocols504.TypeProtocols504.type_epProtocolEvasion) == -1]
             list_type_OKSingleApp = [file for file in file_list if
                                      file.find(ClassTypeProtocols.TypeProtocols.type_OKSingleApp) != -1]
             list_type_OKDSingleApp = [file for file in file_list if
@@ -596,9 +598,9 @@ if __name__ == "__main__":
                    ProtocolEOK2020Final.add)
     logging_parser('Обновлено epProtocolEOK2020Final',
                    ProtocolEOK2020Final.update)
-    logging_parser('Добавлено epProtocolDeviation, epProtocolDeviation',
+    logging_parser('Добавлено epProtocolDeviation, epProtocolDeviation, epProtocolEvasion',
                    ProtocolDeviation.add)
-    logging_parser('Обновлено epProtocolDeviation, epProtocolDeviation',
+    logging_parser('Обновлено epProtocolDeviation, epProtocolDeviation, epProtocolEvasion',
                    ProtocolDeviation.update)
     logging_parser('Добавлено fcsProtocolVPP',
                    ProtocolEZP1Extract.add)

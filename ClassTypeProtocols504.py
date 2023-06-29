@@ -36,3 +36,4 @@ class TypeProtocols504:
     type_epProtocolEZT2020Final = 'epProtocolEZT2020Final'
     type_fcsAddInfo = 'fcsAddInfo'
     type_fcsAddInfoInvalid = 'fcsAddInfoInvalid'
+    type_epProtocolEvasion = 'epProtocolEvasion'
