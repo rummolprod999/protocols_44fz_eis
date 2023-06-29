@@ -163,6 +163,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_Cancel504:
         ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, TypeProtocols504.type_Cancel504)
         pass
+    elif list_p[0] == TypeProtocols504.type_AppCancel504:
+        ClassProtocolCancel504.parserCancel504(doc, path_xml, filexml, reg, TypeProtocols504.type_AppCancel504)
+        pass
     elif list_p[0] == TypeProtocols504.type_EZP1:
         parserEZP1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1)
         pass

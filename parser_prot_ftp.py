@@ -558,8 +558,10 @@ if __name__ == "__main__":
     logging_parser('Обновлено EZP2', ClassProtocolEZP2.ProtocolEZP2.update_protocolEZP2)
     logging_parser('Добавлено EOK3', ClassProtocolEOK3.ProtocolEOK3.add_protocolEOK3)
     logging_parser('Обновлено EOK3', ClassProtocolEOK3.ProtocolEOK3.update_protocolEOK3)
-    logging_parser('Добавлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.add_protocolCancel)
-    logging_parser('Обновлено Cancel504', ClassProtocolCancel504.ProtocolCancel504.update_protocolCancel)
+    logging_parser('Добавлено Cancel504, epNoticeApplicationCancel',
+                   ClassProtocolCancel504.ProtocolCancel504.add_protocolCancel)
+    logging_parser('Обновлено Cancel504, epNoticeApplicationCancel',
+                   ClassProtocolCancel504.ProtocolCancel504.update_protocolCancel)
     logging_parser(
             'Добавлено EOKOU1, EOKSingleApp, EOKSinglePart, EOKOUSingleApp, EOKOUSinglePart, EOKDSingleApp, EOKD2, EOKDSinglePart',
             ClassProtocolEOKOU1.ProtocolEOKOU1.add_protocolEOKOU1)

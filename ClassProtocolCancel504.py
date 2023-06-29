@@ -21,7 +21,9 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
         d = UtilsFunctions.get_el(self.protocol, 'protocolNumber') or UtilsFunctions.get_el(self.protocol,
                                                                                             'canceledProtocolNumber') or UtilsFunctions.get_el(
                 self.protocol,
-                'commonInfo', 'canceledProtocolNumber')
+                'commonInfo', 'canceledProtocolNumber') or UtilsFunctions.get_el(
+                self.protocol,
+                'commonInfo', 'purchaseNumber')
         return d
 
     def get_authority_name(self):
@@ -41,6 +43,25 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
                 self.protocol, 'cancelReasonInfo',
                 'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'authorityType')
         return d + " | " + name + " | " + tp
+
+    def get_id(self):
+        d = UtilsFunctions.get_el(self.protocol, 'id') or UtilsFunctions.get_el(self.protocol, 'protocolInfo',
+                                                                                'protocolNumberExternal')
+        return d
+
+    def get_protocol_date(self):
+        d = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'publishDTInEIS') or UtilsFunctions.get_el(self.protocol,
+                                                                                                          'commonInfo',
+                                                                                                          'docPublishDTInEIS')
+        if d:
+            try:
+                dt = dateutil.parser.parse(d)
+                d = dt.astimezone(pytz.timezone("Europe/Moscow"))
+            except Exception:
+                d = ''
+        else:
+            d = ''
+        return str(d)
 
     def get_doc_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
