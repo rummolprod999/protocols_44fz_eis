@@ -139,6 +139,9 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
     elif list_p[0] == TypeProtocols504.type_epProtocolEOK2020SecondSections:
         parserEOK2020SecondSections(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEOK2020SecondSections)
         pass
+    elif list_p[0] == TypeProtocols504.type_epProtocolEOK2020FirstSections:
+        parserEOK2020SecondSections(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEOK2020FirstSections)
+        pass
     elif list_p[0] == TypeProtocols504.type_epProtocolEOK2020Final:
         parserEOK2020Final(doc, path_xml, filexml, reg, TypeProtocols504.type_epProtocolEOK2020Final)
         pass

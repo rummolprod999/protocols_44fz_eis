@@ -4,7 +4,7 @@ import xmltodict
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 
-file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/epNoticeApplicationsAbsence_0373100119523000144_41858372.xml"
+file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/epProtocolEOK2020FirstSections_0173300011123000010_41873211.xml"
 with open(file_name) as fd:
     try:
         firs_str = fd.read()
@@ -20,6 +20,6 @@ with open(file_name) as fd:
         doc = xmltodict.parse(firs_str)
         parser_prot.parser(doc, file_name,
                            file_name, 32,
-                           TypeProtocols504.type_epNoticeApplicationsAbsence)
+                           TypeProtocols504.type_epProtocolEOK2020FirstSections)
     except Exception as ex:
         print(ex)

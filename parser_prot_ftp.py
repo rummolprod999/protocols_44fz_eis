@@ -586,9 +586,9 @@ if __name__ == "__main__":
                    ProtocolEF2020SubmitOffers.add)
     logging_parser('Обновлено epProtocolEF2020SubmitOffers',
                    ProtocolEF2020SubmitOffers.update)
-    logging_parser('Добавлено epProtocolEOK2020SecondSections',
+    logging_parser('Добавлено epProtocolEOK2020SecondSections, epProtocolEOK2020FirstSections',
                    ProtocolEOK2020SecondSections.add)
-    logging_parser('Обновлено epProtocolEOK2020SecondSections',
+    logging_parser('Обновлено epProtocolEOK2020SecondSections, epProtocolEOK2020FirstSections',
                    ProtocolEOK2020SecondSections.update)
     logging_parser('Добавлено epProtocolEOK2020Final',
                    ProtocolEOK2020Final.add)
