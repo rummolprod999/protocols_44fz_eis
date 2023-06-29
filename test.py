@@ -4,7 +4,7 @@ import xmltodict
 from ClassTypeProtocols504 import TypeProtocols504
 from ClassTypeProtocols import TypeProtocols
 
-file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/epProtocolEvasion_0326100010323000160_41867132.xml"
+file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/fcsAddInfoInvalid_0373200109323000002_118255.xml.xml"
 with open(file_name) as fd:
     try:
         firs_str = fd.read()

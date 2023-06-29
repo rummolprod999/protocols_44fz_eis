@@ -383,7 +383,7 @@ def extract_prot(m, path_parse1, region):
                 bolter(f26, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion)
             for f27 in list_type_AddInfo:
                 bolter(f27, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfo)
-            for f28 in list_type_AddInfo:
+            for f28 in list_type_AddInfoInvalid:
                 bolter(f28, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid)
             for f25 in set_type_Other:
                 bolter(f25, l_dir, region, None)
