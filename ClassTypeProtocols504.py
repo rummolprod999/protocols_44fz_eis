@@ -21,6 +21,7 @@ class TypeProtocols504:
     type_EZP2 = 'epProtocolEZP2'
     type_EZP1Extract = 'epProtocolEZP1Extract'
     type_Cancel504 = 'epProtocolCancel'
+    type_EvDevCancel504 = 'epProtocolEvDevCancel'
     type_AppCancel504 = 'epNoticeApplicationCancel'
     type_EF2020Final = 'epProtocolEF2020Final'
     type_EZK2020FinalPart = 'epProtocolEZK2020FinalPart'

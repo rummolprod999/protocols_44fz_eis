@@ -38,7 +38,10 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
                 'info')
         name = UtilsFunctions.get_el(
                 self.protocol, 'cancelReasonInfo',
-                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'authorityName')
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription',
+                'authorityName') or UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'reestrPrescription', 'authorityName')
         tp = UtilsFunctions.get_el(
                 self.protocol, 'cancelReasonInfo',
                 'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'authorityType')
@@ -74,11 +77,32 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
                 'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty', 'docName')
         dn = UtilsFunctions.get_el(
                 self.protocol, 'cancelReasonInfo',
-                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty', 'docNumber')
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty',
+                'docNumber') or UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'reestrPrescription', 'prescriptionNumber')
         dd = UtilsFunctions.get_el(
                 self.protocol, 'cancelReasonInfo',
-                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty', 'docDate')
+                'reasonInfo', 'authorityPrescriptionInfo', 'externalPrescription', 'prescriptionProperty',
+                'docDate') or UtilsFunctions.get_el(
+                self.protocol, 'cancelReasonInfo',
+                'reasonInfo', 'authorityPrescriptionInfo', 'reestrPrescription', 'docDate')
         return d + " | " + dn + " | " + dd
+
+    def get_url(self):
+        d = UtilsFunctions.get_el(self.protocol, 'printFormInfo', 'url') or UtilsFunctions.get_el(self.protocol,
+                                                                                                  'extPrintFormInfo',
+                                                                                                  'url') or UtilsFunctions.get_el(
+            self.protocol, 'commonInfo', 'href')
+        if d.startswith("<![CDATA"):
+            d = d[9:-3]
+        return d
+
+    def get_print_form_ext(self):
+        d = UtilsFunctions.get_el(self.protocol, 'extPrintFormInfo', 'url')
+        if d.startswith("<![CDATA"):
+            d = d[9:-3]
+        return d
 
 
 def parserCancel504(doc, path_xml, filexml, reg, type_f):
@@ -91,8 +115,8 @@ def parserCancel504(doc, path_xml, filexml, reg, type_f):
     xml = path_xml[path_xml.find('/') + 1:][(path_xml[path_xml.find('/') + 1:]).find('/') + 1:]
     id_protocol = p.get_id()
     protocol_number = p.get_protocol_number()
-    url = p.get_url_external()
-    print_form = p.get_print_form_ext()
+    url = p.get_url()
+    print_form = p.get_print_form()
     protocol_date = p.get_protocol_date()
     authority_name = p.get_authority_name()
     doc_name = p.get_doc_name()
