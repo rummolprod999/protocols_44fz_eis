@@ -145,7 +145,8 @@ def get_list_ftp_curr(path_parse, region):
         cur_arhiv = con_arhiv.cursor()
         for i in data:
             if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
-                    '2020') != -1 or i.find('2021') != -1 or i.find('2022') != -1 or i.find('2023') != -1:
+                    '2020') != -1 or i.find('2021') != -1 or i.find('2022') != -1 or i.find('2023') != -1 or i.find(
+                    '2024') != -1:
                 cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                                   (i, region))
                 find_file = cur_arhiv.fetchone()

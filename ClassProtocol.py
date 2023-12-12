@@ -103,6 +103,18 @@ class Protocol:
                     del e['cryptoSigns']
             except:
                 pass
+        try:
+            del dop_info['extPrintFormInfo']['commissionSignatures']
+        except:
+            pass
+        try:
+            del dop_info['attachmentsInfo']['attachmentInfo']['cryptoSigns']
+        except:
+            try:
+                for e in dop_info['attachmentsInfo']['attachmentInfo']:
+                    del e['cryptoSigns']
+            except:
+                pass
         dop_info = json.dumps(dop_info, sort_keys=False,
                               indent=4,
                               ensure_ascii=False,
