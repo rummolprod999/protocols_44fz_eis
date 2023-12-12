@@ -134,5 +134,6 @@ def parserEZK2(doc, path_xml, filexml, reg, type_f):
                             id_participiant = %s, admission = %s""",
                     (id_p, journal_number, result_zk,
                      price_zk, id_participiant, admission))
+    p.add_attach(cur, id_p)
     cur.close()
     con.close()

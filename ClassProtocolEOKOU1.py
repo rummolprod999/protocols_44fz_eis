@@ -97,5 +97,6 @@ def parserEOKOU1(doc, path_xml, filexml, reg, type_f):
                                                    journal_number = %s, admission = %s,
                                                    id_participiant = %s""",
                     (id_p, journal_number, admission, id_participiant))
+    p.add_attach(cur, id_p)
     cur.close()
     con.close()

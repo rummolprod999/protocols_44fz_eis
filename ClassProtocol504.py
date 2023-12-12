@@ -1,3 +1,5 @@
+import traceback
+
 import dateutil.parser
 import pytz
 import json
@@ -113,3 +115,58 @@ class Protocol504:
         if d and k:
             return f'{d}|{k}'
         return d or k
+
+    def add_attach(self, cur, id_protocol):
+        try:
+            attachments = UtilsFunctions.get_el(self.protocol, 'attachmentsInfo', 'attachmentInfo')
+            url = UtilsFunctions.get_el(attachments, 'url')
+            if url != '':
+                file_name = UtilsFunctions.get_el(attachments, 'fileName')
+                url = UtilsFunctions.get_el(attachments, 'url')
+                if url.startswith("<![CDATA"):
+                    url = url[9:-3]
+                descr = UtilsFunctions.get_el(attachments, 'docDescription')
+                cur.execute(f"""INSERT INTO auction_protocol_attach SET id_protocol = %s, file_name =  %s, 
+                                                                       url = %s, description = %s""",
+                            (id_protocol, file_name, url, descr))
+            else:
+                for attachment in attachments:
+                    file_name = UtilsFunctions.get_el(attachment, 'fileName')
+                    url = UtilsFunctions.get_el(attachment, 'url')
+                    if url.startswith("<![CDATA"):
+                        url = url[9:-3]
+                    descr = UtilsFunctions.get_el(attachment, 'docDescription')
+                    cur.execute(f"""INSERT INTO auction_protocol_attach SET id_protocol = %s, file_name =  %s, 
+                                            url = %s, description = %s""", (id_protocol, file_name, url, descr))
+            xml_path = self.xml.split('/')[-1]
+            urls = []
+            hrefExternal = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'hrefExternal')
+            if hrefExternal.startswith("<![CDATA"):
+                hrefExternal = hrefExternal[9:-3]
+            if hrefExternal != '':
+                urls.append(hrefExternal)
+            printFormInfo = UtilsFunctions.get_el(self.protocol, 'printFormInfo', 'url')
+            if printFormInfo.startswith("<![CDATA"):
+                printFormInfo = printFormInfo[9:-3]
+            if printFormInfo != '':
+                urls.append(printFormInfo)
+
+            for i, url in enumerate(urls):
+                file_name = f'{xml_path}-{i + 1}.docx'
+                descr = f'{xml_path}-{i + 1}'
+                cur.execute(f"""INSERT INTO auction_protocol_attach SET id_protocol = %s, file_name =  %s, 
+                                                                   url = %s, description = %s""",
+                            (id_protocol, file_name, url, descr))
+            extPrintFormInfo = UtilsFunctions.get_el(self.protocol, 'extPrintFormInfo', 'url')
+            if extPrintFormInfo.startswith("<![CDATA"):
+                extPrintFormInfo = extPrintFormInfo[9:-3]
+            if extPrintFormInfo != '':
+                extPrintFormInfotype = UtilsFunctions.get_el(self.protocol, 'extPrintFormInfo', 'fileType')
+                file_name = f'{xml_path}-{len(urls) + 1}.{extPrintFormInfotype}'
+                descr = f'{xml_path}-{len(urls) + 1}'
+                cur.execute(f"""INSERT INTO auction_protocol_attach SET id_protocol = %s, file_name =  %s, 
+                                                                                               url = %s, description = %s""",
+                            (id_protocol, file_name, extPrintFormInfo, descr))
+        except Exception as ex:
+            traceback.print_tb(ex.__traceback__)
+            pass

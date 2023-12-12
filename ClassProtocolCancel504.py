@@ -158,5 +158,6 @@ def parserCancel504(doc, path_xml, filexml, reg, type_f):
         ProtocolCancel504.update_protocolCancel += 1
     else:
         ProtocolCancel504.add_protocolCancel += 1
+    p.add_attach(cur, id_p)
     cur.close()
     con.close()

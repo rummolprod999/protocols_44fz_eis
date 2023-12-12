@@ -130,5 +130,6 @@ def parserEZT2020Final(doc, path_xml, filexml, reg, type_f):
                                 id_participiant = %s, price = %s""",
                     (id_p, journal_number, app_rating,
                      admission, id_participiant, price))
+    p.add_attach(cur, id_p)
     cur.close()
     con.close()
