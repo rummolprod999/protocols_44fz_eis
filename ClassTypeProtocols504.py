@@ -38,3 +38,6 @@ class TypeProtocols504:
     type_fcsAddInfo = 'fcsAddInfo'
     type_fcsAddInfoInvalid = 'fcsAddInfoInvalid'
     type_epProtocolEvasion = 'epProtocolEvasion'
+    type_pprf615ProtocolEF2 = 'pprf615ProtocolEF2'
+    type_pprf615QualifiedContractor = 'pprf615QualifiedContractor'
+    type_pprf615ProtocolPO = 'pprf615ProtocolPO'

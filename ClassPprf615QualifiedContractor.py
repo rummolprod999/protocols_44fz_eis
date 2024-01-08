@@ -13,7 +13,7 @@ from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 
-class Pprf615ProtocolEF1(Protocol504, Participiant504):
+class Pprf615QualifiedContractor(Protocol504, Participiant504):
     add = 0
     update = 0
 
@@ -74,17 +74,35 @@ class Pprf615ProtocolEF1(Protocol504, Participiant504):
 
     def get_applications(self):
         d = UtilsFunctions.generator_univ(
-            UtilsFunctions.get_el_list(self.protocol, 'protocolInfo', 'applications', 'application'))
+                UtilsFunctions.get_el_list(self.protocol, 'protocolInfo', 'applications', 'application'))
         return d
 
     def get_journal_number(self, application):
         d = UtilsFunctions.get_el(application, 'journalNumber')
         return d
 
+    def get_purchaseNumber(self):
+        d = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'registryNum')
+        return d
 
-def parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, type_f):
-    type_f = "pprf615ProtocolEF1"
-    p = Pprf615ProtocolEF1(doc, filexml)
+    def get_url_external(self):
+        d = UtilsFunctions.get_el(self.protocol, 'commonInfo', 'hrefExternal') or UtilsFunctions.get_el(self.protocol,
+                                                                                                        'commonInfo',
+                                                                                                        'href')
+        return d
+
+    def get_print_form_ext(self):
+        d = UtilsFunctions.get_el(self.protocol, 'extPrintFormInfo', 'url') or UtilsFunctions.get_el(self.protocol,
+                                                                                                     'printFormInfo',
+                                                                                                     'url')
+        if d.startswith("<![CDATA"):
+            d = d[9:-3]
+        return d
+
+
+def parserPprf615QualifiedContractor(doc, path_xml, filexml, reg, type_f):
+    type_f = "pprf615QualifiedContractor"
+    p = Pprf615QualifiedContractor(doc, filexml)
     purchase_number = p.get_purchaseNumber()
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
@@ -133,9 +151,9 @@ def parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, type_f):
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        Pprf615ProtocolEF1.update += 1
+        Pprf615QualifiedContractor.update += 1
     else:
-        Pprf615ProtocolEF1.add += 1
+        Pprf615QualifiedContractor.add += 1
     applications = p.get_applications()
     for app in applications:
         id_participiant = 0

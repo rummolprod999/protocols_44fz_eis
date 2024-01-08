@@ -13,7 +13,7 @@ from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
 
 
-class Pprf615ProtocolEF1(Protocol504, Participiant504):
+class Pprf615ProtocolPO(Protocol504, Participiant504):
     add = 0
     update = 0
 
@@ -74,7 +74,7 @@ class Pprf615ProtocolEF1(Protocol504, Participiant504):
 
     def get_applications(self):
         d = UtilsFunctions.generator_univ(
-            UtilsFunctions.get_el_list(self.protocol, 'protocolInfo', 'applications', 'application'))
+                UtilsFunctions.get_el_list(self.protocol, 'protocolInfo', 'applications', 'application'))
         return d
 
     def get_journal_number(self, application):
@@ -82,9 +82,9 @@ class Pprf615ProtocolEF1(Protocol504, Participiant504):
         return d
 
 
-def parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, type_f):
-    type_f = "pprf615ProtocolEF1"
-    p = Pprf615ProtocolEF1(doc, filexml)
+def parserPprf615ProtocolPO(doc, path_xml, filexml, reg, type_f):
+    type_f = "pprf615ProtocolPO"
+    p = Pprf615ProtocolPO(doc, filexml)
     purchase_number = p.get_purchaseNumber()
     if not purchase_number:
         logging_parser('У протокола нет purchase_number', path_xml)
@@ -133,9 +133,9 @@ def parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, type_f):
     if not id_p:
         logging_parser('Не получили id', xml)
     if updated:
-        Pprf615ProtocolEF1.update += 1
+        Pprf615ProtocolPO.update += 1
     else:
-        Pprf615ProtocolEF1.add += 1
+        Pprf615ProtocolPO.add += 1
     applications = p.get_applications()
     for app in applications:
         id_participiant = 0

@@ -13,6 +13,9 @@ import ClassProtocolEOKOUSinglePart
 import UtilsFunctions
 from ClassAddInfo import parserAddInfo
 from ClassPprf615ProtocolEF1 import parserPprf615ProtocolEF1
+from ClassPprf615ProtocolEF2 import parserPprf615ProtocolEF2
+from ClassPprf615ProtocolPO import parserPprf615ProtocolPO
+from ClassPprf615QualifiedContractor import parserPprf615QualifiedContractor
 from ClassProtocolAddInfoInvalid import parserAddInfoInvalid
 from ClassProtocolDeviation import parserProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
@@ -174,6 +177,15 @@ def parserOther(doc, path_xml, filexml, reg, type_f):
         pass
     elif list_p[0] == TypeProtocols504.type_EZP1:
         parserEZP1(doc, path_xml, filexml, reg, TypeProtocols504.type_EZP1)
+        pass
+    elif list_p[0] == TypeProtocols504.type_pprf615ProtocolEF2:
+        parserPprf615ProtocolEF2(doc, path_xml, filexml, reg, TypeProtocols504.type_pprf615ProtocolEF2)
+        pass
+    elif list_p[0] == TypeProtocols504.type_pprf615QualifiedContractor:
+        parserPprf615QualifiedContractor(doc, path_xml, filexml, reg, TypeProtocols504.type_pprf615QualifiedContractor)
+        pass
+    elif list_p[0] == TypeProtocols504.type_pprf615ProtocolPO:
+        parserPprf615ProtocolPO(doc, path_xml, filexml, reg, TypeProtocols504.type_pprf615ProtocolPO)
         pass
     else:
         logging_parser("New type protocol", list_p[0], path_xml)

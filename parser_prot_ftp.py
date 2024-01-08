@@ -37,6 +37,9 @@ import VarExecut
 import parser_prot as parser_protocol
 from ClassAddInfo import ProtocolAddInfo
 from ClassPprf615ProtocolEF1 import Pprf615ProtocolEF1
+from ClassPprf615ProtocolEF2 import Pprf615ProtocolEF2
+from ClassPprf615ProtocolPO import Pprf615ProtocolPO
+from ClassPprf615QualifiedContractor import Pprf615QualifiedContractor
 from ClassProtocolAddInfoInvalid import ProtocolAddInfoInvalid
 from ClassProtocolDeviation import ProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
@@ -316,7 +319,16 @@ def extract_prot(m, path_parse1, region):
             list_type_AddInfo = [file for file in file_list if
                                  file.find(ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfo) != -1 and file.find(
                                          ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid) == -1]
-            set_type_Other = set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
+            list_type_pprf615ProtocolEF2 = [file for file in file_list if
+                                            file.find(
+                                                ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF2) != -1]
+            list_type_pprf615QualifiedContractor = [file for file in file_list if
+                                                    file.find(
+                                                            ClassTypeProtocols504.TypeProtocols504.type_pprf615QualifiedContractor) != -1]
+            list_type_pprf615ProtocolPO = [file for file in file_list if
+                                           file.find(
+                                                   ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolPO) != -1]
+            set_type_Other = (set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
                     list_type_ZK) \
                              - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \
                              - set(list_type_OK2) - set(list_type_OKD5) - set(list_type_OKOU3) - set(list_type_ZPFinal) \
@@ -324,7 +336,9 @@ def extract_prot(m, path_parse1, region):
                     list_type_OKSingleApp) - set(list_type_OKOUSingleApp) \
                              - set(list_type_OK1) - set(list_type_OKD1) - set(list_type_OKD2) - set(list_type_OKD3) \
                              - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel) \
-                             - set(list_type_ProtocolEvasion) - set(list_type_AddInfo) - set(list_type_AddInfoInvalid)
+                              - set(list_type_ProtocolEvasion) - set(list_type_AddInfo) - set(
+                        list_type_AddInfoInvalid) - set(list_type_pprf615ProtocolEF2)
+                              - set(list_type_pprf615QualifiedContractor) - set(list_type_pprf615ProtocolPO))
 
         except Exception as ex:
             # print('Не удалось получить список файлов ' + str(ex) + ' ' + l_dir)
@@ -386,6 +400,12 @@ def extract_prot(m, path_parse1, region):
                 bolter(f27, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfo)
             for f28 in list_type_AddInfoInvalid:
                 bolter(f28, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid)
+            for f29 in list_type_pprf615ProtocolEF2:
+                bolter(f29, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF2)
+            for f30 in list_type_pprf615QualifiedContractor:
+                bolter(f30, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_pprf615QualifiedContractor)
+            for f31 in list_type_pprf615ProtocolPO:
+                bolter(f31, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolPO)
             for f25 in set_type_Other:
                 bolter(f25, l_dir, region, None)
 
@@ -524,6 +544,8 @@ def main():
 
     parser_propocols(path_array, 'protocols')
     parser_propocols(path_array, 'addinfo')
+    parser_propocols(path_array, 'pprf615docs/protocols')
+    parser_propocols(path_array, 'pprf615docs/qualifiedContractors')
 
 if __name__ == "__main__":
     logging_parser("Начало парсинга")
@@ -611,8 +633,8 @@ if __name__ == "__main__":
     logging_parser('Обновлено EOKOU2', ClassProtocolEOKOU2.ProtocolEOKOU2.update_protocolEOKOU2)
     logging_parser('Добавлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.add_protocolEOKOU3)
     logging_parser('Обновлено EOKOU3, EOKD4, EOKD3', ClassProtocolEOKOU3.ProtocolEOKOU3.update_protocolEOKOU3)
-    logging_parser('Добавлено fcsProtocolPR615', Pprf615ProtocolEF1.add)
-    logging_parser('Обновлено fcsProtocolPR615', Pprf615ProtocolEF1.update)
+    logging_parser('Добавлено pprf615ProtocolEF1', Pprf615ProtocolEF1.add)
+    logging_parser('Обновлено pprf615ProtocolEF1', Pprf615ProtocolEF1.update)
     logging_parser('Добавлено epProtocolEZT2020Final', ProtocolEZT2020Final.add)
     logging_parser('Обновлено epProtocolEZT2020Final', ProtocolEZT2020Final.update)
     logging_parser(
@@ -633,4 +655,10 @@ if __name__ == "__main__":
     logging_parser(
             'Обновлено AddInfoInvalid',
             ProtocolAddInfoInvalid.update)
+    logging_parser('Добавлено pprf615ProtocolEF2', Pprf615ProtocolEF2.add)
+    logging_parser('Обновлено pprf615ProtocolEF2', Pprf615ProtocolEF2.update)
+    logging_parser('Добавлено pprf615QualifiedContractor', Pprf615QualifiedContractor.add)
+    logging_parser('Обновлено pprf615QualifiedContractor', Pprf615QualifiedContractor.update)
+    logging_parser('Добавлено pprf615ProtocolPO', Pprf615ProtocolPO.add)
+    logging_parser('Обновлено pprf615ProtocolPO', Pprf615ProtocolPO.update)
     logging_parser("Конец парсинга")
