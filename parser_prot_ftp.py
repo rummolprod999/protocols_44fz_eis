@@ -150,15 +150,16 @@ def get_list_ftp_curr(path_parse, region):
             if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
                     '2020') != -1 or i.find('2021') != -1 or i.find('2022') != -1 or i.find('2023') != -1 or i.find(
                     '2024') != -1:
+                i_new = path_parse + i
                 cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
-                                  (i, region))
+                                  (i_new, region))
                 find_file = cur_arhiv.fetchone()
                 if find_file:
                     continue
                 else:
                     array_ar.append(i)
                     query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
-                    query_par = (i, region)
+                    query_par = (i_new, region)
                     cur_arhiv.execute(query_ar, query_par)
                     # with open(file_log, 'a') as flog5:
                     #     flog5.write('Добавлен новый архив ' + i + '\n')
@@ -187,7 +188,7 @@ def get_list_ftp_prev(path_parse, region):
         cur_arhiv = con_arhiv.cursor()
         # searchstring = datetime.datetime.now().strftime('%Y%m%d')
         for i in data:
-            i_prev = "prev_{0}".format(i)
+            i_prev = path_parse + i
             if True:
                 cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                                   (i_prev, region))
