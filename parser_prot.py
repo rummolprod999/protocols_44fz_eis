@@ -242,6 +242,18 @@ def parser(doc, path_xml, filexml, reg, type_f):
         elif type_f == TypeProtocols504.type_fcsAddInfoInvalid:
             pass
             parserAddInfoInvalid(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols504.type_pprf615ProtocolEF1:
+            pass
+            parserPprf615ProtocolEF1(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols504.type_pprf615ProtocolEF2:
+            pass
+            parserPprf615ProtocolEF2(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols504.type_pprf615QualifiedContractor:
+            pass
+            parserPprf615QualifiedContractor(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols504.type_pprf615ProtocolPO:
+            pass
+            parserPprf615ProtocolPO(doc, path_xml, filexml, reg, type_f)
         else:
             parserOther(doc, path_xml, filexml, reg, type_f)
     except Exception as e:

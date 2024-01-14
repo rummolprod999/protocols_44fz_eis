@@ -265,11 +265,14 @@ def extract_prot(m, path_parse1, region):
 
         try:
             file_list = os.listdir(l_dir)
-            list_type_EF1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF1) != -1]
+            list_type_EF1 = [file for file in file_list if (
+                        file.find(ClassTypeProtocols.TypeProtocols.type_EF1) != -1 and file.find(
+                    ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF1) == -1)]
             list_type_EF2 = [file for file in file_list if
                              (file.find(ClassTypeProtocols.TypeProtocols.type_EF2) != -1 and file.find(
                                      ClassTypeProtocols504.TypeProtocols504.type_EF2020Final) == -1 and file.find(
-                                     ClassTypeProtocols504.TypeProtocols504.type_EF2020SubmitOffers) == -1)]
+                                     ClassTypeProtocols504.TypeProtocols504.type_EF2020SubmitOffers) == -1 and file.find(
+                                     ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF2) == -1)]
             list_type_EF3 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_EF3) != -1]
             list_type_ZK = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_ZK) != -1]
             list_type_ZKAfterProlong = [file for file in file_list if
@@ -328,6 +331,9 @@ def extract_prot(m, path_parse1, region):
             list_type_pprf615ProtocolPO = [file for file in file_list if
                                            file.find(
                                                    ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolPO) != -1]
+            list_type_pprf615ProtocolEF1 = [file for file in file_list if
+                                            file.find(
+                                                    ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF1) != -1]
             set_type_Other = (set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
                     list_type_ZK) \
                              - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \
@@ -338,7 +344,8 @@ def extract_prot(m, path_parse1, region):
                              - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel) \
                               - set(list_type_ProtocolEvasion) - set(list_type_AddInfo) - set(
                         list_type_AddInfoInvalid) - set(list_type_pprf615ProtocolEF2)
-                              - set(list_type_pprf615QualifiedContractor) - set(list_type_pprf615ProtocolPO))
+                              - set(list_type_pprf615QualifiedContractor) - set(list_type_pprf615ProtocolPO) - set(
+                        list_type_pprf615ProtocolEF1))
 
         except Exception as ex:
             # print('Не удалось получить список файлов ' + str(ex) + ' ' + l_dir)
@@ -400,6 +407,8 @@ def extract_prot(m, path_parse1, region):
                 bolter(f27, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfo)
             for f28 in list_type_AddInfoInvalid:
                 bolter(f28, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid)
+            for f38 in list_type_pprf615ProtocolEF1:
+                bolter(f38, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF1)
             for f29 in list_type_pprf615ProtocolEF2:
                 bolter(f29, l_dir, region, ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF2)
             for f30 in list_type_pprf615QualifiedContractor:
