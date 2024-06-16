@@ -40,6 +40,7 @@ from ClassPprf615ProtocolEF1 import Pprf615ProtocolEF1
 from ClassPprf615ProtocolEF2 import Pprf615ProtocolEF2
 from ClassPprf615ProtocolPO import Pprf615ProtocolPO
 from ClassPprf615QualifiedContractor import Pprf615QualifiedContractor
+from ClassProposalsResult import ProtocolProposalsResult
 from ClassProtocolAddInfoInvalid import ProtocolAddInfoInvalid
 from ClassProtocolDeviation import ProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import ProtocolEF2020SubmitOffers
@@ -306,6 +307,8 @@ def extract_prot(m, path_parse1, region):
                                       file.find(ClassTypeProtocols.TypeProtocols.type_OKDSingleApp) != -1]
             list_type_OKOUSingleApp = [file for file in file_list if
                                        file.find(ClassTypeProtocols.TypeProtocols.type_OKOUSingleApp) != -1]
+            list_type_ProposalsResult = [file for file in file_list if
+                                         file.find(ClassTypeProtocols.TypeProtocols.type_ProtocolProposalsResult) != -1]
             list_type_OK1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OK1) != -1]
             list_type_OKD1 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD1) != -1]
             list_type_OKD2 = [file for file in file_list if file.find(ClassTypeProtocols.TypeProtocols.type_OKD2) != -1]
@@ -394,6 +397,8 @@ def extract_prot(m, path_parse1, region):
                 bolter(f19, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD2)
             for f20 in list_type_OKD3:
                 bolter(f20, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD3)
+            for f99 in list_type_ProposalsResult:
+                bolter(f99, l_dir, region, ClassTypeProtocols.TypeProtocols.type_ProtocolProposalsResult)
             for f21 in list_type_OKD4:
                 bolter(f21, l_dir, region, ClassTypeProtocols.TypeProtocols.type_OKD4)
             for f22 in list_type_OKOU1:
@@ -593,6 +598,8 @@ if __name__ == "__main__":
     logging_parser('Обновлено EZP2', ClassProtocolEZP2.ProtocolEZP2.update_protocolEZP2)
     logging_parser('Добавлено EOK3', ClassProtocolEOK3.ProtocolEOK3.add_protocolEOK3)
     logging_parser('Обновлено EOK3', ClassProtocolEOK3.ProtocolEOK3.update_protocolEOK3)
+    logging_parser('Добавлено ProposalsResult', ProtocolProposalsResult.add)
+    logging_parser('Обновлено ProposalsResult', ProtocolProposalsResult.update)
     logging_parser('Добавлено Cancel504, epNoticeApplicationCancel, epProtocolEvDevCancel',
                    ClassProtocolCancel504.ProtocolCancel504.add_protocolCancel)
     logging_parser('Обновлено Cancel504, epNoticeApplicationCancel, epProtocolEvDevCancel',

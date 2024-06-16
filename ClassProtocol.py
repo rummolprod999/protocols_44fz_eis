@@ -24,6 +24,11 @@ class Protocol:
                 self.applications = UtilsFunctions.generator_univ(self.protocol['protocolLot']['application'])
             else:
                 self.applications = []
+        elif 'applications' in self.protocol:
+            if 'application' in self.protocol['applications']:
+                self.applications = UtilsFunctions.generator_univ(self.protocol['applications']['application'])
+            else:
+                self.applications = []
         else:
             self.applications = []
 

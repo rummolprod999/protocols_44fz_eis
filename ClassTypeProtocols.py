@@ -24,3 +24,4 @@ class TypeProtocols:
     type_OKOU2 = 'ProtocolOKOU2'
     type_Cancel = 'ProtocolCancel'
     type_ProtocolEvasion = 'ProtocolEvasion'
+    type_ProtocolProposalsResult = 'ProposalsResult'

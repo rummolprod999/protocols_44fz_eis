@@ -48,7 +48,11 @@ class Participiant:
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
-                'fullName')
+                'fullName') or UtilsFunctions.get_el(
+                application,
+                'customersInfo',
+                'customerInfo',
+                'customer', 'fullName')
         if not d:
             lastName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
                                              'lastName') or UtilsFunctions.get_el(application, 'appParticipants',

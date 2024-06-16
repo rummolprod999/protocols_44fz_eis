@@ -16,6 +16,7 @@ from ClassPprf615ProtocolEF1 import parserPprf615ProtocolEF1
 from ClassPprf615ProtocolEF2 import parserPprf615ProtocolEF2
 from ClassPprf615ProtocolPO import parserPprf615ProtocolPO
 from ClassPprf615QualifiedContractor import parserPprf615QualifiedContractor
+from ClassProposalsResult import parserProposalsResult
 from ClassProtocolAddInfoInvalid import parserAddInfoInvalid
 from ClassProtocolDeviation import parserProtocolDeviation
 from ClassProtocolEF2020SubmitOffers import parserEF2020SubmitOffers
@@ -254,6 +255,9 @@ def parser(doc, path_xml, filexml, reg, type_f):
         elif type_f == TypeProtocols504.type_pprf615ProtocolPO:
             pass
             parserPprf615ProtocolPO(doc, path_xml, filexml, reg, type_f)
+        elif type_f == TypeProtocols.type_ProtocolProposalsResult:
+            pass
+            parserProposalsResult(doc, path_xml, filexml, reg, type_f)
         else:
             parserOther(doc, path_xml, filexml, reg, type_f)
     except Exception as e:
