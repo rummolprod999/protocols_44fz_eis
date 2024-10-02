@@ -137,7 +137,7 @@ def get_list_ftp_curr(path_parse, region):
     """
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
-    password = 'free'
+    password = 'otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
     with ftplib.FTP(host) as ftp2:
         ftp2.set_debuglevel(0)
         ftp2.encoding = 'utf8'
@@ -177,7 +177,7 @@ def get_list_ftp_prev(path_parse, region):
     """
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
-    password = 'free'
+    password = 'otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
     with ftplib.FTP(host) as ftp2:
         ftp2.set_debuglevel(0)
         ftp2.encoding = 'utf8'
@@ -215,7 +215,7 @@ def get_list_ftp_last(path_parse):
     """
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
-    password = 'free'
+    password = 'otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
     with ftplib.FTP(host) as ftp2:
         ftp2.set_debuglevel(0)
         ftp2.encoding = 'utf8'
@@ -435,7 +435,7 @@ def extract_prot(m, path_parse1, region):
 def down_timeout(m, path_parse1):
     host = 'ftp.zakupki.gov.ru'
     ftpuser = 'free'
-    password = 'free'
+    password = 'otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
     with ftplib.FTP(host) as ftp2:
         ftp2.set_debuglevel(0)
         ftp2.encoding = 'utf8'
