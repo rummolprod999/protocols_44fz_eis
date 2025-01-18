@@ -62,7 +62,7 @@ logging.basicConfig(level=logging.DEBUG, filename=file_log,
 def parserOther(doc, path_xml, filexml, reg, type_f):
     prot = doc[list(doc.keys())[0]]
     list_p = [v for v in prot.keys() if (v.lower().startswith("ep") or v.lower().startswith("pprf"))]
-    ex_type = ['PP615', 'fcsProtocolPO', 'P615']
+    ex_type = []
     for t in ex_type:
         if t in filexml:
             return
