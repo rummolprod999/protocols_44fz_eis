@@ -5,7 +5,11 @@ import os
 import shutil
 import sys
 import time
+import urllib
+import uuid
 import zipfile
+
+import requests
 import timeout_decorator
 import xmltodict
 
@@ -52,6 +56,77 @@ from ClassProtocolEZP1Extract import ProtocolEZP1Extract
 from ClassProtocolEZT2020Final import ProtocolEZT2020Final
 from connect_to_db import connect_bd
 
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+DAYS = 2
+TOKEN = 'edb04342-8607-49de-b5ee-ecc724fb220b'
+types = {"epProtocolEZK2020Final": "PRIZ",
+         "epProtocolEZT2020Final": "PRIZ",
+         "epProtocolEF2020SubmitOffers": "PRIZ",
+         "epProtocolEF2020Final": "PRIZ",
+         "epProtocolEOK2020FirstSections": "PRIZ",
+         "epProtocolEOK2020SecondSections": "PRIZ",
+         "epProtocolEOK2020Final": "PRIZ",
+         "epNoticeApplicationCancel": "PRIZ",
+         "epProtocolCancel": "PRIZ",
+         "epProtocolEvasion": "PRIZ",
+         "epProtocolDeviation": "PRIZ",
+         "epProtocolEvDevCancel": "PRIZ",
+         "fcsProtocolCancel": "PRIZ",
+         "fcsProtocolEF1": "PRIZ",
+         "fcsProtocolEF2": "PRIZ",
+         "fcsProtocolEF3": "PRIZ",
+         "fcsProtocolEFInvalidation": "PRIZ",
+         "fcsProtocolEFSingleApp": "PRIZ",
+         "fcsProtocolEFSinglePart": "PRIZ",
+         "fcsProtocolEvasion": "PRIZ",
+         "fcsProtocolDeviation": "PRIZ",
+         "fcsProtocolPO": "PRIZ",
+         "fcsProtocolOK1": "PRIZ",
+         "fcsProtocolOK2": "PRIZ",
+         "fcsProtocolOKSingleApp": "PRIZ",
+         "fcsProtocolOKOU1": "PRIZ",
+         "fcsProtocolOKOU2": "PRIZ",
+         "fcsProtocolOKOU3": "PRIZ",
+         "fcsProtocolOKOUSingleApp": "PRIZ",
+         "fcsProtocolOKD1": "PRIZ",
+         "fcsProtocolOKD2": "PRIZ",
+         "fcsProtocolOKD3": "PRIZ",
+         "fcsProtocolOKD4": "PRIZ",
+         "fcsProtocolOKD5": "PRIZ",
+         "fcsProtocolOKDSingleApp": "PRIZ",
+         "fcsProtocolZK": "PRIZ",
+         "fcsProtocolZKAfterProlong": "PRIZ",
+         "fcsProtocolZPFinal": "PRIZ",
+         "fcsProtocolZP": "PRIZ",
+         "epProtocolEOK1": "PRIZ",
+         "epProtocolEOK2": "PRIZ",
+         "epProtocolEOK3": "PRIZ",
+         "epProtocolEOKSingleApp": "PRIZ",
+         "epProtocolEOKSinglePart": "PRIZ",
+         "epProtocolEOKOU1": "PRIZ",
+         "epProtocolEOKOU2": "PRIZ",
+         "epProtocolEOKOU3": "PRIZ",
+         "epProtocolEOKOUSingleApp": "PRIZ",
+         "epProtocolEOKOUSinglePart": "PRIZ",
+         "epProtocolEOKD1": "PRIZ",
+         "epProtocolEOKD2": "PRIZ",
+         "epProtocolEOKD3": "PRIZ",
+         "epProtocolEOKD4": "PRIZ",
+         "epProtocolEOKDSingleApp": "PRIZ",
+         "epProtocolEOKDSinglePart": "PRIZ",
+         "epProtocolEZK1": "PRIZ",
+         "epProtocolEZK2": "PRIZ",
+         "epProlongationEZK": "PRIZ",
+         "epProlongationCancelEZK": "PRIZ",
+         "epProtocolEZP1Extract": "PRIZ",
+         "epProtocolEZP1": "PRIZ",
+         "epProtocolEZP2": "PRIZ",
+         "pprf615ProtocolPO": "PPRF615",
+         "pprf615ProtocolEF1": "PPRF615",
+         "pprf615ProtocolEF2": "PPRF615",
+         "pprf615QualifiedContractor": "RKPO",
+         "fcsAddInfo": "RDI",
+         "fcsAddInfoInvalid": "RDI"}
 PREFIX = VarExecut.PREFIX
 DB = VarExecut.DB
 TEMP_DIR = VarExecut.TEMP_DIR
@@ -150,7 +225,7 @@ def get_list_ftp_curr(path_parse, region):
         for i in data:
             if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
                     '2020') != -1 or i.find('2021') != -1 or i.find('2022') != -1 or i.find('2023') != -1 or i.find(
-                    '2024') != -1:
+                    '2024') != -1 or i.find('2025') != -1:
                 i_new = path_parse + i
                 cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
                                   (i_new, region))
@@ -230,13 +305,13 @@ def get_list_ftp_last(path_parse):
         return array_ar
 
 
-def extract_prot(m, path_parse1, region):
+def extract_prot(m, region):
     """
     :param m: имя архива с контрактами
     :param path_parse1: путь до папки с архивом
     """
     global need_file
-    l = get_ar(m, path_parse1)
+    l = get_ar(m)
     if l:
         # print(l)
         r_ind = l.rindex('.')
@@ -267,8 +342,9 @@ def extract_prot(m, path_parse1, region):
 
         try:
             file_list = os.listdir(l_dir)
+            print(file_list)
             list_type_EF1 = [file for file in file_list if (
-                        file.find(ClassTypeProtocols.TypeProtocols.type_EF1) != -1 and file.find(
+                    file.find(ClassTypeProtocols.TypeProtocols.type_EF1) != -1 and file.find(
                     ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF1) == -1)]
             list_type_EF2 = [file for file in file_list if
                              (file.find(ClassTypeProtocols.TypeProtocols.type_EF2) != -1 and file.find(
@@ -299,8 +375,8 @@ def extract_prot(m, path_parse1, region):
                                         file.find(ClassTypeProtocols.TypeProtocols.type_EFInvalidation) != -1]
             list_type_ProtocolEvasion = [file for file in file_list if
                                          file.find(
-                                             ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion) != -1 and file.find(
-                                             ClassTypeProtocols504.TypeProtocols504.type_epProtocolEvasion) == -1]
+                                                 ClassTypeProtocols.TypeProtocols.type_ProtocolEvasion) != -1 and file.find(
+                                                 ClassTypeProtocols504.TypeProtocols504.type_epProtocolEvasion) == -1]
             list_type_OKSingleApp = [file for file in file_list if
                                      file.find(ClassTypeProtocols.TypeProtocols.type_OKSingleApp) != -1]
             list_type_OKDSingleApp = [file for file in file_list if
@@ -328,7 +404,7 @@ def extract_prot(m, path_parse1, region):
                                          ClassTypeProtocols504.TypeProtocols504.type_fcsAddInfoInvalid) == -1]
             list_type_pprf615ProtocolEF2 = [file for file in file_list if
                                             file.find(
-                                                ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF2) != -1]
+                                                    ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF2) != -1]
             list_type_pprf615QualifiedContractor = [file for file in file_list if
                                                     file.find(
                                                             ClassTypeProtocols504.TypeProtocols504.type_pprf615QualifiedContractor) != -1]
@@ -340,16 +416,17 @@ def extract_prot(m, path_parse1, region):
                                                     ClassTypeProtocols504.TypeProtocols504.type_pprf615ProtocolEF1) != -1]
             set_type_Other = (set(file_list) - set(list_type_EF1) - set(list_type_EF2) - set(list_type_EF3) - set(
                     list_type_ZK) \
-                             - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \
-                             - set(list_type_OK2) - set(list_type_OKD5) - set(list_type_OKOU3) - set(list_type_ZPFinal) \
-                             - set(list_type_Deviation) - set(list_type_EFInvalidation) - set(
-                    list_type_OKSingleApp) - set(list_type_OKOUSingleApp) \
-                             - set(list_type_OK1) - set(list_type_OKD1) - set(list_type_OKD2) - set(list_type_OKD3) \
-                             - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(list_type_Cancel) \
+                              - set(list_type_ZKAfterProlong) - set(list_type_EFSingleApp) - set(list_type_EFSinglePart) \
+                              - set(list_type_OK2) - set(list_type_OKD5) - set(list_type_OKOU3) - set(list_type_ZPFinal) \
+                              - set(list_type_Deviation) - set(list_type_EFInvalidation) - set(
+                            list_type_OKSingleApp) - set(list_type_OKOUSingleApp) \
+                              - set(list_type_OK1) - set(list_type_OKD1) - set(list_type_OKD2) - set(list_type_OKD3) \
+                              - set(list_type_OKD4) - set(list_type_OKOU1) - set(list_type_OKOU2) - set(
+                            list_type_Cancel) \
                               - set(list_type_ProtocolEvasion) - set(list_type_AddInfo) - set(
-                        list_type_AddInfoInvalid) - set(list_type_pprf615ProtocolEF2)
+                            list_type_AddInfoInvalid) - set(list_type_pprf615ProtocolEF2)
                               - set(list_type_pprf615QualifiedContractor) - set(list_type_pprf615ProtocolPO) - set(
-                        list_type_pprf615ProtocolEF1))
+                            list_type_pprf615ProtocolEF1))
 
         except Exception as ex:
             # print('Не удалось получить список файлов ' + str(ex) + ' ' + l_dir)
@@ -431,73 +508,50 @@ def extract_prot(m, path_parse1, region):
             pass
 
 
-@timeout_decorator.timeout(600)
-def down_timeout(m, path_parse1):
-    host = 'ftp.zakupki.gov.ru'
-    ftpuser = 'free'
-    password = 'VNIMANIE!_otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
-    with ftplib.FTP(host) as ftp2:
-        ftp2.set_debuglevel(0)
-        ftp2.encoding = 'utf8'
-        ftp2.login(ftpuser, password)
-        ftp2.cwd(path_parse1)
-        local_f = '{0}/{1}'.format(TEMP_DIR, str(m))
-        lf = open(local_f, 'wb')
-        ftp2.retrbinary('RETR ' + str(m), lf.write)
-        lf.close()
-        return local_f
+@timeout_decorator.timeout(30)
+def down_timeout(m):
+    local_f = '{0}/{1}'.format(TEMP_DIR, 'array.zip')
+    opener = urllib.request.build_opener()
+    opener.addheaders = [('individualPerson_token', TOKEN)]
+    urllib.request.install_opener(opener)
+    urllib.request.urlretrieve(m, local_f)
+    return local_f
 
-def parser_propocols(path_array, path_on_ftp):
-    for reg in path_array:
-        # if int(reg["id"]) != 81:
-        #     continue
-        if len(sys.argv) == 1:
-            print(
-                    'Недостаточно параметров для запуска, используйте curr для парсинга текущего месяца и last или prev'
-                    ' для '
-                    'прошлых')
+
+def parser_propocols(d, reg, t, sub):
+    if len(sys.argv) == 1:
+        print(
+                'Недостаточно параметров для запуска, используйте curr для парсинга текущего месяца и last или prev'
+                ' для '
+                'прошлых')
+        exit()
+    try:
+        # получаем список архивов
+        if str(sys.argv[1]) == 'curr':
+            arr_con = get_list_api(d, reg, t, sub)
+        else:
+            arr_con = []
+            print('Неверное имя параметра, используйте curr для парсинга текущего месяца и last или prev '
+                  'для прошлых')
             exit()
-        elif str(sys.argv[1]) == 'last':
-            path_parse = 'fcs_regions/' + reg['path'] + '/' + path_on_ftp + '/'
-        elif str(sys.argv[1]) == 'curr':
-            path_parse = 'fcs_regions/' + reg['path'] + '/' + path_on_ftp + '/currMonth/'
-        elif str(sys.argv[1]) == 'prev':
-            path_parse = 'fcs_regions/' + reg['path'] + '/' + path_on_ftp + '/prevMonth/'
-
-        try:
-            # получаем список архивов
-            if str(sys.argv[1]) == 'curr':
-                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_curr(path_parse, reg['path']))
-            elif str(sys.argv[1]) == 'last':
-                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_last(path_parse))
-            elif str(sys.argv[1]) == 'prev':
-                arr_con = get_list_ftp(path_parse, lambda: get_list_ftp_prev(path_parse, reg['path']))
-            else:
-                arr_con = []
-                print('Неверное имя параметра, используйте curr для парсинга текущего месяца и last или prev '
-                      'для прошлых')
-                exit()
-            for j in arr_con:
-                try:
-                    extract_prot(j, path_parse, reg['conf'])
-                except Exception as exc:
-                    print('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j)
-                    logging.exception("Ошибка: ")
-                    with open(file_log, 'a') as flog:
-                        flog.write('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j + '\n')
-                    continue
-
-        except Exception as ex:
-            # print('Не удалось получить список архивов ' + str(ex) + ' ' + path_parse)
-            if '550 Failed to change directory' in str(ex):
-                logging.warning(f"Can not find directory {path_parse}")
+        for j in arr_con:
+            try:
+                extract_prot(j, reg['conf'])
+                pass
+            except Exception as exc:
+                print('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j)
+                logging.exception("Ошибка: ")
+                with open(file_log, 'a') as flog:
+                    flog.write('Ошибка в экстракторе и парсере ' + str(exc) + ' ' + j + '\n')
                 continue
-            logging.exception("Ошибка: ")
-            with open(file_log, 'a') as flog:
-                flog.write(f'Не удалось получить список архивов {str(ex)} {path_parse}\n')
-            continue
 
-def get_ar(m, path_parse1):
+    except Exception as ex:
+        logging.exception("Ошибка: ")
+        with open(file_log, 'a') as flog:
+            flog.write(f'Не удалось получить список архивов {str(ex)} {reg} {t} {sub}\n')
+
+
+def get_ar(m):
     """
     :param m: получаем имя архива
     :param path_parse1: получаем путь до архива
@@ -507,7 +561,7 @@ def get_ar(m, path_parse1):
     count = 0
     while retry:
         try:
-            lf = down_timeout(m, path_parse1)
+            lf = down_timeout(m)
             retry = False
             return lf
         except Exception as ex:
@@ -516,12 +570,13 @@ def get_ar(m, path_parse1):
             # logging.exception("Ошибка: ")
             # with open(file_log, 'a') as flog:
             #     flog.write('Не удалось скачать архив ' + str(ex) + ' ' + m + '\n')
-            if count > 50:
+            if count > 5:
                 with open(file_log, 'a') as flog:
                     flog.write(
-                        'Не удалось скачать архив за ' + str(count) + ' попыток ' + str(ex) + ' ' + str(m) + '\n')
+                            'Не удалось скачать архив за ' + str(count) + ' попыток ' + str(ex) + ' ' + str(m) + '\n')
                 return 0
             count += 1
+
 
 def get_list_ftp(path_parse, lmbd):
     retry = True
@@ -541,9 +596,69 @@ def get_list_ftp(path_parse, lmbd):
                 with open(file_log, 'a') as flog:
                     flog.write(
                             'Не удалось получить список архивов за ' + str(count) + ' попыток ' + str(
-                                ex) + ' ' + path_parse + '\n')
+                                    ex) + ' ' + path_parse + '\n')
                 return []
             count += 1
+
+
+def get_list_api(d, reg, t, sub):
+    count = 0
+    while True:
+        try:
+            lf = []
+            url = 'https://int44.zakupki.gov.ru/eis-integration/services/getDocsIP'
+            unique_id = uuid.uuid4()
+            current_datetime = datetime.datetime.utcnow().isoformat()
+            prev = (datetime.datetime.now() - datetime.timedelta(d)).strftime('%Y-%m-%d')
+            request = f"""
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://zakupki.gov.ru/fz44/get-docs-ip/ws">
+            <soapenv:Header>
+            <individualPerson_token>{TOKEN}</individualPerson_token>
+            </soapenv:Header>
+            <soapenv:Body>
+            <ws:getDocsByOrgRegionRequest>
+            <index>
+            <id>{unique_id}</id>
+            <createDateTime>{current_datetime}</createDateTime>
+            <mode>PROD</mode>
+            </index>
+            <selectionParams>
+            <orgRegion>{reg['conf']}</orgRegion>
+            <subsystemType>{sub}</subsystemType>
+            <documentType44>{t}</documentType44>
+            <periodInfo>
+            <exactDate>{prev}</exactDate>
+            </periodInfo>
+            </selectionParams>
+            </ws:getDocsByOrgRegionRequest>
+            </soapenv:Body>
+            </soapenv:Envelope>
+            """
+            headers = {
+                'Content-Type': 'text/xml; charset=utf-8',
+            }
+            # print(request)
+            response = requests.post(url, data=request, headers=headers)
+            if response.status_code == 200:
+                r = response.content.decode('utf-8')
+                doc = xmltodict.parse(r)
+                lf = UtilsFunctions.generator_univ(
+                    UtilsFunctions.get_el_list(doc, 'soap:Envelope', 'soap:Body', 'ns2:getDocsByOrgRegionResponse',
+                                               'dataInfo', 'archiveUrl'))
+
+            else:
+                raise Exception('response code ' + response.status_code)
+            return lf
+        except Exception as ex:
+            time.sleep(5)
+            if count > 5:
+                with open(file_log, 'a') as flog:
+                    flog.write(
+                            'Не удалось получить список архивов за ' + str(count) + ' попыток ' + str(
+                                    ex) + ' ' + t + '\n')
+                return []
+            count += 1
+
 
 def main():
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
@@ -556,11 +671,11 @@ def main():
     path_array = cur_region.fetchall()
     cur_region.close()
     con_region.close()
+    for d in range(DAYS, -1, -1):
+        for reg in path_array:
+            for t in types:
+                parser_propocols(d, reg, t, types[t])
 
-    parser_propocols(path_array, 'protocols')
-    parser_propocols(path_array, 'addinfo')
-    parser_propocols(path_array, 'pprf615docs/protocols')
-    parser_propocols(path_array, 'pprf615docs/qualifiedContractors')
 
 if __name__ == "__main__":
     logging_parser("Начало парсинга")
