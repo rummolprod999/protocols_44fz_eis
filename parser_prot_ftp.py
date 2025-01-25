@@ -56,7 +56,6 @@ from ClassProtocolEZP1Extract import ProtocolEZP1Extract
 from ClassProtocolEZT2020Final import ProtocolEZT2020Final
 from connect_to_db import connect_bd
 
-logging.getLogger("urllib3").setLevel(logging.WARNING)
 DAYS = 2
 TOKEN = 'edb04342-8607-49de-b5ee-ecc724fb220b'
 types = {"epProtocolEZK2020Final": "PRIZ",
@@ -202,107 +201,6 @@ def bolter(file, l_dir, region, type_f):
         logging.exception("Ошибка: ")
         with open(file_log, 'a') as flog:
             flog.write(f'Не удалось пропарсить файл {str(exppars)} {file}\n')
-
-
-def get_list_ftp_curr(path_parse, region):
-    """
-    :param region: регион архива
-    :param path_parse: путь для архивов региона
-    :return: возвращаем список архивов за 2016, 2017, 2018, 2019, 2020
-    """
-    host = 'ftp.zakupki.gov.ru'
-    ftpuser = 'free'
-    password = 'VNIMANIE!_otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
-    with ftplib.FTP(host) as ftp2:
-        ftp2.set_debuglevel(0)
-        ftp2.encoding = 'utf8'
-        ftp2.login(ftpuser, password)
-        ftp2.cwd(path_parse)
-        data = ftp2.nlst()
-        array_ar = []
-        con_arhiv = connect_bd(DB)
-        cur_arhiv = con_arhiv.cursor()
-        for i in data:
-            if i.find('2016') != -1 or i.find('2017') != -1 or i.find('2018') != -1 or i.find('2019') != -1 or i.find(
-                    '2020') != -1 or i.find('2021') != -1 or i.find('2022') != -1 or i.find('2023') != -1 or i.find(
-                    '2024') != -1 or i.find('2025') != -1:
-                i_new = path_parse + i
-                cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
-                                  (i_new, region))
-                find_file = cur_arhiv.fetchone()
-                if find_file:
-                    continue
-                else:
-                    array_ar.append(i)
-                    query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
-                    query_par = (i_new, region)
-                    cur_arhiv.execute(query_ar, query_par)
-                    # with open(file_log, 'a') as flog5:
-                    #     flog5.write('Добавлен новый архив ' + i + '\n')
-        cur_arhiv.close()
-        con_arhiv.close()
-        return array_ar
-
-
-def get_list_ftp_prev(path_parse, region):
-    """
-    :param region: регион архива
-    :param path_parse: путь для архивов региона
-    :return: возвращаем список архивов за 2016, 2017, 2018
-    """
-    host = 'ftp.zakupki.gov.ru'
-    ftpuser = 'free'
-    password = 'VNIMANIE!_otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
-    with ftplib.FTP(host) as ftp2:
-        ftp2.set_debuglevel(0)
-        ftp2.encoding = 'utf8'
-        ftp2.login(ftpuser, password)
-        ftp2.cwd(path_parse)
-        data = ftp2.nlst()
-        array_ar = []
-        con_arhiv = connect_bd(DB)
-        cur_arhiv = con_arhiv.cursor()
-        # searchstring = datetime.datetime.now().strftime('%Y%m%d')
-        for i in data:
-            i_prev = path_parse + i
-            if True:
-                cur_arhiv.execute(f"""SELECT id FROM {PREFIX}arhiv_prot WHERE arhiv = %s AND region = %s""",
-                                  (i_prev, region))
-                find_file = cur_arhiv.fetchone()
-                if find_file:
-                    continue
-                else:
-                    array_ar.append(i)
-                    query_ar = f"""INSERT INTO {PREFIX}arhiv_prot SET arhiv = %s, region = %s"""
-                    query_par = (i_prev, region)
-                    cur_arhiv.execute(query_ar, query_par)
-                    # with open(file_log, 'a') as flog5:
-                    #     flog5.write('Добавлен новый архив ' + i + '\n')
-        cur_arhiv.close()
-        con_arhiv.close()
-        return array_ar
-
-
-def get_list_ftp_last(path_parse):
-    """
-    :param path_parse: путь для архивов региона
-    :return: возвращаем список архивов за 2016, 2017, 2018
-    """
-    host = 'ftp.zakupki.gov.ru'
-    ftpuser = 'free'
-    password = 'VNIMANIE!_otkluchenie_FTP_s_01_01_2025_podrobnee_v_ATFF'
-    with ftplib.FTP(host) as ftp2:
-        ftp2.set_debuglevel(0)
-        ftp2.encoding = 'utf8'
-        ftp2.login(ftpuser, password)
-        ftp2.cwd(path_parse)
-        data = ftp2.nlst()
-        array_ar = []
-        for i in data:
-            if i.find('2022') != -1:
-                array_ar.append(i)
-
-        return array_ar
 
 
 def extract_prot(m, region):
@@ -575,29 +473,6 @@ def get_ar(m):
                     flog.write(
                             'Не удалось скачать архив за ' + str(count) + ' попыток ' + str(ex) + ' ' + str(m) + '\n')
                 return 0
-            count += 1
-
-
-def get_list_ftp(path_parse, lmbd):
-    retry = True
-    count = 0
-    while retry:
-        try:
-            lf = lmbd()
-            retry = False
-            return lf
-        except Exception as ex:
-            time.sleep(5)
-            # print('Не удалось скачать архив ' + str(ex) + ' ' + m)
-            # logging.exception("Ошибка: ")
-            # with open(file_log, 'a') as flog:
-            #     flog.write('Не удалось скачать архив ' + str(ex) + ' ' + m + '\n')
-            if count > 50:
-                with open(file_log, 'a') as flog:
-                    flog.write(
-                            'Не удалось получить список архивов за ' + str(count) + ' попыток ' + str(
-                                    ex) + ' ' + path_parse + '\n')
-                return []
             count += 1
 
 
