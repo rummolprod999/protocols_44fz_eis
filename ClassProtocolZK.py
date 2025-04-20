@@ -5,9 +5,9 @@ import dateutil.parser
 import UtilsFunctions
 from ClassParticipiant import Participiant
 from ClassProtocol import Protocol
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolZK(Protocol, Participiant):

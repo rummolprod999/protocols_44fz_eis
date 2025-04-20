@@ -6,9 +6,9 @@ import dateutil.parser
 import UtilsFunctions
 from ClassParticipiant import Participiant
 from ClassProtocol import Protocol
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolOK2(Protocol, Participiant):
@@ -53,11 +53,11 @@ class ProtocolOK2(Protocol, Participiant):
         d = UtilsFunctions.get_el(part, 'organizationName')
         if not d:
             lastName = UtilsFunctions.get_el(part, 'contactInfo',
-                                          'lastName')
+                                             'lastName')
             firstName = UtilsFunctions.get_el(part, 'contactInfo',
-                                           'firstName')
+                                              'firstName')
             middleName = UtilsFunctions.get_el(part, 'contactInfo',
-                                            'middleName')
+                                               'middleName')
             d = f"{lastName} {firstName} {middleName}".strip()
         return d
 

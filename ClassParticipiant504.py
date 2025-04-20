@@ -4,11 +4,11 @@ import UtilsFunctions
 class Participiant504:
     def get_inn(self, application):
         d = UtilsFunctions.get_el(application, 'appParticipant', 'inn') or UtilsFunctions.get_el(application,
-                                                                                           'appParticipant',
+                                                                                                 'appParticipant',
                                                                                                  'idNumber') or UtilsFunctions.get_el(
                 application, 'appParticipants', 'appParticipant', 'idNumber') or UtilsFunctions.get_el(application,
-                                                                                                    'appParticipants',
-                                                                                                    'appParticipant',
+                                                                                                       'appParticipants',
+                                                                                                       'appParticipant',
                                                                                                        'inn') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
@@ -22,8 +22,8 @@ class Participiant504:
 
     def get_kpp(self, application):
         d = UtilsFunctions.get_el(application, 'appParticipant', 'kpp') or UtilsFunctions.get_el(application,
-                                                                                           'appParticipants',
-                                                                                           'appParticipant',
+                                                                                                 'appParticipants',
+                                                                                                 'appParticipant',
                                                                                                  'kpp') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
@@ -33,10 +33,10 @@ class Participiant504:
 
     def get_organization_name(self, application):
         d = UtilsFunctions.get_el(application, 'appParticipant', 'organizationName') or UtilsFunctions.get_el(
-            application,
-                                                                                                        'appParticipants',
-                                                                                                        'appParticipant',
-            'organizationName') or UtilsFunctions.get_el(
+                application,
+                'appParticipants',
+                'appParticipant',
+                'organizationName') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',
@@ -48,7 +48,7 @@ class Participiant504:
         if not d:
             lastName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
                                              'lastName') or UtilsFunctions.get_el(application, 'appParticipants',
-                                                                            'appParticipant', 'contactInfo',
+                                                                                  'appParticipant', 'contactInfo',
                                                                                   'lastName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
                     'legalEntityRFInfo', 'contactInfo', 'lastName') or UtilsFunctions.get_el(
@@ -56,7 +56,7 @@ class Participiant504:
                     'individualPersonRFInfo', 'nameInfo', 'lastName')
             firstName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
                                               'firstName') or UtilsFunctions.get_el(application, 'appParticipants',
-                                                                              'appParticipant', 'contactInfo',
+                                                                                    'appParticipant', 'contactInfo',
                                                                                     'firstName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
                     'legalEntityRFInfo', 'contactInfo', 'firstName') or UtilsFunctions.get_el(
@@ -64,7 +64,7 @@ class Participiant504:
                     'individualPersonRFInfo', 'nameInfo', 'firstName')
             middleName = UtilsFunctions.get_el(application, 'appParticipant', 'contactInfo',
                                                'middleName') or UtilsFunctions.get_el(application, 'appParticipants',
-                                                                                'appParticipant', 'contactInfo',
+                                                                                      'appParticipant', 'contactInfo',
                                                                                       'middleName') or UtilsFunctions.get_el(
                     application, 'appParticipantInfo',
                     'legalEntityRFInfo', 'contactInfo', 'middleName') or UtilsFunctions.get_el(
@@ -75,10 +75,10 @@ class Participiant504:
 
     def get_participant_type(self, application):
         d = UtilsFunctions.get_el(application, 'appParticipant', 'participantType') or UtilsFunctions.get_el(
-            application,
-                                                                                                       'appParticipants',
-                                                                                                       'appParticipant',
-            'participantType') or UtilsFunctions.get_el(
+                application,
+                'appParticipants',
+                'appParticipant',
+                'participantType') or UtilsFunctions.get_el(
                 application,
                 'appParticipantInfo',
                 'legalEntityRFInfo',

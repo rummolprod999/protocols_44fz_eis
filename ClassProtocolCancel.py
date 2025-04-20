@@ -5,9 +5,9 @@ import pytz
 
 import UtilsFunctions
 from ClassProtocol import Protocol
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolCancel(Protocol):
@@ -36,7 +36,8 @@ class ProtocolCancel(Protocol):
     def get_authority_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
                                   'authorityName') or UtilsFunctions.get_el(self.protocol, 'cancelReason',
-                                                                      'authorityPrescription', 'reestrPrescription',
+                                                                            'authorityPrescription',
+                                                                            'reestrPrescription',
                                                                             'authorityName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReason',
                 'courtDecision', 'courtName')
@@ -45,7 +46,7 @@ class ProtocolCancel(Protocol):
     def get_doc_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'cancelReason', 'authorityPrescription', 'externalPrescription',
                                   'docName') or UtilsFunctions.get_el(self.protocol, 'cancelReason',
-                                                                'authorityPrescription', 'reestrPrescription',
+                                                                      'authorityPrescription', 'reestrPrescription',
                                                                       'docName') or UtilsFunctions.get_el(
                 self.protocol, 'cancelReason',
                 'courtDecision', 'docName')

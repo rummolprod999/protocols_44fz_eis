@@ -5,9 +5,9 @@ import pytz
 
 import ClassProtocol504
 import UtilsFunctions
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolCancel504(ClassProtocol504.Protocol504):
@@ -93,7 +93,7 @@ class ProtocolCancel504(ClassProtocol504.Protocol504):
         d = UtilsFunctions.get_el(self.protocol, 'printFormInfo', 'url') or UtilsFunctions.get_el(self.protocol,
                                                                                                   'extPrintFormInfo',
                                                                                                   'url') or UtilsFunctions.get_el(
-            self.protocol, 'commonInfo', 'href')
+                self.protocol, 'commonInfo', 'href')
         if d.startswith("<![CDATA"):
             d = d[9:-3]
         return d

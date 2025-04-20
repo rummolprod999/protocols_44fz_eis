@@ -1,6 +1,7 @@
+import json
+
 import dateutil.parser
 import pytz
-import json
 
 import UtilsFunctions
 

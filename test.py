@@ -1,7 +1,6 @@
-import parser_prot
 import xmltodict
 
-from ClassTypeProtocols504 import TypeProtocols504
+import parser_prot
 from ClassTypeProtocols import TypeProtocols
 
 file_name = "/home/alex/PycharmProjects/protocols_44fz_eis/fcsProposalsResult_0130300034224000029_143517.xml"

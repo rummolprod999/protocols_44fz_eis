@@ -5,9 +5,9 @@ import dateutil.parser
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
 from ClassProtocol504 import Protocol504
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolEZK2(Protocol504, Participiant504):
@@ -40,8 +40,8 @@ class ProtocolEZK2(Protocol504, Participiant504):
     def get_admission(self, application):
         d = ''
         appRejectedReason = UtilsFunctions.get_el(application, 'admittedInfo', 'appNotAdmittedInfo',
-                                               'appRejectedReasonsInfo',
-                                               'appRejectedReasonInfo')
+                                                  'appRejectedReasonsInfo',
+                                                  'appRejectedReasonInfo')
         if appRejectedReason:
             reasons = UtilsFunctions.generator_univ(appRejectedReason)
             if UtilsFunctions.check_yeld(reasons):

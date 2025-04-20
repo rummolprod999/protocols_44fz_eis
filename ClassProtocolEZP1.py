@@ -4,9 +4,9 @@ import dateutil.parser
 
 import UtilsFunctions
 from ClassProtocolEOK2 import ProtocolEOK2
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolEZP1(ProtocolEOK2):
@@ -26,6 +26,7 @@ class ProtocolEZP1(ProtocolEOK2):
     def get_price(self, application):
         d = UtilsFunctions.get_el(application, 'admittedInfo', 'singleAppAdmittedInfo', 'price')
         return d
+
 
 def parserEZP1(doc, path_xml, filexml, reg, type_f):
     p = ProtocolEZP1(doc, filexml)

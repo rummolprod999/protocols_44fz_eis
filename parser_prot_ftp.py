@@ -1,5 +1,4 @@
 import datetime
-import ftplib
 import logging
 import os
 import shutil
@@ -17,25 +16,25 @@ import ClassProtocolCancel
 import ClassProtocolCancel504
 import ClassProtocolEF1
 import ClassProtocolEF2
+import ClassProtocolEF2020Final
 import ClassProtocolEF3
+import ClassProtocolEFSinglePart
 import ClassProtocolEOK1
 import ClassProtocolEOK2
 import ClassProtocolEOK3
 import ClassProtocolEOKOU1
 import ClassProtocolEOKOU2
 import ClassProtocolEOKOU3
+import ClassProtocolEOKOUSingleApp
 import ClassProtocolEZK2
 import ClassProtocolEZP1
 import ClassProtocolEZP2
-import ClassProtocolEF2020Final
 import ClassProtocolOK1
 import ClassProtocolOK2
 import ClassProtocolZK
 import ClassProtocolZPFinal
 import ClassTypeProtocols
-import ClassProtocolEFSinglePart
 import ClassTypeProtocols504
-import ClassProtocolEOKOUSingleApp
 import UtilsFunctions
 import VarExecut
 import parser_prot as parser_protocol
@@ -518,8 +517,8 @@ def get_list_api(d, reg, t, sub):
                 r = response.content.decode('utf-8')
                 doc = xmltodict.parse(r)
                 lf = UtilsFunctions.generator_univ(
-                    UtilsFunctions.get_el_list(doc, 'soap:Envelope', 'soap:Body', 'ns2:getDocsByOrgRegionResponse',
-                                               'dataInfo', 'archiveUrl'))
+                        UtilsFunctions.get_el_list(doc, 'soap:Envelope', 'soap:Body', 'ns2:getDocsByOrgRegionResponse',
+                                                   'dataInfo', 'archiveUrl'))
 
             else:
                 raise Exception('response code ' + response.status_code)
@@ -542,7 +541,8 @@ def main():
         os.mkdir(LOG_DIR)
     con_region = connect_bd(DB)
     cur_region = con_region.cursor()
-    cur_region.execute("""SELECT * FROM region""")
+    cur_region.execute("""SELECT *
+                          FROM region""")
     path_array = cur_region.fetchall()
     cur_region.close()
     con_region.close()

@@ -1,15 +1,14 @@
 import datetime
 
 import dateutil.parser
-import json
 
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
 from ClassProtocol504 import Protocol504
 from ClassProtocolEF2020Final import ProtocolEF2020Final
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolEOKOUSinglePart(Protocol504, Participiant504):

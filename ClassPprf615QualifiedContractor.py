@@ -1,16 +1,14 @@
 import datetime
 
 import dateutil.parser
-import json
 import pytz
-import itertools
 
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
 from ClassProtocol504 import Protocol504
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class Pprf615QualifiedContractor(Protocol504, Participiant504):

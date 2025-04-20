@@ -4,9 +4,9 @@ import dateutil.parser
 
 import UtilsFunctions
 from ClassProtocolEF3 import ProtocolEF3
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolZPFinal(ProtocolEF3):

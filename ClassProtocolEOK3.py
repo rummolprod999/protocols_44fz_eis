@@ -4,9 +4,9 @@ import dateutil.parser
 
 import ClassProtocolEOK2
 import UtilsFunctions
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolEOK3(ClassProtocolEOK2.ProtocolEOK2):

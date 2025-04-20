@@ -1,14 +1,13 @@
 import datetime
 
 import dateutil.parser
-import json
 
 import UtilsFunctions
 from ClassParticipiant504 import Participiant504
 from ClassProtocol504 import Protocol504
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolEF2020Final(Protocol504, Participiant504):
@@ -42,6 +41,7 @@ class ProtocolEF2020Final(Protocol504, Participiant504):
     def get_abandoned_reason_name(self):
         d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name')
         return d
+
 
 def parserEF2020Final(doc, path_xml, filexml, reg, type_f):
     p = ProtocolEF2020Final(doc, filexml)

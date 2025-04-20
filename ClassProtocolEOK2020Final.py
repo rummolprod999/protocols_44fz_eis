@@ -2,12 +2,11 @@ import datetime
 
 import dateutil.parser
 
-from ClassProtocolEOK2 import ProtocolEOK2
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
-from UtilsFunctions import logging_parser
 import UtilsFunctions
-import json
+from ClassProtocolEOK2 import ProtocolEOK2
+from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolEOK2020Final(ProtocolEOK2):

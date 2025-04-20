@@ -1,8 +1,8 @@
+import json
 import traceback
 
 import dateutil.parser
 import pytz
-import json
 
 import UtilsFunctions
 
@@ -109,9 +109,9 @@ class Protocol504:
 
     def get_abandoned_reason(self):
         d = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'name') or UtilsFunctions.get_el(
-            self.protocol, 'abandonedReason', 'name')
+                self.protocol, 'abandonedReason', 'name')
         k = UtilsFunctions.get_el(self.protocol, 'protocolInfo', 'abandonedReason', 'code') or UtilsFunctions.get_el(
-            self.protocol, 'abandonedReason', 'name')
+                self.protocol, 'abandonedReason', 'name')
         if d and k:
             return f'{d}|{k}'
         return d or k

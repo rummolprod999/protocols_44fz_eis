@@ -2,15 +2,12 @@ import datetime
 
 import dateutil.parser
 import pytz
-import json
 
 import UtilsFunctions
 from ClassAddInfo import ProtocolAddInfo
-from ClassParticipiant import Participiant
-from ClassProtocol import Protocol
-from connect_to_db import connect_bd
-from VarExecut import PREFIX, DB
 from UtilsFunctions import logging_parser
+from VarExecut import PREFIX, DB
+from connect_to_db import connect_bd
 
 
 class ProtocolAddInfoInvalid(ProtocolAddInfo):
