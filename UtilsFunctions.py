@@ -6,13 +6,15 @@ from functools import reduce
 from VarExecut import file_log
 
 
-def logging_parser(*kwargs):
-    s_log = f'{datetime.datetime.now()} '
-    for i in kwargs:
-        s_log += f'{i} '
-    s_log += '\n\n'
-    with open(file_log, 'a') as flog:
-        flog.write(s_log)
+def logging_parser(*messages):
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    log_entry = f"{timestamp} {' '.join(str(msg) for msg in messages)}\n\n"
+
+    try:
+        with open(file_log, 'a') as log_file:
+            log_file.write(log_entry)
+    except IOError as e:
+        print(f"Failed to write to log file: {e}")
 
 
 def check_yeld(h) -> bool:
